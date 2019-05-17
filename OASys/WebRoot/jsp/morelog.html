@@ -1,0 +1,267 @@
+
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/common/box.css" />
+<link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
+<style type="text/css">
+a {
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.bgc-w {
+	background-color: #fff;
+}
+</style>
+
+<div class="row" style="padding-top: 10px;">
+	<div class="col-md-4">
+		<h1 style="font-size: 24px; margin: 0;" class="">用户操作历史记录</h1>
+	</div>
+	<div class="col-md-8 text-right">
+		<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a> > <a
+			disabled="disabled">用户操作历史记录</a>
+	</div>
+</div>
+<div class="row" style="padding-top: 15px;">
+	<div class="col-md-12 thistable">
+		<div class="bgc-w box box-primary">
+			<!--盒子头-->
+			<div class="box-header">
+				<h3 class="box-title">
+					<a onclick="javascript:window.print();" class="label label-primary" style="padding: 5px;">
+						<i class="glyphicon glyphicon-print"></i> <span>打印</span>
+					</a>
+				</h3>
+				<div class="box-tools">
+				
+					<div class="input-group" style="width: 150px;">
+						<input type="text" class="form-control input-sm baseKey"
+							value=""  placeholder="查找..." />
+						<div class="input-group-btn">
+							<a class="btn btn-sm btn-default baseKetsubmit"><span
+								class="glyphicon glyphicon-search"></span></a>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+			<!--盒子身体-->
+			<div class="box-body no-padding">
+				<div class="table-responsive">
+					<table class="table table-hover table-striped">
+						<tr>
+							
+							<th scope="col">标题</th>
+							<th scope="col"><span class="paixu thistime">时间
+							</span></th>
+							<th scope="col">IP</th>
+							<th scope="col">操作</th>
+						</tr>
+							<tr>
+								<td><span>类型管理</span></td>
+								<td><span>2018-12-22 11:57:57</span></td>
+								<td><span>172.20.10.3</span></td>
+								<td><a href="typemanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>流程审核</span></td>
+								<td><span>2018-12-21 15:27:09</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="auditing.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>部门管理</span></td>
+								<td><span>2018-12-21 15:04:58</span></td>
+								<td><span>172.20.10.3</span></td>
+								<td><a href="deptmanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>在线用户</span></td>
+								<td><span>2018-12-21 15:04:36</span></td>
+								<td><span>172.20.10.3</span></td>
+								<td><a href="userlogrecordmanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>职位管理</span></td>
+								<td><span>2018-12-21 15:04:30</span></td>
+								<td><span>172.20.10.3</span></td>
+								<td><a href="positionmanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>用户管理</span></td>
+								<td><span>2018-12-21 14:23:02</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="usermanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>在线用户</span></td>
+								<td><span>2018-12-21 14:22:40</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="userlogrecordmanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>类型管理</span></td>
+								<td><span>2018-12-21 14:15:28</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="typemanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>考勤列表</span></td>
+								<td><span>2018-12-21 14:05:41</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="attendcelist.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>类型管理</span></td>
+								<td><span>2018-12-20 16:24:54</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="typemanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>邮件管理</span></td>
+								<td><span>2018-12-20 15:58:01</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="mail.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>账号管理</span></td>
+								<td><span>2018-12-20 15:57:46</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="mailmanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>类型管理</span></td>
+								<td><span>2018-12-20 15:56:35</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="typemanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>菜单管理</span></td>
+								<td><span>2018-12-20 15:55:38</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="menumanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+							<tr>
+								<td><span>部门管理</span></td>
+								<td><span>2018-12-20 15:55:13</span></td>
+								<td><span>192.168.1.4</span></td>
+								<td><a href="deptmanage.html" class="label xiugai info"><span
+												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+							</tr>
+					</table>
+				</div>
+			</div>
+			
+<div class="box-footer no-padding" style="margin-top: -20px;">
+	<div style="padding: 5px;">
+		<div id="page"
+			style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
+			<div style="width: 40%; float: left;">
+				<div class="pageInfo" style="margin-left: 5px;">
+					共<span>2,369</span>条 | 每页<span>15</span>条
+					| 共<span>158</span>页
+				</div>
+			</div>
+			<div style="width: 60%; float: left;">
+				<div class="pageOperation">
+				<!--判断是否是第一页  -->
+					<a class="btn btn-sm btn-default no-padding tablefirst" disabled="disabled"	style="width: 30px; height: 20px;"> <span
+						class="glyphicon glyphicon-backward"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tableup"  disabled="disabled" 	style="width: 30px; height: 20px;"> <span
+						class="glyphicon glyphicon-triangle-left"></span></a> 
+				<a disabled="disabled" class="btn btn-default no-padding" style="width: 30px; height: 20px;">
+						1
+				</a>
+				<!--判断是否是最后一页  -->
+					<a class="btn btn-sm btn-default no-padding tabledown" style="width: 30px; height: 20px;"> <span
+						class="glyphicon glyphicon-triangle-right"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tablelast" style="width: 30px; height: 20px;"> <span
+						class="glyphicon glyphicon-forward"></span></a> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+		/* 分页插件按钮的点击事件 */
+		/* url是从后台接收过来的链接，sort是记录排序规则 */
+		$('.tablefirst').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('morelogtable?page=0');
+			 }
+		});
+		$('.tableup').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('morelogtable?page=-1');
+			 }
+		});
+		$('.tabledown').on('click',function(){
+			if(false==false){
+				$('.thistable').load('morelogtable?page=1');
+			 }
+		});
+		$('.tablelast').on('click',function(){
+			if(false==false){
+				$('.thistable').load('morelogtable?page=157');
+			 }
+			
+		});
+		
+		/*类型、状态、时间的排序  */
+		$('.thistype').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('morelogtable?type=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('morelogtable?type=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisstatus').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('morelogtable?status=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('morelogtable?status=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thistime').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('morelogtable?time=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('morelogtable?time=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisvisit').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('morelogtable?visitnum=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('morelogtable?visitnum=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		/* 查找 */
+		$('.baseKetsubmit').on('click', function() {
+			var baseKey = $('.baseKey').val();
+			console.log(baseKey);
+			$('.thistable').load('morelogtable?baseKey='+baseKey+'');
+		});
+</script>		</div>
+	</div>
+</div>

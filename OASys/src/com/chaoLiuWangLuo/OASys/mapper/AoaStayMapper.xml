@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaStayMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaStay" >
+    <id column="stay_id" property="stayId" jdbcType="BIGINT" />
+    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="hotel_name" property="hotelName" jdbcType="VARCHAR" />
+    <result column="leave_time" property="leaveTime" jdbcType="TIMESTAMP" />
+    <result column="stay_city" property="stayCity" jdbcType="VARCHAR" />
+    <result column="stay_money" property="stayMoney" jdbcType="DOUBLE" />
+    <result column="stay_time" property="stayTime" jdbcType="TIMESTAMP" />
+    <!-- 一对多 -->
+	<association property="sEvectionmoney" javaType="AoaEvectionmoney">
+		<id column="evectionmoney_id" property="evectionmoneyId"/>
+	    <result column="name" property="name"/>
+	</association>
+	<association property="sUser" javaType="AoaUser">
+		<id column="user_id" property="userId"/>
+	    <result column="user_name" property="userName"/>
+	</association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stay_id, day, hotel_name, leave_time, stay_city, stay_money, stay_time, evemoney_id, 
+    user_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_stay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_stay
+    where stay_id = #{stayId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_stay
+    where stay_id = #{stayId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStayExample" >
+    delete from aoa_stay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStay" >
+    insert into aoa_stay (stay_id, day, hotel_name, 
+      leave_time, stay_city, stay_money, 
+      stay_time, evemoney_id, user_id
+      )
+    values (#{stayId,jdbcType=BIGINT}, #{day,jdbcType=INTEGER}, #{hotelName,jdbcType=VARCHAR}, 
+      #{leaveTime,jdbcType=TIMESTAMP}, #{stayCity,jdbcType=VARCHAR}, #{stayMoney,jdbcType=DOUBLE}, 
+      #{stayTime,jdbcType=TIMESTAMP}, #{sEvectionmoney.evectionmoneyId,jdbcType=BIGINT}, #{sUser.userId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStay" >
+    insert into aoa_stay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stayId != null" >
+        stay_id,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="hotelName != null" >
+        hotel_name,
+      </if>
+      <if test="leaveTime != null" >
+        leave_time,
+      </if>
+      <if test="stayCity != null" >
+        stay_city,
+      </if>
+      <if test="stayMoney != null" >
+        stay_money,
+      </if>
+      <if test="stayTime != null" >
+        stay_time,
+      </if>
+      <if test="evemoneyId != null" >
+        evemoney_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stayId != null" >
+        #{stayId,jdbcType=BIGINT},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=INTEGER},
+      </if>
+      <if test="hotelName != null" >
+        #{hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTime != null" >
+        #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stayCity != null" >
+        #{stayCity,jdbcType=VARCHAR},
+      </if>
+      <if test="stayMoney != null" >
+        #{stayMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="stayTime != null" >
+        #{stayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evemoneyId != null" >
+        #{evemoneyId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStayExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_stay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_stay
+    <set >
+      <if test="record.stayId != null" >
+        stay_id = #{record.stayId,jdbcType=BIGINT},
+      </if>
+      <if test="record.day != null" >
+        day = #{record.day,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelName != null" >
+        hotel_name = #{record.hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaveTime != null" >
+        leave_time = #{record.leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stayCity != null" >
+        stay_city = #{record.stayCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stayMoney != null" >
+        stay_money = #{record.stayMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.stayTime != null" >
+        stay_time = #{record.stayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.evemoneyId != null" >
+        evemoney_id = #{record.evemoneyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_stay
+    set stay_id = #{record.stayId,jdbcType=BIGINT},
+      day = #{record.day,jdbcType=INTEGER},
+      hotel_name = #{record.hotelName,jdbcType=VARCHAR},
+      leave_time = #{record.leaveTime,jdbcType=TIMESTAMP},
+      stay_city = #{record.stayCity,jdbcType=VARCHAR},
+      stay_money = #{record.stayMoney,jdbcType=DOUBLE},
+      stay_time = #{record.stayTime,jdbcType=TIMESTAMP},
+      evemoney_id = #{record.evemoneyId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStay" >
+    update aoa_stay
+    <set >
+      <if test="day != null" >
+        day = #{day,jdbcType=INTEGER},
+      </if>
+      <if test="hotelName != null" >
+        hotel_name = #{hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTime != null" >
+        leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stayCity != null" >
+        stay_city = #{stayCity,jdbcType=VARCHAR},
+      </if>
+      <if test="stayMoney != null" >
+        stay_money = #{stayMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="stayTime != null" >
+        stay_time = #{stayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evemoneyId != null" >
+        evemoney_id = #{evemoneyId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=BIGINT},
+      </if>
+    </set>
+    where stay_id = #{stayId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStay" >
+    update aoa_stay
+    set day = #{day,jdbcType=INTEGER},
+      hotel_name = #{hotelName,jdbcType=VARCHAR},
+      leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      stay_city = #{stayCity,jdbcType=VARCHAR},
+      stay_money = #{stayMoney,jdbcType=DOUBLE},
+      stay_time = #{stayTime,jdbcType=TIMESTAMP},
+      evemoney_id = #{evemoneyId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=BIGINT}
+    where stay_id = #{stayId,jdbcType=BIGINT}
+  </update>
+  <select id="findByList" resultMap="BaseResultMap" parameterType="Long">
+  	select s.stay_id,s.`day`,s.hotel_name,s.leave_time,s.stay_city,s.stay_money,s.stay_time,e.evectionmoney_id,e.name,u.user_id,u.user_name from aoa_stay s LEFT JOIN aoa_evectionmoney e on s.evemoney_id=e.evectionmoney_id LEFT JOIN aoa_user u on s.user_id=u.user_id
+  	<where>
+  		 s.evemoney_id=#{l}
+  	</where>
+  </select>
+</mapper>

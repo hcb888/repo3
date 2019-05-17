@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaPlanListMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaPlanList" >
+    <id column="plan_id" property="planId" jdbcType="BIGINT" />
+    <id column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="label" property="label" jdbcType="VARCHAR" />
+    <result column="plan_comment" property="planComment" jdbcType="VARCHAR" />
+    <result column="plan_content" property="planContent" jdbcType="VARCHAR" />
+    <result column="plan_summary" property="planSummary" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    
+ 	   <!--  多对一 -->
+    
+    <association property="planStatus"  javaType="AoaStatusList">
+    	<id column="status_id" property="statusId"/>
+     	<result column="status_name" property="statusName"/>
+    </association>
+    
+	<association property="planUser"  javaType="AoaUser">
+	     	<id column="user_id" property="userId"/>
+		    <result column="user_name" property="userName"/>
+		    
+		     <!--多对一  -->
+		  	<association property="dept" javaType="AoaDept">
+	    		<id column="dept_id" property="deptId"/>
+	    		<result column="dept_name" property="deptName"/>
+	    	</association>
+    </association>
+    
+    <association property="planAoaAttachment"  javaType="AoaAttachmentList">
+    	<id column="attachment_id" property="attachmentId"/>
+	    <result column="attachment_path" property="attachmentPath"/>
+    </association>
+    
+    <association property="palnType"  javaType="AoaTypeList">
+    		<id column="type_id" property="typeId"/>
+		    <result column="type_name" property="typeName"/>
+    </association>    
+   
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    plan_id, start_time, create_time, end_time, label, plan_comment, plan_content, plan_summary, 
+    status_id, title, type_id, plan_user_id, attach_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_plan_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanListKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_plan_list
+    where plan_id = #{planId,jdbcType=BIGINT}
+      and start_time = #{startTime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanListKey" >
+    delete from aoa_plan_list
+    where plan_id = #{planId,jdbcType=BIGINT}
+      and start_time = #{startTime,jdbcType=TIMESTAMP}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanListExample" >
+    delete from aoa_plan_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanList" >
+    insert into aoa_plan_list (plan_id, start_time, create_time, 
+      end_time, label, plan_comment, 
+      plan_content, plan_summary, status_id, 
+      title, type_id, plan_user_id, 
+      attach_id)
+    values (#{planId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{label,jdbcType=VARCHAR}, #{planComment,jdbcType=VARCHAR}, 
+      #{planContent,jdbcType=VARCHAR}, #{planSummary,jdbcType=VARCHAR}, #{planStatus.statusId,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{palnType.typeId,jdbcType=BIGINT}, #{planUser.userId,jdbcType=BIGINT}, 
+      #{planAoaAttachment.attachmentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanList" >
+    insert into aoa_plan_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="planId != null" >
+        plan_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="planComment != null" >
+        plan_comment,
+      </if>
+      <if test="planContent != null" >
+        plan_content,
+      </if>
+      <if test="planSummary != null" >
+        plan_summary,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="planUserId != null" >
+        plan_user_id,
+      </if>
+      <if test="attachId != null" >
+        attach_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="planId != null" >
+        #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="planComment != null" >
+        #{planComment,jdbcType=VARCHAR},
+      </if>
+      <if test="planContent != null" >
+        #{planContent,jdbcType=VARCHAR},
+      </if>
+      <if test="planSummary != null" >
+        #{planSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="planUserId != null" >
+        #{planUserId,jdbcType=BIGINT},
+      </if>
+      <if test="attachId != null" >
+        #{attachId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanListExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_plan_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_plan_list
+    <set >
+      <if test="record.planId != null" >
+        plan_id = #{record.planId,jdbcType=BIGINT},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.label != null" >
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planComment != null" >
+        plan_comment = #{record.planComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planContent != null" >
+        plan_content = #{record.planContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planSummary != null" >
+        plan_summary = #{record.planSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statusId != null" >
+        status_id = #{record.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.planUserId != null" >
+        plan_user_id = #{record.planUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.attachId != null" >
+        attach_id = #{record.attachId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_plan_list
+    set plan_id = #{record.planId,jdbcType=BIGINT},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      label = #{record.label,jdbcType=VARCHAR},
+      plan_comment = #{record.planComment,jdbcType=VARCHAR},
+      plan_content = #{record.planContent,jdbcType=VARCHAR},
+      plan_summary = #{record.planSummary,jdbcType=VARCHAR},
+      status_id = #{record.statusId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      plan_user_id = #{record.planUserId,jdbcType=BIGINT},
+      attach_id = #{record.attachId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanList" >
+    update aoa_plan_list
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="planComment != null" >
+        plan_comment = #{planComment,jdbcType=VARCHAR},
+      </if>
+      <if test="planContent != null" >
+        plan_content = #{planContent,jdbcType=VARCHAR},
+      </if>
+      <if test="planSummary != null" >
+        plan_summary = #{planSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="planStatus!=null and planStatus.statusId != null" >
+        status_id = #{planStatus.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="palnType!=null and palnType.typeId != null" >
+        type_id = #{palnType.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="planUser != null and planUser.userId!=null" >
+        plan_user_id = #{planUser.userId,jdbcType=BIGINT},
+      </if>
+      <if test="planAoaAttachment != null and planAoaAttachment.attachmentId !=null" >
+        attach_id = #{planAoaAttachment.attachmentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where plan_id = #{planId,jdbcType=BIGINT}
+     
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPlanList" >
+    update aoa_plan_list
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      label = #{label,jdbcType=VARCHAR},
+      plan_comment = #{planComment,jdbcType=VARCHAR},
+      plan_content = #{planContent,jdbcType=VARCHAR},
+      plan_summary = #{planSummary,jdbcType=VARCHAR},
+      status_id = #{statusId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      plan_user_id = #{planUserId,jdbcType=BIGINT},
+      attach_id = #{attachId,jdbcType=BIGINT}
+    where plan_id = #{planId,jdbcType=BIGINT}
+      and start_time = #{startTime,jdbcType=TIMESTAMP}
+  </update>
+  
+  <!-- 查询总条数 -->
+  <select id="planFindCount" parameterType="queryVo" resultType="java.lang.Integer" >
+  		SELECT count(*) from aoa_plan_list p LEFT JOIN aoa_status_list s on p.status_id=s.status_id LEFT JOIN aoa_type_list t on t.type_id=p.type_id LEFT JOIN aoa_attachment_list a on a.attachment_id=p.attach_id LEFT JOIN aoa_user u on u.user_id=p.plan_user_id LEFT JOIN aoa_dept d on d.dept_id=u.dept_id
+  </select>
+  <!-- 分页擦查询 -->
+  <select id="planQueryPage" parameterType="queryVo" resultMap="BaseResultMap">
+  	SELECT p.plan_id,p.create_time,p.end_time,p.label,p.plan_comment,p.plan_content,p.plan_summary,p.start_time,p.title,s.status_id,s.status_name,t.type_id,t.type_name,a.attachment_id,a.attachment_path,u.user_id,u.user_name,d.dept_id,d.dept_name from aoa_plan_list p LEFT JOIN aoa_status_list s on p.status_id=s.status_id LEFT JOIN aoa_type_list t on t.type_id=p.type_id LEFT JOIN aoa_attachment_list a on a.attachment_id=p.attach_id LEFT JOIN aoa_user u on u.user_id=p.plan_user_id LEFT JOIN aoa_dept d on d.dept_id=u.dept_id
+  	<where>
+  		
+  	</where>
+  	limit #{startRow},#{size}
+  </select>
+  <!-- 根据id查询 -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="Long">
+  	 	SELECT p.plan_id,p.create_time,p.end_time,p.label,p.plan_comment,p.plan_content,p.plan_summary,p.start_time,p.title,s.status_id,s.status_name,t.type_id,t.type_name,a.attachment_id,a.attachment_path,u.user_id,u.user_name,d.dept_id,d.dept_name from aoa_plan_list p LEFT JOIN aoa_status_list s on p.status_id=s.status_id LEFT JOIN aoa_type_list t on t.type_id=p.type_id LEFT JOIN aoa_attachment_list a on a.attachment_id=p.attach_id LEFT JOIN aoa_user u on u.user_id=p.plan_user_id LEFT JOIN aoa_dept d on d.dept_id=u.dept_id
+ 		<where>
+ 			p.plan_id=#{l}
+ 		</where>
+  </select>
+  
+   <!-- 日周月分页查询 -->
+  <select id="dayWeekMonthPlanQueryPage" parameterType="queryVo" resultMap="BaseResultMap">
+  	SELECT p.plan_id,p.create_time,p.end_time,p.label,p.plan_comment,p.plan_content,p.plan_summary,p.start_time,p.title,s.status_id,s.status_name,t.type_id,t.type_name,a.attachment_id,a.attachment_path,u.user_id,u.user_name,d.dept_id,d.dept_name from aoa_plan_list p LEFT JOIN aoa_status_list s on p.status_id=s.status_id LEFT JOIN aoa_type_list t on t.type_id=p.type_id LEFT JOIN aoa_attachment_list a on a.attachment_id=p.attach_id LEFT JOIN aoa_user u on u.user_id=p.plan_user_id LEFT JOIN aoa_dept d on d.dept_id=u.dept_id
+  	<where>
+  		p.create_time&gt;=#{startDate} and p.create_time&lt;=#{endDate}
+  	</where>
+  	limit #{startRow},#{size}
+  </select>
+   <!-- 日周月查询总条数 -->
+   <select id="dayWeekMonthPlanFindCount" parameterType="queryVo" resultType="java.lang.Integer" >
+  		SELECT count(*) from aoa_plan_list p LEFT JOIN aoa_status_list s on p.status_id=s.status_id LEFT JOIN aoa_type_list t on t.type_id=p.type_id LEFT JOIN aoa_attachment_list a on a.attachment_id=p.attach_id LEFT JOIN aoa_user u on u.user_id=p.plan_user_id LEFT JOIN aoa_dept d on d.dept_id=u.dept_id
+  		<where>
+  		p.create_time&gt;=#{startDate} and p.create_time&lt;=#{endDate}
+  	</where>
+  </select>
+</mapper>

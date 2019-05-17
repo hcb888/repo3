@@ -1,0 +1,1003 @@
+
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/common/box.css" />
+<link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
+<style type="text/css">
+a {
+	color: black;
+}
+
+ul li a {
+	font-size: 13px;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.bgc-w {
+	background-color: #fff;
+}
+/*下面是主题回复*/
+.chat-box .chat-title {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.chat-box .big-img {
+	border-radius: 50%;
+	border: 2px solid #ddd;
+	float: left;
+	width: 40px;
+	height: 40px;
+}
+.chat-box .small-img {
+	border-radius: 50%;
+	border: 2px solid #ddd;
+	width: 30px;
+	height: 30px;
+}
+
+.chat-box .username {
+	display: block;
+	margin-left: 50px;
+}
+
+.chat-box .right-time {
+	margin-left: 50px;
+	display: block;
+}
+
+.chat-box .comment-td {
+	padding: 0;
+	width: 40px;
+}
+
+.chat-box .raply-name {
+	color: #54a0ea;
+}
+
+.addmore:HOVER {
+	cursor: pointer;
+}
+.progress{
+	margin: 4px auto;
+}
+.likethisnum a{
+	color: #5f5f5f;
+}
+.likethisnum a:HOVER {
+	color:#347ab7;
+	text-decoration: underline;
+}
+.table>tbody>tr>td{
+				padding: 4px;
+			}
+</style>
+
+<div class="row" style="padding-top: 10px;">
+	<div class="col-md-2">
+		<h1 style="font-size: 24px; margin: 0;">主题查看</h1>
+	</div>
+	<div class="col-md-10 text-right">
+		<a href="index"><span class="glyphicon glyphicon-home"></span> 首页</a>
+		> <a disabled="disabled">主题查看</a>
+	</div>
+</div>
+
+<div class="row" style="padding-top: 15px;">
+	<div class="col-md-12">
+		<!--id="container"-->
+		<div class="bgc-w box box-primary"
+			style="border-top: 3px solid #d2d6de; color: #5f5f5f;">
+			<!--盒子头-->
+			<div class="box-header">
+				<h3 class="box-title">
+					<a href="javascript:void(0);" onclick="window.history.back();" class="label label-default"
+						style="padding: 6px;"> <span
+						class="glyphicon glyphicon-chevron-left">返回</span>
+					</a> <a href="" class="label label-success"
+						style="padding: 5px; margin-left: 5px;"> <span
+						class="glyphicon glyphicon-refresh"></span> 刷新
+					</a>
+					<!-- <a href="#" class="label label-success"
+						style="padding: 6px; margin-left: 8px;"> <span
+						class="glyphicon glyphicon-share-alt">回复</span>
+					</a> -->
+				</h3>
+
+			</div>
+			<!--盒子身体-->
+			<div class="box-body no-padding chat-box">
+				<div class="chat-title">
+					<h4>
+						<span>第一天的公告,++小整合</span>
+					</h4>
+					<h5>
+						<small> <span>发布：罗密欧</span> <span
+							class="pull-right">2017-10-1 14:25:26</span>
+						</small>
+					</h5>
+				</div>
+				<div style="padding: 10px;">
+				<div class="voteload">
+<script type="text/javascript" src="js/usershow.js"></script>				</div>
+					<div class="chat-content" style="padding: 10px;">
+						<p><p>
+	今天还是不错的，完成了一些内容，比如：修复了分页的小bug；还有一些其他的东西；再把讨论区好好的晚上一下
+</p></p>
+					</div>
+					<div>
+						<div class="discusschange">
+<ul class="list-inline" style="margin-left: 6px;">
+	<li><a href="#" class="label xinzeng thisreply" id="thisreply"
+		replyId="13" replyModule="discuss"> <span
+			class="glyphicon glyphicon-share-alt"></span>回复
+	</a></li>
+	<li><a href="#"> <span class="glyphicon glyphicon-fire"
+			style="color: red;"></span> 访问数<span>(342)</span>
+	</a></li>
+	<li><a href="#"> <span
+			class="glyphicon glyphicon-comment" style="color: #337ab7"></span>
+			讨论次数<span>(32)</span>
+	</a></li>
+	<li><a href="#" class="likethis" replyId="13" module="discuss">
+		 <span class="glyphicon glyphicon-thumbs-up"></span> 
+			<span class="likenum">
+					赞(2)
+			</span>
+		</a>
+	</li>
+</ul>	
+<ul class="list-inline" style="margin-left: 10px;">
+		<li>
+			<span class="glyphicon glyphicon-thumbs-up" style="color: #fff;border-radius: 50%;padding: 3px;background-color: #347ab7;"></span> 
+			<span class="likethisnum">
+				<a 
+				class="usershow"  
+				title="甄姬2" 
+				thisdept="研发部" 
+				thisrole="职员" 
+				thistel="13117336954"
+				thisemail="188@qq.com" 
+				href="javascript:void(0);">甄姬2</a>、
+				<a 
+				class="usershow"  
+				title="朱丽叶" 
+				thisdept="总经办" 
+				thisrole="CEO" 
+				thistel="13203318185"
+				thisemail="aaluoxiang@foxmail.com" 
+				href="javascript:void(0);">朱丽叶</a>、
+				<span>共2人觉得很赞</span>
+			</span>
+		</li>
+</ul>
+<script type="text/javascript" src="js/usershow.js"></script>						</div>
+						<input type="hidden" class="replyId" /> <input type="hidden"
+							class="replyModule" /> <input type="hidden" class="replyName" />
+					</div>
+					<div>
+						<table class="table" style="margin-bottm: 0px;">
+							<tr>
+								<th scope="col" style="background-color: #EEEEEE;">
+								<span style="line-height: 35px;">回复</span>
+								<div class="pull-right" style="display: inline-block;margin-right:50px;font-weight: 400;">
+								<select name="selecttype" id="selecttype" class="selectthis  form-control" style="display: inline-block;margin-right: 10px;width: 115px;font-size: 13px;">
+									<option value="">查看所有</option>
+									<option value="1">只看楼主</option>
+									<option value="1">只看我的</option>
+								</select>
+								<select name="selectsort" id="selectsort" class="selectthis  form-control" style="display: inline-block;width: 115px;font-size: 13px;">
+									<option value="0">时间升序</option>
+									<option value="1">时间降序</option>
+								</select>
+								</div>
+								</th>
+								
+							</tr>
+							<tbody class="repay">
+<tr>
+	<td>
+		<div class="post">
+			<div class="user-block">
+				<span> <a href="#"> <img src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg"
+						class="big-img" />
+				</a>
+				</span> <span class="username"> <a href="#"
+					class="raply-name">罗密欧</a> 
+					<a replyId="2" replyModule="reply" href="javascript:void(0);" class="deletethis pull-right" style="font-size: 12px;"> 
+					<span style="font-size: 16px;" >&times;</span>
+					</a>
+				</span> <span class="right-time">2017-10-01 22:05:46</span>
+				<p style="padding-top: 10px;">富士达发的所所所所所
+范德萨发啊</p>
+				<div class="replyrefresh">
+<ul class="list-inline">
+	<li><a href="#" class="thisreply"
+		replyId="2" replyModule="reply"> <span
+			class="glyphicon glyphicon-share-alt"></span> 回复
+	</a></li>
+	<li><a href="#" class="likethis" replyId="2" module="reply"> <span
+			class="glyphicon glyphicon-thumbs-up"></span> 
+			<span class="likenum">
+					已赞(2)
+			</span>
+	</a></li>
+	<li><a href="#comment2"
+		class="label xiugai toggle" data-toggle="collapse"><span
+			class="glyphicon glyphicon-triangle-bottom"></span>评论次数(
+				12
+			)</a>
+	</li>
+	<li class="pull-right">
+		<span class="rightNum">
+				1
+		</span>楼
+	</li>
+</ul>
+<!-- 下面是具体点赞人员的名字显示 -->
+<ul class="list-inline">
+			<li>
+				<span class="glyphicon glyphicon-thumbs-up" style="color: #fff;border-radius: 50%;padding: 3px;background-color: #347ab7;"></span> 
+				<span class="likethisnum">
+					<a 
+					class="usershow"  
+					title="罗密欧" 
+					thisdept="总经办" 
+					thisrole="超级管理员" 
+					thistel="13272143450"
+					thisemail="1057@qq.com" 
+					href="javascript:void(0);">罗密欧</a>、
+					<a 
+					class="usershow"  
+					title="朱丽叶" 
+					thisdept="总经办" 
+					thisrole="CEO" 
+					thistel="13203318185"
+					thisemail="aaluoxiang@foxmail.com" 
+					href="javascript:void(0);">朱丽叶</a>、
+					<span>共2人觉得很赞</span>
+				</span>
+			</li>
+</ul>
+<script type="text/javascript" src="js/usershow.js"></script>				</div>
+				<div id="comment2" class="comment collapse"
+					style="margin-left: 80px;">
+					<table class="table table-hover" style="margin-bottom: 0;">
+						<tbody>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>范德萨发
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-01 22:07:29</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="2" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">罗密欧: </a>@朱丽叶 你要干嘛？
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-02 13:37:48</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="罗密欧"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="8" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a> 哟哟
+
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 13:46:02</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="75" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>@朱丽叶  回复有问题么？
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 13:46:13</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="76" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>没有问题撒
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 16:53:48</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="83" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 16:54:05</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="84" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>@朱丽叶 一点点小小的问题
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 16:54:05</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="85" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 16:54:18</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="86" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>@朱丽叶 ？？
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 16:54:18</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="87" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 16:54:18</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="88" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a>
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 16:54:18</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="89" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/handsome.JPG" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">朱丽叶: </a> 不知道发生什么问题了
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-06 16:56:22</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="2" replyModule="reply" replyName="朱丽叶"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="90" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div class="post">
+			<div class="user-block">
+				<span> <a href="#"> <img src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg"
+						class="big-img" />
+				</a>
+				</span> <span class="username"> <a href="#"
+					class="raply-name">罗密欧</a> 
+					<a replyId="3" replyModule="reply" href="javascript:void(0);" class="deletethis pull-right" style="font-size: 12px;"> 
+					<span style="font-size: 16px;" >&times;</span>
+					</a>
+				</span> <span class="right-time">2017-10-01 22:06:05</span>
+				<p style="padding-top: 10px;">内容应该要清空了</p>
+				<div class="replyrefresh">
+<ul class="list-inline">
+	<li><a href="#" class="thisreply"
+		replyId="3" replyModule="reply"> <span
+			class="glyphicon glyphicon-share-alt"></span> 回复
+	</a></li>
+	<li><a href="#" class="likethis" replyId="3" module="reply"> <span
+			class="glyphicon glyphicon-thumbs-up"></span> 
+			<span class="likenum">
+					已赞(2)
+			</span>
+	</a></li>
+	<li><a href="#comment3"
+		class="label xiugai toggle" data-toggle="collapse"><span
+			class="glyphicon glyphicon-triangle-bottom"></span>评论次数(
+				2
+			)</a>
+	</li>
+	<li class="pull-right">
+		<span class="rightNum">
+				2
+		</span>楼
+	</li>
+</ul>
+<!-- 下面是具体点赞人员的名字显示 -->
+<ul class="list-inline">
+			<li>
+				<span class="glyphicon glyphicon-thumbs-up" style="color: #fff;border-radius: 50%;padding: 3px;background-color: #347ab7;"></span> 
+				<span class="likethisnum">
+					<a 
+					class="usershow"  
+					title="罗密欧" 
+					thisdept="总经办" 
+					thisrole="超级管理员" 
+					thistel="13272143450"
+					thisemail="1057@qq.com" 
+					href="javascript:void(0);">罗密欧</a>、
+					<a 
+					class="usershow"  
+					title="朱丽叶" 
+					thisdept="总经办" 
+					thisrole="CEO" 
+					thistel="13203318185"
+					thisemail="aaluoxiang@foxmail.com" 
+					href="javascript:void(0);">朱丽叶</a>、
+					<span>共2人觉得很赞</span>
+				</span>
+			</li>
+</ul>
+<script type="text/javascript" src="js/usershow.js"></script>				</div>
+				<div id="comment3" class="comment collapse"
+					style="margin-left: 80px;">
+					<table class="table table-hover" style="margin-bottom: 0;">
+						<tbody>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">罗密欧: </a>哇哇哇，interesting
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-02 13:38:20</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="3" replyModule="reply" replyName="罗密欧"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="9" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image/sevenman.jpeg" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">甄姬2: </a>@罗密欧 好吧，你很棒棒
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-08 15:27:41</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="3" replyModule="reply" replyName="甄姬2"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="92" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div class="post">
+			<div class="user-block">
+				<span> <a href="#"> <img src="/image/handsome.JPG"
+						class="big-img" />
+				</a>
+				</span> <span class="username"> <a href="#"
+					class="raply-name">朱丽叶</a> 
+					<a replyId="4" replyModule="reply" href="javascript:void(0);" class="deletethis pull-right" style="font-size: 12px;"> 
+					<span style="font-size: 16px;" >&times;</span>
+					</a>
+				</span> <span class="right-time">2017-10-01 22:06:17</span>
+				<p style="padding-top: 10px;">阿西吧，这么好</p>
+				<div class="replyrefresh">
+<ul class="list-inline">
+	<li><a href="#" class="thisreply"
+		replyId="4" replyModule="reply"> <span
+			class="glyphicon glyphicon-share-alt"></span> 回复
+	</a></li>
+	<li><a href="#" class="likethis" replyId="4" module="reply"> <span
+			class="glyphicon glyphicon-thumbs-up"></span> 
+			<span class="likenum">
+					赞(1)
+			</span>
+	</a></li>
+	<li><a href="#comment4"
+		class="label xiugai toggle" data-toggle="collapse"><span
+			class="glyphicon glyphicon-triangle-bottom"></span>评论次数(
+				1
+			)</a>
+	</li>
+	<li class="pull-right">
+		<span class="rightNum">
+				3
+		</span>楼
+	</li>
+</ul>
+<!-- 下面是具体点赞人员的名字显示 -->
+<ul class="list-inline">
+			<li>
+				<span class="glyphicon glyphicon-thumbs-up" style="color: #fff;border-radius: 50%;padding: 3px;background-color: #347ab7;"></span> 
+				<span class="likethisnum">
+					<a 
+					class="usershow"  
+					title="朱丽叶" 
+					thisdept="总经办" 
+					thisrole="CEO" 
+					thistel="13203318185"
+					thisemail="aaluoxiang@foxmail.com" 
+					href="javascript:void(0);">朱丽叶</a>、
+					<span>共1人觉得很赞</span>
+				</span>
+			</li>
+</ul>
+<script type="text/javascript" src="js/usershow.js"></script>				</div>
+				<div id="comment4" class="comment collapse"
+					style="margin-left: 80px;">
+					<table class="table table-hover" style="margin-bottom: 0;">
+						<tbody>
+							<tr>
+								<td class="comment-td"><a href="#"> <img
+										src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg" class="big-img" />
+								</a></td>
+								<td>
+									<div class="user-block">
+										<a href="" class="raply-name">罗密欧: </a>N这个死鬼
+										<ul class="list-inline pull-right"
+											style="display: block;">
+											<li>2017-10-02 13:48:28</li>
+											<li><a href="#" class="label xinzeng thisreply"
+												replyId="4" replyModule="reply" replyName="罗密欧"><span
+													class="glyphicon glyphicon-share-alt"></span>回复</a></li>
+											<li><a href="javascript:void(0);" class="label shanchu deletethis" replyId="10" replyModule="comment"><span
+													class="glyphicon glyphicon-remove"></span>删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div class="post">
+			<div class="user-block">
+				<span> <a href="#"> <img src="/image/handsome.JPG"
+						class="big-img" />
+				</a>
+				</span> <span class="username"> <a href="#"
+					class="raply-name">朱丽叶</a> 
+					<a replyId="5" replyModule="reply" href="javascript:void(0);" class="deletethis pull-right" style="font-size: 12px;"> 
+					<span style="font-size: 16px;" >&times;</span>
+					</a>
+				</span> <span class="right-time">2017-10-02 13:51:26</span>
+				<p style="padding-top: 10px;">what？
+</p>
+				<div class="replyrefresh">
+<ul class="list-inline">
+	<li><a href="#" class="thisreply"
+		replyId="5" replyModule="reply"> <span
+			class="glyphicon glyphicon-share-alt"></span> 回复
+	</a></li>
+	<li><a href="#" class="likethis" replyId="5" module="reply"> <span
+			class="glyphicon glyphicon-thumbs-up"></span> 
+			<span class="likenum">
+					赞(0)
+			</span>
+	</a></li>
+	<li><a href="#comment5"
+		class="label xiugai toggle" data-toggle="collapse"><span
+			class="glyphicon glyphicon-triangle-bottom"></span>评论次数(
+				0
+			)</a>
+	</li>
+	<li class="pull-right">
+		<span class="rightNum">
+				4
+		</span>楼
+	</li>
+</ul>
+<!-- 下面是具体点赞人员的名字显示 -->
+<ul class="list-inline">
+</ul>
+<script type="text/javascript" src="js/usershow.js"></script>				</div>
+				<div id="comment5" class="comment collapse"
+					style="margin-left: 80px;">
+					<table class="table table-hover" style="margin-bottom: 0;">
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div class="post">
+			<div class="user-block">
+				<span> <a href="#"> <img src="/image/handsome.JPG"
+						class="big-img" />
+				</a>
+				</span> <span class="username"> <a href="#"
+					class="raply-name">朱丽叶</a> 
+					<a replyId="6" replyModule="reply" href="javascript:void(0);" class="deletethis pull-right" style="font-size: 12px;"> 
+					<span style="font-size: 16px;" >&times;</span>
+					</a>
+				</span> <span class="right-time">2017-10-02 13:52:28</span>
+				<p style="padding-top: 10px;">发生的多多多</p>
+				<div class="replyrefresh">
+<ul class="list-inline">
+	<li><a href="#" class="thisreply"
+		replyId="6" replyModule="reply"> <span
+			class="glyphicon glyphicon-share-alt"></span> 回复
+	</a></li>
+	<li><a href="#" class="likethis" replyId="6" module="reply"> <span
+			class="glyphicon glyphicon-thumbs-up"></span> 
+			<span class="likenum">
+					已赞(1)
+			</span>
+	</a></li>
+	<li><a href="#comment6"
+		class="label xiugai toggle" data-toggle="collapse"><span
+			class="glyphicon glyphicon-triangle-bottom"></span>评论次数(
+				0
+			)</a>
+	</li>
+	<li class="pull-right">
+		<span class="rightNum">
+				5
+		</span>楼
+	</li>
+</ul>
+<!-- 下面是具体点赞人员的名字显示 -->
+<ul class="list-inline">
+			<li>
+				<span class="glyphicon glyphicon-thumbs-up" style="color: #fff;border-radius: 50%;padding: 3px;background-color: #347ab7;"></span> 
+				<span class="likethisnum">
+					<a 
+					class="usershow"  
+					title="罗密欧" 
+					thisdept="总经办" 
+					thisrole="超级管理员" 
+					thistel="13272143450"
+					thisemail="1057@qq.com" 
+					href="javascript:void(0);">罗密欧</a>、
+					<span>共1人觉得很赞</span>
+				</span>
+			</li>
+</ul>
+<script type="text/javascript" src="js/usershow.js"></script>				</div>
+				<div id="comment6" class="comment collapse"
+					style="margin-left: 80px;">
+					<table class="table table-hover" style="margin-bottom: 0;">
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+<tr>
+	<th scope="col" style="background-color: #EEEEEE;text-align: center;padding:16px;" class="addmore">
+			还有7条，点击加载更多~~~
+	</th>
+</tr>
+			
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog" style="margin-top: 10%";>
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="glyphicon glyphicon-remove-circle" style="font-size: 26px;"></span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					评论
+				</h4>
+			</div>
+			<div class="modal-body" >
+				<textarea rows="8" cols="78" id="comment"></textarea>
+			</div>
+			<input type="hidden" id="commentid"/>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="commentsave" data-dismiss="modal">提交	</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div> <!--class nothing 完毕-->
+<script>
+/* 点击加载更多 */
+$('.addmore').on('click',function(){
+	var selecttype=$("#selecttype option:selected").val();	//获得查看类型select中的值
+	var selectsort=$("#selectsort option:selected").val();	//获得时间排序select中的值
+	var num=13;
+	var page=0;
+	var size=10;
+	if(5<=12){
+		$('.repay').load('/replypaging',{num:num,size:size,selecttype:selecttype,selectsort:selectsort}); 
+	}
+});
+
+/* 回复与评论的提交 */
+$('#commentsave').on('click',function() {
+	console.log($("#hiddenreplyId").val());
+	console.log($("#hiddenreplyModule").val());
+	console.log($("#comment").val());
+	var size=5;
+	console.log("size:"+size);
+	var replyId = $("#hiddenreplyId").val();
+	var module = $("#hiddenreplyModule").val();
+	var comment = $("#comment").val();
+	$('.repay').load('/replyhandle?size='+size, {
+		replyId : replyId,
+		module : module,
+		comment : comment,
+	});
+	$("#comment").val("");
+});
+/*查看更多评论的小图标变化  */
+$('.toggle').on('click',function() {
+	if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+		$(this).children('.glyphicon').removeClass(
+				'glyphicon-triangle-bottom').addClass(
+				"glyphicon-triangle-top");
+	} else {
+		$(this).children('.glyphicon').removeClass(
+				'glyphicon-triangle-top').addClass(
+				"glyphicon-triangle-bottom");
+	}
+});
+</script>							</tbody>
+						</table>
+						<input type="hidden" id="hiddenreplyId"/>
+						<input type="hidden" id="hiddenreplyModule"/>
+					</div>
+				</div>
+				<!--盒子尾-->
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="js/usershow.js"></script>
+<!-- 存在 -->
+<script type="text/javascript">
+/*查看类型和时间排序的select选择的改变事件  */
+$('.selectthis').on('change',function(){
+	var selecttype=$("#selecttype option:selected").val();
+	var selectsort=$("#selectsort option:selected").val();
+	var num=13;
+	$('.repay').load('/replypaging',{num:num,selecttype:selecttype,selectsort:selectsort}); 
+});
+/*所有点赞的同一处理，在之前清除掉之前绑定的事件  */
+$('.chat-box').off('click','.likethis').on('click','.likethis',function(){
+	$('.thisClass').removeClass("thisClass");
+	$('.replyrefresh').removeClass("replychange");
+	$(this).addClass("thisClass");
+	$(this).parents('.replyrefresh').addClass('replychange');
+	var replyId=$(this).attr('replyId');
+	var module=$(this).attr('module');
+	var size=5;
+	console.log("rightNum:"+rightNum);
+	console.log(replyId);
+	console.log(module);
+	  /*$.ajax({
+		type:'get',
+		url:'/likeuserload',
+		data:{module:module,replyId:replyId,size:size},
+		success:function(date){
+			console.log(date);
+			$('.discusschange').html(date);
+			//$('.thisClass').children(".likenum").text(date);
+		},
+		error:function(){
+			alert("失败了");
+		}
+	}) */
+	if(module=="discuss"){
+		console.log("说明是讨论区，进行load方法了；");
+		$('.discusschange').load('/likeuserload',{module:module,replyId:replyId,size:size});
+	}else if(module=="reply"){
+		console.log("说明是回复区，准备进行load方法");
+		var rightNum=$(this).parent().siblings(".pull-right").children(".rightNum").text();
+		$('.replychange').load('/likeuserload',{module:module,replyId:replyId,size:size,rightNum:rightNum});
+	}else{
+		console.log("参数错误");
+	}
+	
+});
+/*回复表的删除  */
+	$('.repay').on('click','.deletethis',function(){
+		var num=13;
+		var replyId = $(this).attr('replyId');
+		var module = $(this).attr('replyModule');
+		var size=5;
+		if(confirm("确定删除吗？ 不能恢复哟~")){
+			$('.repay').load('replydelete',{replyId:replyId,module:module,num:num,size:size});
+		}
+	});
+/* 回复与评论的处理，模态框显示，假如是点击评论进入的，则在前面加@那个的名字 */	
+	$("#thisreply").on('click',function(){
+		$("#hiddenreplyId").val($(this).attr('replyId'));
+		$("#hiddenreplyModule").val($(this).attr('replyModule'));
+		var name = $(this).attr('replyName');
+		$('.replyName').val(name);
+		if(typeof(name) != 'undefined' ){
+			$("#comment").val("@"+name);
+		}
+		$("#myModal").modal("toggle");
+	});
+/*  */
+	$('.repay').on('click', '.thisreply',function() {
+		$("#hiddenreplyId").val($(this).attr('replyId'));
+		$("#hiddenreplyModule").val($(this).attr('replyModule'));
+		var name = $(this).attr('replyName');
+		$('.replyName').val(name);
+		console.log(typeof(name));
+		if(typeof(name) != 'undefined' ){
+			$("#comment").val("@"+name);
+		}
+		$("#myModal").modal("toggle");
+	});
+</script>

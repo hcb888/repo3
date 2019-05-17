@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaCatalogMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaCatalog" >
+    <id column="catalog_id" property="catalogId" jdbcType="BIGINT" />
+    <result column="catalog_name" property="catalogName" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="cata_user_id" property="cataUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    catalog_id, catalog_name, parent_id, cata_user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaCatalogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_catalog
+    where catalog_id = #{catalogId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_catalog
+    where catalog_id = #{catalogId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaCatalogExample" >
+    delete from aoa_catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaCatalog" >
+    insert into aoa_catalog (catalog_id, catalog_name, parent_id, 
+      cata_user_id)
+    values (#{catalogId,jdbcType=BIGINT}, #{catalogName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{cataUserId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaCatalog" >
+    insert into aoa_catalog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="catalogId != null" >
+        catalog_id,
+      </if>
+      <if test="catalogName != null" >
+        catalog_name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="cataUserId != null" >
+        cata_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="catalogId != null" >
+        #{catalogId,jdbcType=BIGINT},
+      </if>
+      <if test="catalogName != null" >
+        #{catalogName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="cataUserId != null" >
+        #{cataUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaCatalogExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_catalog
+    <set >
+      <if test="record.catalogId != null" >
+        catalog_id = #{record.catalogId,jdbcType=BIGINT},
+      </if>
+      <if test="record.catalogName != null" >
+        catalog_name = #{record.catalogName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cataUserId != null" >
+        cata_user_id = #{record.cataUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_catalog
+    set catalog_id = #{record.catalogId,jdbcType=BIGINT},
+      catalog_name = #{record.catalogName,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      cata_user_id = #{record.cataUserId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaCatalog" >
+    update aoa_catalog
+    <set >
+      <if test="catalogName != null" >
+        catalog_name = #{catalogName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="cataUserId != null" >
+        cata_user_id = #{cataUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where catalog_id = #{catalogId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaCatalog" >
+    update aoa_catalog
+    set catalog_name = #{catalogName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      cata_user_id = #{cataUserId,jdbcType=BIGINT}
+    where catalog_id = #{catalogId,jdbcType=BIGINT}
+  </update>
+</mapper>

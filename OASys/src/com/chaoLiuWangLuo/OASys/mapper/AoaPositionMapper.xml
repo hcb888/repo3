@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaPosition" >
+    <id column="position_id" property="positionId" jdbcType="BIGINT" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="describtion" property="describtion" jdbcType="VARCHAR" />
+    <result column="deptid" property="deptid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    position_id, level, name, describtion, deptid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPositionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_position
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_position
+    where position_id = #{positionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_position
+    where position_id = #{positionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPositionExample" >
+    delete from aoa_position
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPosition" >
+    insert into aoa_position (position_id, level, name, 
+      describtion, deptid)
+    values (#{positionId,jdbcType=BIGINT}, #{level,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{describtion,jdbcType=VARCHAR}, #{deptid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPosition" >
+    insert into aoa_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="positionId != null" >
+        position_id,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="describtion != null" >
+        describtion,
+      </if>
+      <if test="deptid != null" >
+        deptid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="positionId != null" >
+        #{positionId,jdbcType=BIGINT},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="describtion != null" >
+        #{describtion,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null" >
+        #{deptid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPositionExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_position
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_position
+    <set >
+      <if test="record.positionId != null" >
+        position_id = #{record.positionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.describtion != null" >
+        describtion = #{record.describtion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptid != null" >
+        deptid = #{record.deptid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_position
+    set position_id = #{record.positionId,jdbcType=BIGINT},
+      level = #{record.level,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      describtion = #{record.describtion,jdbcType=VARCHAR},
+      deptid = #{record.deptid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPosition" >
+    update aoa_position
+    <set >
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="describtion != null" >
+        describtion = #{describtion,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null" >
+        deptid = #{deptid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where position_id = #{positionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaPosition" >
+    update aoa_position
+    set level = #{level,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      describtion = #{describtion,jdbcType=VARCHAR},
+      deptid = #{deptid,jdbcType=BIGINT}
+    where position_id = #{positionId,jdbcType=BIGINT}
+  </update>
+</mapper>

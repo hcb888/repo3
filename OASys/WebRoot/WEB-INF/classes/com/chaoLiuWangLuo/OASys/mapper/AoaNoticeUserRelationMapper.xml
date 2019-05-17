@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaNoticeUserRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaNoticeUserRelation" >
+    <id column="relatin_id" property="relatinId" jdbcType="BIGINT" />
+    <result column="is_read" property="isRead" jdbcType="INTEGER" />
+    <result column="relatin_notice_id" property="relatinNoticeId" jdbcType="BIGINT" />
+    <result column="relatin_user_id" property="relatinUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    relatin_id, is_read, relatin_notice_id, relatin_user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeUserRelationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_notice_user_relation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_notice_user_relation
+    where relatin_id = #{relatinId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_notice_user_relation
+    where relatin_id = #{relatinId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeUserRelationExample" >
+    delete from aoa_notice_user_relation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeUserRelation" >
+    insert into aoa_notice_user_relation (relatin_id, is_read, relatin_notice_id, 
+      relatin_user_id)
+    values (#{relatinId,jdbcType=BIGINT}, #{isRead,jdbcType=INTEGER}, #{relatinNoticeId,jdbcType=BIGINT}, 
+      #{relatinUserId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeUserRelation" >
+    insert into aoa_notice_user_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="relatinId != null" >
+        relatin_id,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="relatinNoticeId != null" >
+        relatin_notice_id,
+      </if>
+      <if test="relatinUserId != null" >
+        relatin_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="relatinId != null" >
+        #{relatinId,jdbcType=BIGINT},
+      </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="relatinNoticeId != null" >
+        #{relatinNoticeId,jdbcType=BIGINT},
+      </if>
+      <if test="relatinUserId != null" >
+        #{relatinUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeUserRelationExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_notice_user_relation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_notice_user_relation
+    <set >
+      <if test="record.relatinId != null" >
+        relatin_id = #{record.relatinId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isRead != null" >
+        is_read = #{record.isRead,jdbcType=INTEGER},
+      </if>
+      <if test="record.relatinNoticeId != null" >
+        relatin_notice_id = #{record.relatinNoticeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.relatinUserId != null" >
+        relatin_user_id = #{record.relatinUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_notice_user_relation
+    set relatin_id = #{record.relatinId,jdbcType=BIGINT},
+      is_read = #{record.isRead,jdbcType=INTEGER},
+      relatin_notice_id = #{record.relatinNoticeId,jdbcType=BIGINT},
+      relatin_user_id = #{record.relatinUserId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeUserRelation" >
+    update aoa_notice_user_relation
+    <set >
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="relatinNoticeId != null" >
+        relatin_notice_id = #{relatinNoticeId,jdbcType=BIGINT},
+      </if>
+      <if test="relatinUserId != null" >
+        relatin_user_id = #{relatinUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where relatin_id = #{relatinId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeUserRelation" >
+    update aoa_notice_user_relation
+    set is_read = #{isRead,jdbcType=INTEGER},
+      relatin_notice_id = #{relatinNoticeId,jdbcType=BIGINT},
+      relatin_user_id = #{relatinUserId,jdbcType=BIGINT}
+    where relatin_id = #{relatinId,jdbcType=BIGINT}
+  </update>
+</mapper>

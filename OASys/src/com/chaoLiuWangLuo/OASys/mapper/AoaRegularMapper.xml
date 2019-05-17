@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaRegularMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaRegular" >
+    <id column="regular_id" property="regularId" jdbcType="BIGINT" />
+    <result column="advice" property="regularAdvice" jdbcType="VARCHAR" />
+    <result column="deficiency" property="deficiency" jdbcType="VARCHAR" />
+    <result column="dobetter" property="dobetter" jdbcType="VARCHAR" />
+    <result column="experience" property="experience" jdbcType="VARCHAR" />
+    <result column="personnel_advice" property="personnelAdvice" jdbcType="VARCHAR" />
+    <result column="pullulate" property="pullulate" jdbcType="VARCHAR" />
+    <result column="understand" property="understand" jdbcType="VARCHAR" />
+    <result column="manager_advice" property="managerAdvice" jdbcType="VARCHAR" />
+    <result column="days" property="days" jdbcType="INTEGER" />
+    
+     <association property="process" javaType="AoaProcessList">
+    	<id column="process_id" property="processId" jdbcType="BIGINT" />
+	    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+	    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+	    <result column="process_name" property="processName" jdbcType="VARCHAR" />
+	    <result column="procsee_days" property="procseeDays" jdbcType="INTEGER" />
+	    <result column="is_checked" property="isChecked" jdbcType="INTEGER" />
+	    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+	    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+	    <result column="shenuser" property="shenuser" jdbcType="VARCHAR" />
+	     <result column="process_des" property="processDes" jdbcType="VARCHAR" />
+	     
+	    <!--多对一  -->
+	    <association property="processType" javaType="AoaTypeList">
+	    	<id column="ptype_id" property="typeId"/>
+		    <result column="ptype_name" property="typeName"/>
+	    </association>
+	    
+	     <association property="proFile" javaType="AoaAttachmentList">
+	    	<id column="attachment_id" property="attachmentId"/>
+	    	<result column="attachment_path" property="attachmentPath"/>
+	    </association>
+	    
+	     <association property="processUser" javaType="AoaUser">
+	     	<id column="user_id" property="userId"/>
+		    <result column="user_name" property="userName"/>
+		    
+		     <!--多对一  -->
+		  	<association property="dept" javaType="AoaDept">
+	    		<id column="dept_id" property="deptId"/>
+	    		<result column="dept_name" property="deptName"/>
+	    	</association>
+     	</association>
+    </association>
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    regular_id, advice, deficiency, dobetter, experience, personnel_advice, pullulate, 
+    understand, pro_id, manager_advice, days
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaRegularExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_regular
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_regular
+    where regular_id = #{regularId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_regular
+    where regular_id = #{regularId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaRegularExample" >
+    delete from aoa_regular
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaRegular" >
+    insert into aoa_regular (regular_id, advice, deficiency, 
+      dobetter, experience, personnel_advice, 
+      pullulate, understand, pro_id, 
+      manager_advice, days)
+    values (#{regularId,jdbcType=BIGINT}, #{regularAdvice,jdbcType=VARCHAR}, #{deficiency,jdbcType=VARCHAR}, 
+      #{dobetter,jdbcType=VARCHAR}, #{experience,jdbcType=VARCHAR}, #{personnelAdvice,jdbcType=VARCHAR}, 
+      #{pullulate,jdbcType=VARCHAR}, #{understand,jdbcType=VARCHAR}, #{process.processId,jdbcType=BIGINT}, 
+      #{managerAdvice,jdbcType=VARCHAR}, #{days,jdbcType=INTEGER})
+      <selectKey resultType="Long" keyProperty="regularId" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    	</selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaRegular" >
+    insert into aoa_regular
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regularId != null" >
+        regular_id,
+      </if>
+      <if test="advice != null" >
+        advice,
+      </if>
+      <if test="deficiency != null" >
+        deficiency,
+      </if>
+      <if test="dobetter != null" >
+        dobetter,
+      </if>
+      <if test="experience != null" >
+        experience,
+      </if>
+      <if test="personnelAdvice != null" >
+        personnel_advice,
+      </if>
+      <if test="pullulate != null" >
+        pullulate,
+      </if>
+      <if test="understand != null" >
+        understand,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="managerAdvice != null" >
+        manager_advice,
+      </if>
+      <if test="days != null" >
+        days,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regularId != null" >
+        #{regularId,jdbcType=BIGINT},
+      </if>
+      <if test="advice != null" >
+        #{advice,jdbcType=VARCHAR},
+      </if>
+      <if test="deficiency != null" >
+        #{deficiency,jdbcType=VARCHAR},
+      </if>
+      <if test="dobetter != null" >
+        #{dobetter,jdbcType=VARCHAR},
+      </if>
+      <if test="experience != null" >
+        #{experience,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelAdvice != null" >
+        #{personnelAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="pullulate != null" >
+        #{pullulate,jdbcType=VARCHAR},
+      </if>
+      <if test="understand != null" >
+        #{understand,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="managerAdvice != null" >
+        #{managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null" >
+        #{days,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaRegularExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_regular
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_regular
+    <set >
+      <if test="record.regularId != null" >
+        regular_id = #{record.regularId,jdbcType=BIGINT},
+      </if>
+      <if test="record.advice != null" >
+        advice = #{record.advice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deficiency != null" >
+        deficiency = #{record.deficiency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dobetter != null" >
+        dobetter = #{record.dobetter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experience != null" >
+        experience = #{record.experience,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personnelAdvice != null" >
+        personnel_advice = #{record.personnelAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pullulate != null" >
+        pullulate = #{record.pullulate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.understand != null" >
+        understand = #{record.understand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proId != null" >
+        pro_id = #{record.proId,jdbcType=BIGINT},
+      </if>
+      <if test="record.managerAdvice != null" >
+        manager_advice = #{record.managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.days != null" >
+        days = #{record.days,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_regular
+    set regular_id = #{record.regularId,jdbcType=BIGINT},
+      advice = #{record.advice,jdbcType=VARCHAR},
+      deficiency = #{record.deficiency,jdbcType=VARCHAR},
+      dobetter = #{record.dobetter,jdbcType=VARCHAR},
+      experience = #{record.experience,jdbcType=VARCHAR},
+      personnel_advice = #{record.personnelAdvice,jdbcType=VARCHAR},
+      pullulate = #{record.pullulate,jdbcType=VARCHAR},
+      understand = #{record.understand,jdbcType=VARCHAR},
+      pro_id = #{record.proId,jdbcType=BIGINT},
+      manager_advice = #{record.managerAdvice,jdbcType=VARCHAR},
+      days = #{record.days,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaRegular" >
+    update aoa_regular
+    <set >
+      <if test="advice != null" >
+        advice = #{advice,jdbcType=VARCHAR},
+      </if>
+      <if test="deficiency != null" >
+        deficiency = #{deficiency,jdbcType=VARCHAR},
+      </if>
+      <if test="dobetter != null" >
+        dobetter = #{dobetter,jdbcType=VARCHAR},
+      </if>
+      <if test="experience != null" >
+        experience = #{experience,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelAdvice != null" >
+        personnel_advice = #{personnelAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="pullulate != null" >
+        pullulate = #{pullulate,jdbcType=VARCHAR},
+      </if>
+      <if test="understand != null" >
+        understand = #{understand,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="managerAdvice != null" >
+        manager_advice = #{managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null" >
+        days = #{days,jdbcType=INTEGER},
+      </if>
+    </set>
+    where regular_id = #{regularId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaRegular" >
+    update aoa_regular
+    set advice = #{advice,jdbcType=VARCHAR},
+      deficiency = #{deficiency,jdbcType=VARCHAR},
+      dobetter = #{dobetter,jdbcType=VARCHAR},
+      experience = #{experience,jdbcType=VARCHAR},
+      personnel_advice = #{personnelAdvice,jdbcType=VARCHAR},
+      pullulate = #{pullulate,jdbcType=VARCHAR},
+      understand = #{understand,jdbcType=VARCHAR},
+      pro_id = #{proId,jdbcType=BIGINT},
+      manager_advice = #{managerAdvice,jdbcType=VARCHAR},
+      days = #{days,jdbcType=INTEGER}
+    where regular_id = #{regularId,jdbcType=BIGINT}
+  </update>
+  <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+  	SELECT r.regular_id,r.advice,r.deficiency,r.dobetter,r.experience,r.personnel_advice,r.pullulate,r.understand,r.manager_advice,r.days,p.process_id,p.apply_time,p.deeply_id,p.end_time,p.process_des,p.process_name,p.procsee_days,p.is_checked,p.start_time,p.type_name,p.pro_file_id,p.shenuser,t.type_id as ptype_id,t.type_name as ptype_name,u.user_id,u.user_name,ud.dept_id,ud.dept_name,a.attachment_id,a.attachment_path  from   aoa_regular r LEFT JOIN aoa_process_list p on r.pro_id=p.process_id LEFT JOIN aoa_type_list t on p.deeply_id=t.type_id  LEFT JOIN aoa_user u on u.user_id=p.process_user_id LEFT JOIN  aoa_dept ud on ud.dept_id=u.dept_id LEFT JOIN aoa_attachment_list a on a.attachment_id=p.pro_file_id
+	<where>
+		 r.pro_id=#{l}
+	</where>
+  </select>
+</mapper>

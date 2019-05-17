@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaHolidayMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaHoliday" >
+    <id column="holiday_id" property="holidayId" jdbcType="BIGINT" />
+    <result column="leave_days" property="leaveDays" jdbcType="INTEGER" />
+    <result column="manager_advice" property="managerAdvice" jdbcType="VARCHAR" />
+    <result column="personnel_advice" property="personnelAdvice" jdbcType="VARCHAR" />
+    
+      <!-- 一对多 -->
+    <association property="holidayType" javaType="AoaTypeList">
+    	<id column="htype_id" property="typeId"/>
+		    <result column="htype_name" property="typeName"/>
+    </association>
+    <association property="process" javaType="AoaProcessList">
+    	<id column="process_id" property="processId" jdbcType="BIGINT" />
+	    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+	    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+	    <result column="process_name" property="processName" jdbcType="VARCHAR" />
+	    <result column="procsee_days" property="procseeDays" jdbcType="INTEGER" />
+	    <result column="is_checked" property="isChecked" jdbcType="INTEGER" />
+	    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+	    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+	    <result column="shenuser" property="shenuser" jdbcType="VARCHAR" />
+	     <result column="process_des" property="processDes" jdbcType="VARCHAR" />
+	     
+	    <!--多对一  -->
+	    <association property="processType" javaType="AoaTypeList">
+	    	<id column="ptype_id" property="typeId"/>
+		    <result column="ptype_name" property="typeName"/>
+	    </association>
+	    
+	     <association property="proFile" javaType="AoaAttachmentList">
+	    	<id column="attachment_id" property="attachmentId"/>
+	    	<result column="attachment_path" property="attachmentPath"/>
+	    </association>
+	    
+	     <association property="processUser" javaType="AoaUser">
+	     	<id column="user_id" property="userId"/>
+		    <result column="user_name" property="userName"/>
+		    
+		     <!--多对一  -->
+		  	<association property="dept" javaType="AoaDept">
+	    		<id column="dept_id" property="deptId"/>
+	    		<result column="dept_name" property="deptName"/>
+	    	</association>
+     	</association>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    holiday_id, leave_days, type_id, pro_id, manager_advice, personnel_advice
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaHolidayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_holiday
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_holiday
+    where holiday_id = #{holidayId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_holiday
+    where holiday_id = #{holidayId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaHolidayExample" >
+    delete from aoa_holiday
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaHoliday" >
+    insert into aoa_holiday (holiday_id, leave_days, type_id, 
+      pro_id, manager_advice, personnel_advice
+      )
+    values (#{holidayId,jdbcType=BIGINT}, #{leaveDays,jdbcType=INTEGER}, #{holidayType.typeId,jdbcType=BIGINT}, 
+      #{process.processId,jdbcType=BIGINT}, #{managerAdvice,jdbcType=VARCHAR}, #{personnelAdvice,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaHoliday" >
+    insert into aoa_holiday
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="holidayId != null" >
+        holiday_id,
+      </if>
+      <if test="leaveDays != null" >
+        leave_days,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="managerAdvice != null" >
+        manager_advice,
+      </if>
+      <if test="personnelAdvice != null" >
+        personnel_advice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="holidayId != null" >
+        #{holidayId,jdbcType=BIGINT},
+      </if>
+      <if test="leaveDays != null" >
+        #{leaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="managerAdvice != null" >
+        #{managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelAdvice != null" >
+        #{personnelAdvice,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaHolidayExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_holiday
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_holiday
+    <set >
+      <if test="record.holidayId != null" >
+        holiday_id = #{record.holidayId,jdbcType=BIGINT},
+      </if>
+      <if test="record.leaveDays != null" >
+        leave_days = #{record.leaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.proId != null" >
+        pro_id = #{record.proId,jdbcType=BIGINT},
+      </if>
+      <if test="record.managerAdvice != null" >
+        manager_advice = #{record.managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personnelAdvice != null" >
+        personnel_advice = #{record.personnelAdvice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_holiday
+    set holiday_id = #{record.holidayId,jdbcType=BIGINT},
+      leave_days = #{record.leaveDays,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      pro_id = #{record.proId,jdbcType=BIGINT},
+      manager_advice = #{record.managerAdvice,jdbcType=VARCHAR},
+      personnel_advice = #{record.personnelAdvice,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaHoliday" >
+    update aoa_holiday
+    <set >
+      <if test="leaveDays != null" >
+        leave_days = #{leaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="managerAdvice != null" >
+        manager_advice = #{managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelAdvice != null" >
+        personnel_advice = #{personnelAdvice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where holiday_id = #{holidayId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaHoliday" >
+    update aoa_holiday
+    set leave_days = #{leaveDays,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=BIGINT},
+      pro_id = #{proId,jdbcType=BIGINT},
+      manager_advice = #{managerAdvice,jdbcType=VARCHAR},
+      personnel_advice = #{personnelAdvice,jdbcType=VARCHAR}
+    where holiday_id = #{holidayId,jdbcType=BIGINT}
+  </update>
+  <select id="findById" resultMap="BaseResultMap" parameterType="Long">
+  	select h.holiday_id,h.leave_days,h.manager_advice,h.leave_days,h.personnel_advice,  p.process_id,p.apply_time,p.deeply_id,p.end_time,p.process_des,p.process_name,p.procsee_days,p.is_checked,p.start_time,p.type_name,p.pro_file_id,p.shenuser,t.type_id as ptype_id,t.type_name as ptype_name,u.user_id,u.user_name,ud.dept_id,ud.dept_name,a.attachment_id,a.attachment_path,ht.type_id as htype_id,ht.type_name as htype_name from aoa_holiday h LEFT JOIN aoa_type_list ht on h.type_id=ht.type_id LEFT JOIN aoa_process_list p on h.pro_id=p.process_id LEFT JOIN aoa_type_list t on p.deeply_id=t.type_id  LEFT JOIN aoa_user u on u.user_id=p.process_user_id LEFT JOIN  aoa_dept ud on ud.dept_id=u.dept_id LEFT JOIN aoa_attachment_list a on a.attachment_id=p.pro_file_id
+ 	<where>
+		 h.pro_id=#{l}
+	</where>
+  </select>
+</mapper>

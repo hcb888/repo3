@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaTrafficMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaTraffic" >
+    <id column="traffic_id" property="trafficId" jdbcType="BIGINT" />
+    <result column="depart_name" property="departName" jdbcType="VARCHAR" />
+    <result column="depart_time" property="departTime" jdbcType="TIMESTAMP" />
+    <result column="reach_name" property="reachName" jdbcType="VARCHAR" />
+    <result column="seat_type" property="seatType" jdbcType="VARCHAR" />
+    <result column="traffic_money" property="trafficMoney" jdbcType="DOUBLE" />
+    <result column="traffic_name" property="trafficName" jdbcType="VARCHAR" />
+ 
+	<!-- 一对多 -->
+	<association property="tEvectionmoney" javaType="AoaEvectionmoney">
+		<id column="evectionmoney_id" property="evectionmoneyId"/>
+	    <result column="name" property="name"/>
+	</association>
+	<association property="tUser" javaType="AoaUser">
+		<id column="user_id" property="userId"/>
+	    <result column="user_name" property="userName"/>
+	</association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    traffic_id, depart_name, depart_time, reach_name, seat_type, traffic_money, traffic_name, 
+    evection_id, user_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTrafficExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_traffic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_traffic
+    where traffic_id = #{trafficId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_traffic
+    where traffic_id = #{trafficId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTrafficExample" >
+    delete from aoa_traffic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTraffic" >
+    insert into aoa_traffic (traffic_id, depart_name, depart_time, 
+      reach_name, seat_type, traffic_money, 
+      traffic_name, evection_id, user_id
+      )
+    values (#{trafficId,jdbcType=BIGINT}, #{departName,jdbcType=VARCHAR}, #{departTime,jdbcType=TIMESTAMP}, 
+      #{reachName,jdbcType=VARCHAR}, #{seatType,jdbcType=VARCHAR}, #{trafficMoney,jdbcType=DOUBLE}, 
+      #{trafficName,jdbcType=VARCHAR}, #{tEvectionmoney.evectionmoneyId,jdbcType=BIGINT}, #{tUser.userId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTraffic" >
+    insert into aoa_traffic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="trafficId != null" >
+        traffic_id,
+      </if>
+      <if test="departName != null" >
+        depart_name,
+      </if>
+      <if test="departTime != null" >
+        depart_time,
+      </if>
+      <if test="reachName != null" >
+        reach_name,
+      </if>
+      <if test="seatType != null" >
+        seat_type,
+      </if>
+      <if test="trafficMoney != null" >
+        traffic_money,
+      </if>
+      <if test="trafficName != null" >
+        traffic_name,
+      </if>
+      <if test="evectionId != null" >
+        evection_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="trafficId != null" >
+        #{trafficId,jdbcType=BIGINT},
+      </if>
+      <if test="departName != null" >
+        #{departName,jdbcType=VARCHAR},
+      </if>
+      <if test="departTime != null" >
+        #{departTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reachName != null" >
+        #{reachName,jdbcType=VARCHAR},
+      </if>
+      <if test="seatType != null" >
+        #{seatType,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficMoney != null" >
+        #{trafficMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="trafficName != null" >
+        #{trafficName,jdbcType=VARCHAR},
+      </if>
+      <if test="evectionId != null" >
+        #{evectionId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTrafficExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_traffic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_traffic
+    <set >
+      <if test="record.trafficId != null" >
+        traffic_id = #{record.trafficId,jdbcType=BIGINT},
+      </if>
+      <if test="record.departName != null" >
+        depart_name = #{record.departName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departTime != null" >
+        depart_time = #{record.departTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reachName != null" >
+        reach_name = #{record.reachName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seatType != null" >
+        seat_type = #{record.seatType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trafficMoney != null" >
+        traffic_money = #{record.trafficMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.trafficName != null" >
+        traffic_name = #{record.trafficName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evectionId != null" >
+        evection_id = #{record.evectionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_traffic
+    set traffic_id = #{record.trafficId,jdbcType=BIGINT},
+      depart_name = #{record.departName,jdbcType=VARCHAR},
+      depart_time = #{record.departTime,jdbcType=TIMESTAMP},
+      reach_name = #{record.reachName,jdbcType=VARCHAR},
+      seat_type = #{record.seatType,jdbcType=VARCHAR},
+      traffic_money = #{record.trafficMoney,jdbcType=DOUBLE},
+      traffic_name = #{record.trafficName,jdbcType=VARCHAR},
+      evection_id = #{record.evectionId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTraffic" >
+    update aoa_traffic
+    <set >
+      <if test="departName != null" >
+        depart_name = #{departName,jdbcType=VARCHAR},
+      </if>
+      <if test="departTime != null" >
+        depart_time = #{departTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reachName != null" >
+        reach_name = #{reachName,jdbcType=VARCHAR},
+      </if>
+      <if test="seatType != null" >
+        seat_type = #{seatType,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficMoney != null" >
+        traffic_money = #{trafficMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="trafficName != null" >
+        traffic_name = #{trafficName,jdbcType=VARCHAR},
+      </if>
+      <if test="evectionId != null" >
+        evection_id = #{evectionId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=BIGINT},
+      </if>
+    </set>
+    where traffic_id = #{trafficId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTraffic" >
+    update aoa_traffic
+    set depart_name = #{departName,jdbcType=VARCHAR},
+      depart_time = #{departTime,jdbcType=TIMESTAMP},
+      reach_name = #{reachName,jdbcType=VARCHAR},
+      seat_type = #{seatType,jdbcType=VARCHAR},
+      traffic_money = #{trafficMoney,jdbcType=DOUBLE},
+      traffic_name = #{trafficName,jdbcType=VARCHAR},
+      evection_id = #{evectionId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=BIGINT}
+    where traffic_id = #{trafficId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="findByList" parameterType="Long" resultMap="BaseResultMap">
+  	select t.traffic_id,t.depart_name,t.depart_time,t.reach_name,t.seat_type,t.traffic_money,t.traffic_name,e.evectionmoney_id,e.`name`,u.user_id,u.user_name from aoa_traffic t LEFT JOIN aoa_evectionmoney e on t.evection_id=e.evectionmoney_id LEFT JOIN aoa_user u on t.user_id=u.user_id
+  	<where>
+  		t.evection_id=#{l}
+  	</where>
+  </select>
+</mapper>

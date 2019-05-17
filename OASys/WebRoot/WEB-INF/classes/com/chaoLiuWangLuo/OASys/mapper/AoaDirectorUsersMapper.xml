@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaDirectorUsersMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaDirectorUsers" >
+    <id column="director_users_id" property="directorUsersId" jdbcType="BIGINT" />
+    <result column="is_handle" property="isHandle" jdbcType="INTEGER" />
+    <result column="sharetime" property="sharetime" jdbcType="TIMESTAMP" />
+    
+    <!-- 多对一 --> 
+    <association property="duType" javaType="AoaTypeList">
+    	<id column="type_id" property="typeId"/>
+		<result column="type_name" property="typeName"/>
+    </association>
+     <association property="director" javaType="AoaDirector">
+    	<id column="director_id" property="directorId" jdbcType="BIGINT" />
+	    <result column="address" property="address" jdbcType="VARCHAR" />
+	    <result column="company_number" property="companyNumber" jdbcType="VARCHAR" />
+	    <result column="email" property="email" jdbcType="VARCHAR" />
+	    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+	    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="sex" property="sex" jdbcType="VARCHAR" />
+	    <result column="direuser_name" property="userName" jdbcType="VARCHAR" />
+	    <result column="companyname" property="companyname" jdbcType="VARCHAR" />
+	    <association property="directorUser" javaType="AoaUser">
+	    	<id column="duser_id" property="userId"/>
+		    <result column="duser_name" property="userName"/>
+		    <result column="duser_tel" property="userTel" jdbcType="VARCHAR" />
+		    <result column="deamil" property="eamil" jdbcType="VARCHAR" />
+		    <association property="dept" javaType="AoaDept">
+		    	<id column="duddept_id" property="deptId"/>
+		    	<result column="duddept_name" property="deptName"/>
+		    </association>
+		    <association property="role" javaType="AoaRole">
+		    	<id column="durrole_id" property="roleId"/>
+		    	<result column="durrole_name" property="roleName"/>
+		    </association>
+	    </association>
+	     <association property="image" javaType="AoaAttachmentList">
+	    	<id column="attachment_id" property="attachmentId"/>
+		    <result column="attachment_path" property="attachmentPath"/>
+	    </association>
+    </association>  
+    <association property="user" javaType="AoaUser">
+    	<id column="user_id" property="userId"/>
+	    <result column="user_name" property="userName"/>
+	    <result column="img_path" property="imgPath"/>
+		<result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+		<result column="eamil" property="eamil" jdbcType="VARCHAR" />
+		 <association property="dept" javaType="AoaDept">
+		    <id column="usddept_id" property="deptId"/>
+		    <result column="usddept_name" property="deptName"/>
+		 </association>
+		 <association property="role" javaType="AoaRole">
+		    <id column="usrrole_id" property="roleId"/>
+		    <result column="usrrole_name" property="roleName"/>
+		 </association>
+    </association>
+    <association property="shareUser" javaType="AoaUser">
+    	<id column="suser_id" property="userId"/>
+	    <result column="suser_name" property="userName"/>
+	    
+	    <result column="suimg_path" property="imgPath"/>
+		<result column="suuser_tel" property="userTel" jdbcType="VARCHAR" />
+		<result column="sueamil" property="eamil" jdbcType="VARCHAR" />
+		
+		 <association property="dept" javaType="AoaDept">
+		    <id column="suddept_id" property="deptId"/>
+		    <result column="suddept_name" property="deptName"/>
+		 </association>
+		 
+		 <association property="role" javaType="AoaRole">
+		    <id column="surrole_id" property="roleId"/>
+		    <result column="surrole_name" property="roleName"/>
+		 </association>
+    </association>
+    
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    director_users_id, catelog_name, is_handle, director_id, user_id, share_user_id, 
+    sharetime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorUsersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_director_users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_director_users
+    where director_users_id = #{directorUsersId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_director_users
+    where director_users_id = #{directorUsersId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorUsersExample" >
+    delete from aoa_director_users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorUsers" >
+    insert into aoa_director_users (director_users_id, catelog_type, is_handle, 
+      director_id, user_id, share_user_id, 
+      sharetime)
+    values (#{directorUsersId,jdbcType=BIGINT}, #{duType.typeId,jdbcType=BIGINT}, #{isHandle,jdbcType=INTEGER}, 
+      #{director.directorId,jdbcType=BIGINT}, #{user.userId,jdbcType=BIGINT}, #{shareUser.userId,jdbcType=BIGINT}, 
+      #{sharetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorUsers" >
+    insert into aoa_director_users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="directorUsersId != null" >
+        director_users_id,
+      </if>
+      <if test="catelogName != null" >
+        catelog_name,
+      </if>
+      <if test="isHandle != null" >
+        is_handle,
+      </if>
+      <if test="directorId != null" >
+        director_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="shareUserId != null" >
+        share_user_id,
+      </if>
+      <if test="sharetime != null" >
+        sharetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="directorUsersId != null" >
+        #{directorUsersId,jdbcType=BIGINT},
+      </if>
+      <if test="catelogName != null" >
+        #{catelogName,jdbcType=VARCHAR},
+      </if>
+      <if test="isHandle != null" >
+        #{isHandle,jdbcType=INTEGER},
+      </if>
+      <if test="directorId != null" >
+        #{directorId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="shareUserId != null" >
+        #{shareUserId,jdbcType=BIGINT},
+      </if>
+      <if test="sharetime != null" >
+        #{sharetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorUsersExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_director_users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_director_users
+    <set >
+      <if test="record.directorUsersId != null" >
+        director_users_id = #{record.directorUsersId,jdbcType=BIGINT},
+      </if>
+      <if test="record.catelogName != null" >
+        catelog_type = #{record.duType.typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isHandle != null" >
+        is_handle = #{record.isHandle,jdbcType=INTEGER},
+      </if>
+      <if test="record.directorId != null" >
+        director_id = #{record.director.directorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.shareUserId != null" >
+        share_user_id = #{record.shareUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sharetime != null" >
+        sharetime = #{record.sharetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_director_users
+    set director_users_id = #{record.directorUsersId,jdbcType=BIGINT},
+      catelog_name = #{record.catelogName,jdbcType=VARCHAR},
+      is_handle = #{record.isHandle,jdbcType=INTEGER},
+      director_id = #{record.directorId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      share_user_id = #{record.shareUserId,jdbcType=BIGINT},
+      sharetime = #{record.sharetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorUsers" >
+    update aoa_director_users
+    <set >
+      <if test="duType!=null and duType.typeId != null" >
+        catelog_type = #{duType.typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="isHandle != null" >
+        is_handle = #{isHandle,jdbcType=INTEGER},
+      </if>
+      <if test="director!= null and director.directorId!=null" >
+        director_id = #{director.directorId,jdbcType=BIGINT},
+      </if>
+      <if test="user!=null and user.userId != null" >
+        user_id = #{user.userId,jdbcType=BIGINT},
+      </if>
+      <if test="shareUser != null and shareUser.userId!=null" >
+        share_user_id = #{shareUser.userId,jdbcType=BIGINT},
+      </if>
+      <if test="sharetime != null" >
+        sharetime = #{sharetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where director_users_id = #{directorUsersId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorUsers" >
+    update aoa_director_users
+    set catelog_name = #{catelogName,jdbcType=VARCHAR},
+      is_handle = #{isHandle,jdbcType=INTEGER},
+      director_id = #{directorId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      share_user_id = #{shareUserId,jdbcType=BIGINT},
+      sharetime = #{sharetime,jdbcType=TIMESTAMP}
+    where director_users_id = #{directorUsersId,jdbcType=BIGINT}
+  </update>
+  <!--  分页查询-->
+  <select id="directorQueryPage" resultMap="BaseResultMap" parameterType="queryVo">
+  	select du.director_users_id,du.is_handle,du.sharetime,t.type_id,t.type_name,u.user_id,u.user_name,su.user_id as suser_id,su.user_name as suser_name,d.director_id,d.address,d.company_number,d.email,d.phone_number,d.pinyin,d.remark,d.sex,d.user_name as direuser_name,d.companyname,diru.user_id as duser_id,diru.user_name as duser_name,a.attachment_id,a.attachment_path   from aoa_director_users du LEFT JOIN aoa_type_list t on t.type_id=du.catelog_type LEFT JOIN aoa_user u on u.user_id=du.user_id LEFT JOIN aoa_user su on su.user_id=du.share_user_id LEFT JOIN aoa_director d on d.director_id=du.director_id   LEFT JOIN aoa_user diru on diru.user_id=d.user_id LEFT JOIN aoa_attachment_list a on d.image_path=a.attachment_id
+  	<where>
+  		 du.is_handle=1
+  		<if test="id1!=null and id1!=''">
+  			and u.user_id=#{id1}
+  		</if>
+  		 <if test="alph!=null and alph!=''">
+  		  and	d.pinyin like '${alph}%'
+  		 </if>
+  		  <if test="uName!=null and uName!=''">
+  			and d.user_name like '%${uName}%'
+  		</if>
+  		<if test="phone!=null and phone!=''">
+  			and d.phone_number like '%${phone}%'
+  		</if>
+  		<if test="tId!=null and tId!=''">
+  			and t.type_id=#{tId}
+  		</if>
+  	</where>
+  	limit #{startRow},#{size}
+  </select>
+   <!--  查询总条数-->
+  <select id="directorfindCount" resultType="java.lang.Integer" parameterType="queryVo">
+  	select count(*)   from aoa_director_users du LEFT JOIN aoa_type_list t on t.type_id=du.catelog_type LEFT JOIN aoa_user u on u.user_id=du.user_id LEFT JOIN aoa_user su on su.user_id=du.share_user_id LEFT JOIN aoa_director d on d.director_id=du.director_id   LEFT JOIN aoa_user diru on diru.user_id=d.user_id LEFT JOIN aoa_attachment_list a on d.image_path=a.attachment_id
+  	<where>
+  	      du.is_handle=1
+  		<if test="id1!=null and id1!=''">
+  			and u.user_id=#{id1}
+  		</if>
+  		 <if test="alph!=null and alph!=''">
+  		  and	d.pinyin like '${alph}%'
+  		 </if>
+  		 <if test="uName!=null and uName!=''">
+  			and d.user_name like '%${uName}%'
+  		</if>
+  		<if test="phone!=null and phone!=''">
+  			and d.phone_number like '%${phone}%'
+  		</if>
+  		<if test="tId!=null and tId!=''">
+  			and t.type_id=#{tId}
+  		</if>
+  	</where>
+  </select>
+  
+  <!-- 根据id查询 -->
+  <select id="directorUsersFindById" resultMap="BaseResultMap" parameterType="Long">
+  	  	select du.director_users_id,du.is_handle,du.sharetime,t.type_id,t.type_name,u.user_id,u.user_name,su.user_id as suser_id,su.user_name as suser_name,d.director_id,d.address,d.company_number,d.email,d.phone_number,d.pinyin,d.remark,d.sex,d.user_name as direuser_name,d.companyname,diru.user_id as duser_id,diru.user_name as duser_name,diru.eamil as deamil , diru.user_tel as duser_tel,dud.dept_id as duddept_id,dud.dept_name as duddept_name,dur.role_id as durrole_id,dur.role_name as durrole_name ,a.attachment_id,a.attachment_path   from aoa_director_users du LEFT JOIN aoa_type_list t on t.type_id=du.catelog_type LEFT JOIN aoa_user u on u.user_id=du.user_id LEFT JOIN aoa_user su on su.user_id=du.share_user_id LEFT JOIN aoa_director d on d.director_id=du.director_id   LEFT JOIN aoa_user diru on diru.user_id=d.user_id  LEFT JOIN aoa_dept dud on dud.dept_id=diru.dept_id LEFT JOIN aoa_role_ dur on dur.role_id=diru.dept_id LEFT JOIN aoa_attachment_list a on d.image_path=a.attachment_id 
+	<where>
+  		 du.director_users_id=#{l}
+  	</where>
+  </select>
+  
+   <!--  我共享的联系人分页查询-->
+  <select id="mySharedContactsQueryPage" resultMap="BaseResultMap" parameterType="queryVo">
+  select du.director_users_id,du.is_handle,du.sharetime,t.type_id,t.type_name,u.user_id,u.user_name,u.img_path,u.user_tel,u.eamil,usd.dept_id as usddept_id,usd.dept_name as usddept_name,usr.role_id as usrrole_id , usr.role_name as  usrrole_name , su.user_id as suser_id,su.user_name as suser_name,d.director_id,d.address,d.company_number,d.email,d.phone_number,d.pinyin,d.remark,d.sex,d.user_name as direuser_name,d.companyname,diru.user_id as duser_id,diru.user_name as duser_name,a.attachment_id,a.attachment_path   from aoa_director_users du LEFT JOIN aoa_type_list t on t.type_id=du.catelog_type LEFT JOIN aoa_user u on u.user_id=du.user_id  LEFT JOIN aoa_dept usd on u.dept_id=usd.dept_id LEFT JOIN aoa_role_ usr on u.role_id=usr.role_id LEFT JOIN aoa_user su on su.user_id=du.share_user_id LEFT JOIN aoa_director d on d.director_id=du.director_id   LEFT JOIN aoa_user diru on diru.user_id=d.user_id LEFT JOIN aoa_attachment_list a on d.image_path=a.attachment_id
+  	<where>
+  		<if test="id1!=null and id1!=''">
+  			 su.user_id=#{id1}
+  		</if>
+  		 <if test="alph!=null and alph!=''">
+  		  and	d.pinyin like '${alph}%'
+  		 </if>
+  		  <if test="uName!=null and uName!=''">
+  			and d.user_name like '%${uName}%'
+  		</if>
+  		<if test="phone!=null and phone!=''">
+  			and d.phone_number like '%${phone}%'
+  		</if>
+  	</where>
+  	limit #{startRow},#{size}
+  </select>
+   <!--  我共享的联系人总条数-->
+   <select id="mySharedContactsCount"  resultType="java.lang.Integer" parameterType="queryVo">
+  	select  count(*)  from aoa_director_users du LEFT JOIN aoa_type_list t on t.type_id=du.catelog_type LEFT JOIN aoa_user u on u.user_id=du.user_id LEFT JOIN aoa_user su on su.user_id=du.share_user_id LEFT JOIN aoa_director d on d.director_id=du.director_id   LEFT JOIN aoa_user diru on diru.user_id=d.user_id LEFT JOIN aoa_attachment_list a on d.image_path=a.attachment_id
+  	<where>
+  		<if test="id1!=null and id1!=''">
+  			 su.user_id=#{id1}
+  		</if>
+  		 <if test="alph!=null and alph!=''">
+  		  and	d.pinyin like '${alph}%'
+  		 </if>
+  		  <if test="uName!=null and uName!=''">
+  			and d.user_name like '%${uName}%'
+  		</if>
+  		<if test="phone!=null and phone!=''">
+  			and d.phone_number like '%${phone}%'
+  		</if>
+  	</where>
+  </select>
+  
+   <!--   共享给我的联系人分页查询-->
+  <select id="sharedWithMeContactsQueryPage" resultMap="BaseResultMap" parameterType="queryVo">
+  		select du.director_users_id,du.is_handle,du.sharetime,t.type_id,t.type_name,u.user_id,u.user_name,u.img_path,u.user_tel,u.eamil,usd.dept_id as usddept_id,usd.dept_name as usddept_name,usr.role_id as usrrole_id , usr.role_name as  usrrole_name , su.user_id as suser_id,su.user_name as suser_name ,su.img_path as suimg_path,su.user_tel as suuser_tel ,su.eamil as sueamil,sud.dept_id as suddept_id ,sud.dept_name as suddept_name  ,sur.role_id as surrole_id , sur.role_name as surrole_name ,d.director_id,d.address,d.company_number,d.email,d.phone_number,d.pinyin,d.remark,d.sex,d.user_name as direuser_name,d.companyname,diru.user_id as duser_id,diru.user_name as duser_name,a.attachment_id,a.attachment_path   from aoa_director_users du LEFT JOIN aoa_type_list t on t.type_id=du.catelog_type LEFT JOIN aoa_user u on u.user_id=du.user_id  LEFT JOIN aoa_dept usd on u.dept_id=usd.dept_id LEFT JOIN aoa_role_ usr on u.role_id=usr.role_id LEFT JOIN aoa_user su on su.user_id=du.share_user_id LEFT JOIN aoa_dept sud on su.dept_id=sud.dept_id LEFT JOIN aoa_role_  sur on sur.role_id=su.role_id     LEFT JOIN aoa_director d on d.director_id=du.director_id   LEFT JOIN aoa_user diru on diru.user_id=d.user_id LEFT JOIN aoa_attachment_list a on d.image_path=a.attachment_id
+  	 	<where>
+  	 	du.sharetime != ''
+  		<if test="id1!=null and id1!=''">
+  			and u.user_id=#{id1}
+  		</if>
+  		 <if test="alph!=null and alph!=''">
+  		  and	d.pinyin like '${alph}%'
+  		 </if>
+  		  <if test="uName!=null and uName!=''">
+  			and d.user_name like '%${uName}%'
+  		</if>
+  		<if test="phone!=null and phone!=''">
+  			and d.phone_number like '%${phone}%'
+  		</if>
+  	</where>
+  	limit #{startRow},#{size}
+  </select>
+   <!--  共享给我的联系人总条数-->
+   <select id="sharedWithMeContactsCount"  resultType="java.lang.Integer" parameterType="queryVo">
+		 select  count(*)   from aoa_director_users du LEFT JOIN aoa_type_list t on t.type_id=du.catelog_type LEFT JOIN aoa_user u on u.user_id=du.user_id  LEFT JOIN aoa_dept usd on u.dept_id=usd.dept_id LEFT JOIN aoa_role_ usr on u.role_id=usr.role_id LEFT JOIN aoa_user su on su.user_id=du.share_user_id LEFT JOIN aoa_dept sud on su.dept_id=sud.dept_id LEFT JOIN aoa_role_  sur on sur.role_id=su.role_id     LEFT JOIN aoa_director d on d.director_id=du.director_id   LEFT JOIN aoa_user diru on diru.user_id=d.user_id LEFT JOIN aoa_attachment_list a on d.image_path=a.attachment_id
+  		<where> 
+  		 du.sharetime  !=''
+  		<if test="id1!=null and id1!=''">
+  			and  u.user_id=#{id1}
+  		</if>
+  		 <if test="alph!=null and alph!=''">
+  		  and	d.pinyin like '${alph}%'
+  		 </if>
+  		  <if test="uName!=null and uName!=''">
+  			and d.user_name like '%${uName}%'
+  		</if>
+  		<if test="phone!=null and phone!=''">
+  			and d.phone_number like '%${phone}%'
+  		</if>
+  	</where>
+  </select>
+  
+</mapper>

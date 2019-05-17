@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaAttendsListMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaAttendsList" >
+    <id column="attends_id" property="attendsId" jdbcType="BIGINT" />
+    <result column="attends_ip" property="attendsIp" jdbcType="VARCHAR" />
+    <result column="attends_remark" property="attendsRemark" jdbcType="VARCHAR" />
+    <result column="attends_time" property="attendsTime" jdbcType="TIMESTAMP" />
+    <result column="attend_hmtime" property="attendHmtime" jdbcType="VARCHAR" />
+    <result column="week_ofday" property="weekOfday" jdbcType="VARCHAR" />
+    <result column="holiday_days" property="holidayDays" jdbcType="DOUBLE" />
+    <result column="holiday_start" property="holidayStart" jdbcType="DATE" />
+    
+    <!-- 
+    	<result column="status_id" property="statusId" jdbcType="BIGINT" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="attends_user_id" property="attendsUserId" jdbcType="BIGINT" />
+     -->
+     <association property="status" javaType="AoaStatusList">
+     	<id column="status_id" property="statusId"/>
+     	<result column="status_name" property="statusName"/>
+     </association>
+     <association property="type" javaType="AoaTypeList">
+     	<id column="type_id" property="typeId"/>
+     	<result column="type_name" property="typeName"/>
+     </association>
+     <association property="user" javaType="AoaUser">
+     	<id column="user_id" property="userId"/>
+     	<result column="user_name" property="userName"/>
+     	
+     	 <association property="dept" javaType="AoaDept">
+	    	<id column="udept_id" property="deptId"/>
+	    	<result column="udept_name" property="deptName"/>
+	    </association>
+     </association>
+     
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    attends_id, attends_ip, attends_remark, attends_time, status_id, type_id, attends_user_id, 
+    attend_hmtime, week_ofday, holiday_days, holiday_start
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaAttendsListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_attends_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_attends_list
+    where attends_id = #{attendsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_attends_list
+    where attends_id = #{attendsId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaAttendsListExample" >
+    delete from aoa_attends_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaAttendsList" >
+    insert into aoa_attends_list (attends_id, attends_ip, attends_remark, 
+      attends_time, status_id, type_id, 
+      attends_user_id, attend_hmtime, week_ofday, 
+      holiday_days, holiday_start)
+    values (#{attendsId,jdbcType=BIGINT}, #{attendsIp,jdbcType=VARCHAR}, #{attendsRemark,jdbcType=VARCHAR}, 
+      #{attendsTime,jdbcType=TIMESTAMP}, #{statusId,jdbcType=BIGINT}, #{typeId,jdbcType=BIGINT}, 
+      #{attendsUserId,jdbcType=BIGINT}, #{attendHmtime,jdbcType=VARCHAR}, #{weekOfday,jdbcType=VARCHAR}, 
+      #{holidayDays,jdbcType=DOUBLE}, #{holidayStart,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaAttendsList" >
+    insert into aoa_attends_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attendsId != null" >
+        attends_id,
+      </if>
+      <if test="attendsIp != null" >
+        attends_ip,
+      </if>
+      <if test="attendsRemark != null" >
+        attends_remark,
+      </if>
+      <if test="attendsTime != null" >
+        attends_time,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="attendsUserId != null" >
+        attends_user_id,
+      </if>
+      <if test="attendHmtime != null" >
+        attend_hmtime,
+      </if>
+      <if test="weekOfday != null" >
+        week_ofday,
+      </if>
+      <if test="holidayDays != null" >
+        holiday_days,
+      </if>
+      <if test="holidayStart != null" >
+        holiday_start,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attendsId != null" >
+        #{attendsId,jdbcType=BIGINT},
+      </if>
+      <if test="attendsIp != null" >
+        #{attendsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attendsRemark != null" >
+        #{attendsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="attendsTime != null" >
+        #{attendsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="attendsUserId != null" >
+        #{attendsUserId,jdbcType=BIGINT},
+      </if>
+      <if test="attendHmtime != null" >
+        #{attendHmtime,jdbcType=VARCHAR},
+      </if>
+      <if test="weekOfday != null" >
+        #{weekOfday,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayDays != null" >
+        #{holidayDays,jdbcType=DOUBLE},
+      </if>
+      <if test="holidayStart != null" >
+        #{holidayStart,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaAttendsListExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_attends_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_attends_list
+    <set >
+      <if test="record.attendsId != null" >
+        attends_id = #{record.attendsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.attendsIp != null" >
+        attends_ip = #{record.attendsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendsRemark != null" >
+        attends_remark = #{record.attendsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendsTime != null" >
+        attends_time = #{record.attendsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.statusId != null" >
+        status_id = #{record.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.attendsUserId != null" >
+        attends_user_id = #{record.attendsUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.attendHmtime != null" >
+        attend_hmtime = #{record.attendHmtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weekOfday != null" >
+        week_ofday = #{record.weekOfday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holidayDays != null" >
+        holiday_days = #{record.holidayDays,jdbcType=DOUBLE},
+      </if>
+      <if test="record.holidayStart != null" >
+        holiday_start = #{record.holidayStart,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_attends_list
+    set attends_id = #{record.attendsId,jdbcType=BIGINT},
+      attends_ip = #{record.attendsIp,jdbcType=VARCHAR},
+      attends_remark = #{record.attendsRemark,jdbcType=VARCHAR},
+      attends_time = #{record.attendsTime,jdbcType=TIMESTAMP},
+      status_id = #{record.statusId,jdbcType=BIGINT},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      attends_user_id = #{record.attendsUserId,jdbcType=BIGINT},
+      attend_hmtime = #{record.attendHmtime,jdbcType=VARCHAR},
+      week_ofday = #{record.weekOfday,jdbcType=VARCHAR},
+      holiday_days = #{record.holidayDays,jdbcType=DOUBLE},
+      holiday_start = #{record.holidayStart,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaAttendsList" >
+    update aoa_attends_list
+    <set >
+      <if test="attendsIp != null" >
+        attends_ip = #{attendsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attendsRemark != null" >
+        attends_remark = #{attendsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="attendsTime != null" >
+        attends_time = #{attendsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status.statusId != null" >
+        status_id = #{status.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="type.typeId != null" >
+        type_id = #{type.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="user.userId != null" >
+        attends_user_id = #{user.userId,jdbcType=BIGINT},
+      </if>
+      <if test="attendHmtime != null" >
+        attend_hmtime = #{attendHmtime,jdbcType=VARCHAR},
+      </if>
+      <if test="weekOfday != null" >
+        week_ofday = #{weekOfday,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayDays != null" >
+        holiday_days = #{holidayDays,jdbcType=DOUBLE},
+      </if>
+      <if test="holidayStart != null" >
+        holiday_start = #{holidayStart,jdbcType=DATE},
+      </if>
+    </set>
+    where attends_id = #{attendsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaAttendsList" >
+    update aoa_attends_list
+    set attends_ip = #{attendsIp,jdbcType=VARCHAR},
+      attends_remark = #{attendsRemark,jdbcType=VARCHAR},
+      attends_time = #{attendsTime,jdbcType=TIMESTAMP},
+      status_id = #{statusId,jdbcType=BIGINT},
+      type_id = #{typeId,jdbcType=BIGINT},
+      attends_user_id = #{attendsUserId,jdbcType=BIGINT},
+      attend_hmtime = #{attendHmtime,jdbcType=VARCHAR},
+      week_ofday = #{weekOfday,jdbcType=VARCHAR},
+      holiday_days = #{holidayDays,jdbcType=DOUBLE},
+      holiday_start = #{holidayStart,jdbcType=DATE}
+    where attends_id = #{attendsId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 查询总条数 -->
+  <select id="attendsFindCount" parameterType="queryVo" resultType="java.lang.Integer">
+  	select count(*) from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id
+  </select>
+  
+  <!-- 分页查询 -->
+  <select id="attendsQueryPage" parameterType="queryVo" resultMap="BaseResultMap">
+  	select a.attends_id,a.attends_ip,a.attends_remark,a.attends_time,a.attend_hmtime,a.week_ofday,a.holiday_days,a.holiday_start,s.status_id,s.status_name,t.type_id,t.type_name,u.user_id,u.user_name from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id
+  	 limit #{startRow},#{size}
+  </select>
+  
+  <!--根据id查询  -->
+  <select id="findList" parameterType="Long" resultMap="BaseResultMap">
+  		select a.attends_id,a.attends_ip,a.attends_remark,a.attends_time,a.attend_hmtime,a.week_ofday,a.holiday_days,a.holiday_start,s.status_id,s.status_name,t.type_id,t.type_name,u.user_id,u.user_name from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id
+  		<where>
+  			a.attends_id=#{l}
+  		</where>
+  </select>
+  
+  <!-- 修改 -->
+  <update id="update" parameterType="AoaAttendsList">
+  	 update aoa_attends_list
+    <set >
+      <if test="attendsRemark != null" >
+        attends_remark = #{attendsRemark},
+      </if>
+      <if test="status.statusId != null" >
+        status_id = #{status.statusId}
+      </if>
+    </set>
+    where attends_id = #{attendsId}
+  </update>
+  
+  <!--根据日期区域查询  -->
+  <select id="queryAttendsWeekPage" parameterType="queryVo" resultMap="BaseResultMap">
+		 	select a.attends_id,a.attends_ip,a.attends_remark,a.attends_time,a.attend_hmtime,a.week_ofday,a.holiday_days,a.holiday_start,s.status_id,s.status_name,t.type_id,t.type_name,u.user_id,u.user_name,ud.dept_id as udept_id, ud.dept_name as udept_name from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id LEFT JOIN aoa_dept ud on u.dept_id=ud.dept_id
+			<where>
+				attends_time  BETWEEN #{startDate} and #{endDate}    GROUP BY user_name
+			</where> 
+			 limit #{startRow},#{size}
+  </select>
+  
+  <!-- 日期区域查询查询总条数 -->
+  <select id="queryAttendsWeekCount"  parameterType="queryVo" resultType="java.lang.Integer" >
+  	select count(*) from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id
+			<where>
+				attends_time  BETWEEN #{startDate} and #{endDate}      GROUP BY user_name
+			</where> 
+  </select>
+  <!-- 根据id查询在某个时间阶段 -->
+  <select id="findByWeekId" parameterType="queryVo" resultMap="BaseResultMap">
+  		select a.attends_id,a.attends_ip,a.attends_remark,a.attends_time,a.attend_hmtime,a.week_ofday,a.holiday_days,a.holiday_start,s.status_id,s.status_name,t.type_id,t.type_name,u.user_id,u.user_name,u.dept_id from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id
+		<where>
+			attends_time  BETWEEN #{startDate} and #{endDate}   and  u.user_id=#{id1}
+		</where> 
+		
+  </select>
+  
+  <!-- 查询一个月 的总条数-->
+  <select id="queryAttendsMonthCount" parameterType="queryVo" resultType="java.lang.Integer">
+  	select count(*) from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id
+	<where>
+			a.attends_time&gt;= #{startDate} and a.attends_time&lt;=#{endDate}   GROUP BY user_name
+	</where>
+  </select>
+	<!-- 查询一个月的数据分页 -->
+	<select id="queryAttendsMonthPage" parameterType="queryVo" resultMap="BaseResultMap">
+		select a.attends_id,a.attends_ip,a.attends_remark,a.attends_time,a.attend_hmtime,a.week_ofday,a.holiday_days,a.holiday_start,s.status_id,s.status_name,t.type_id,t.type_name,u.user_id,u.user_name,ud.dept_id as udept_id, ud.dept_name as udept_name from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id LEFT JOIN aoa_dept ud on u.dept_id=ud.dept_id
+		<where>
+			a.attends_time&gt;= #{startDate} and a.attends_time&lt;=#{endDate}   GROUP BY user_name
+		</where>
+		 limit #{startRow},#{size}
+	</select>
+	<!-- 根据id查询一个月的出勤情况 -->
+	<select id="findByStatusId" parameterType="queryVo" resultType="java.lang.Integer">
+		select  count(*) from aoa_attends_list a LEFT JOIN aoa_status_list s on a.status_id=s.status_id LEFT JOIN aoa_type_list t on a.type_id=t.type_id LEFT JOIN aoa_user u ON a.attends_user_id=u.user_id
+		<where>
+			a.attends_time&gt;= #{startDate} and a.attends_time&lt;=#{endDate}  and  u.user_id=#{id1} and a.status_id=#{id2}
+		</where>
+	</select>
+</mapper>

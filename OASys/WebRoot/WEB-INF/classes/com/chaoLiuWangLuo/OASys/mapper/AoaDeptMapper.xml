@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaDept" >
+    <id column="dept_id" property="deptId" jdbcType="BIGINT" />
+    <result column="dept_addr" property="deptAddr" jdbcType="VARCHAR" />
+    <result column="dept_fax" property="deptFax" jdbcType="VARCHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="dept_tel" property="deptTel" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="deptmanager" property="deptmanager" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dept_id, dept_addr, dept_fax, dept_name, dept_tel, email, deptmanager, end_time, 
+    start_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDeptExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_dept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_dept
+    where dept_id = #{deptId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_dept
+    where dept_id = #{deptId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDeptExample" >
+    delete from aoa_dept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDept" >
+    insert into aoa_dept (dept_id, dept_addr, dept_fax, 
+      dept_name, dept_tel, email, 
+      deptmanager, end_time, start_time
+      )
+    values (#{deptId,jdbcType=BIGINT}, #{deptAddr,jdbcType=VARCHAR}, #{deptFax,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{deptTel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{deptmanager,jdbcType=BIGINT}, #{endTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDept" >
+    insert into aoa_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="deptAddr != null" >
+        dept_addr,
+      </if>
+      <if test="deptFax != null" >
+        dept_fax,
+      </if>
+      <if test="deptName != null" >
+        dept_name,
+      </if>
+      <if test="deptTel != null" >
+        dept_tel,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="deptmanager != null" >
+        deptmanager,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="deptAddr != null" >
+        #{deptAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="deptFax != null" >
+        #{deptFax,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptTel != null" >
+        #{deptTel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="deptmanager != null" >
+        #{deptmanager,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDeptExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_dept
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_dept
+    <set >
+      <if test="record.deptId != null" >
+        dept_id = #{record.deptId,jdbcType=BIGINT},
+      </if>
+      <if test="record.deptAddr != null" >
+        dept_addr = #{record.deptAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptFax != null" >
+        dept_fax = #{record.deptFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptName != null" >
+        dept_name = #{record.deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptTel != null" >
+        dept_tel = #{record.deptTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptmanager != null" >
+        deptmanager = #{record.deptmanager,jdbcType=BIGINT},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_dept
+    set dept_id = #{record.deptId,jdbcType=BIGINT},
+      dept_addr = #{record.deptAddr,jdbcType=VARCHAR},
+      dept_fax = #{record.deptFax,jdbcType=VARCHAR},
+      dept_name = #{record.deptName,jdbcType=VARCHAR},
+      dept_tel = #{record.deptTel,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      deptmanager = #{record.deptmanager,jdbcType=BIGINT},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDept" >
+    update aoa_dept
+    <set >
+      <if test="deptAddr != null" >
+        dept_addr = #{deptAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="deptFax != null" >
+        dept_fax = #{deptFax,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptTel != null" >
+        dept_tel = #{deptTel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="deptmanager != null" >
+        deptmanager = #{deptmanager,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where dept_id = #{deptId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDept" >
+    update aoa_dept
+    set dept_addr = #{deptAddr,jdbcType=VARCHAR},
+      dept_fax = #{deptFax,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_tel = #{deptTel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      deptmanager = #{deptmanager,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP}
+    where dept_id = #{deptId,jdbcType=BIGINT}
+  </update>
+</mapper>

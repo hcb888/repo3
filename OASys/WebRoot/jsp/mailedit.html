@@ -1,0 +1,564 @@
+<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="js/mail/mail.js"></script>
+<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css">
+<link rel="stylesheet" href="css/common/tanchuang.css">
+<style>
+.ke-container{
+border-radius: 5px;
+}
+</style>
+<div class="bgc-w box box-primary" style="min-height: 613px;">
+	<!--盒子头-->
+	<div class="box-header">
+		<h3 class="box-title">写信</h3>
+		<div class="box-tools">
+			<div class="pull-right top">
+				<button type="button" class="btn btn-md btn-primary">
+					<span class="glyphicon glyphicon-chevron-down ">展开更多</span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<!--盒子身体-->
+	<form action="pushmail" method="post" enctype="multipart/form-data" onsubmit="return check();">
+	<div class="box-body">
+		<!--錯誤信息提示  -->
+					<div class="alert alert-danger alert-dismissable" style="display:none;" role="alert">
+						错误信息:<button class="thisclose close" type="button">×</button>
+						<span class="error-mess"></span>
+					</div>
+		<div id="MoreDiv">
+			<div class="form-group">
+				<select name="mailType" id="ctl00_cphMain_ddlType" class="select2 form-control">
+										<option value="16">邮件</option>
+						<option value="17">通知</option>
+						<option value="18">公告</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select name="mailStatusid" id="ctl00_cphMain_ddlStatus" class="select2 form-control">
+						<option value="20">一般</option>
+						<option value="20">一般</option>
+						<option value="21">重要</option>
+						<option value="22">紧急</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select name="inmail" id="account" class="select2 form-control">
+					<option value="0">内部邮件</option>
+					<option value="1">罗密欧-公司邮件</option>
+					<option value="14">系统邮件-罗密欧</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<input name="inReceiver" type="text" id="recive_list" style="background-color: #fff;" class="form-control" readonly="readonly" placeholder="收件人：">
+			<div class="reciver">
+				<span class="label label-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal">通讯录</span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<input name="mailTitle" type="text" value="罗密欧->研发部经理,财务部经理" id="ctl00_cphMain_txtSubject" class="form-control" placeholder="主题：">
+		</div>
+
+		<div class="form-group">
+			<textarea name="content" class="form-control tent" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;">&lt;br/&gt;&lt;hr/&gt;罗密欧-&gt;研发部经理,财务部经理</textarea>
+		</div>
+
+		<div class="form-group">
+			<div class="btn btn-default ">
+				<span class="glyphicon glyphicon-paperclip">增加附件</span> <input type="file" name="file" id="ctl00_cphMain_fuAttachment">
+			</div>
+			<p class="help-block">5MB以内</p>
+		</div>
+
+	</div>
+	<!--盒子尾-->
+	<div class="box-footer foots">
+		<div class="left1">
+			<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default " href="mail.html"><span>放弃</span></a>
+		</div>
+		<div class="pull-right right1 ">
+		    <input type="submit" class="btn btn-default" value="存草稿">
+			<input type="submit" class="btn btn-primary " name="fasong" value="发送">
+			
+		</div>
+	</div>	
+	</form>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#account").change(function(){
+		console.log("qq");
+		var options=$("#account option:selected");
+		if(options.val()=="0"){
+			console.log("www");
+			$("#recive_list").prop("readonly",true);
+		}else{
+			console.log("sss");
+			$("#recive_list").removeAttr("readonly");
+		}
+	});
+});
+//验证邮箱
+function isMailNo(mail){
+	var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
+	return pattern.test(mail);
+}
+
+function alertCheck(errorMess){
+		
+		$('.alert-danger').css('display', 'block');
+		// 提示框的错误信息显示
+		$('.error-mess').text(errorMess);
+		
+}
+//表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
+function check() {
+	
+	
+	console.log("开始进入了");
+	//提示框可能在提交之前是block状态，所以在这之前要设置成none
+	$('.alert-danger').css('display', 'none');
+	var isRight = 1;
+	$('.form-control').each(function(index) {
+		// 如果在这些input框中，判断是否能够为空
+		if ($(this).val() == "") {
+			
+			// 排除哪些字段是可以为空的，在这里排除
+			if (index == 5||index == 6) {
+				return true;
+			} 
+			
+			// 获取到input框的兄弟的文本信息，并对应提醒；
+			
+			var errorMess = "红色提示框不能为空!";
+			// 对齐设置错误信息提醒；红色边框
+			$(this).parent().addClass("has-error has-feedback");
+			$('.alert-danger').css('display', 'block');
+			// 提示框的错误信息显示
+			$('.error-mess').text(errorMess);
+			
+			isRight = 0;
+			return false;
+			
+		} else {
+			var $account=$("#account").val();
+			 
+			if($account!=0){
+				if(index==3){
+					var $mail=$(this).val();
+					var patt1 = new RegExp(";");
+					var arr=new Array();
+					if(patt1.test($mail)){
+						arr=$mail.split(";");
+						for(var i=0;i<arr.length;i++){
+							if(isMailNo(arr[i]) == false){
+								$(this).parent().addClass("has-error has-feedback");
+			 					alertCheck("请输入正确的邮箱!");
+			 					isRight = 0;
+			 		 			return false;
+							}
+							}
+					}else{
+						arr=$mail.split("；");
+						for(var i=0;i<arr.length;i++){
+							if(isMailNo(arr[i]) == false){
+								$(this).parent().addClass("has-error has-feedback");
+			 					alertCheck("请输入正确的邮箱!");
+			 					isRight = 0;
+			 		 			return false;
+							}
+							}
+					}
+					}
+			} 
+			return true;
+		}
+	});
+	
+	if (isRight == 0) {
+		//modalShow(0);
+		 return false;
+	} else if (isRight == 1) {
+		//modalShow(1);
+		 return true;
+	}
+//	return false;
+}
+
+
+</script>
+
+
+<style>
+ .table-r{
+ overflow: scroll;
+ height:245px;
+ }
+</style>
+<!-- 接收人弹窗-->
+				<div class="modal fade " id="myModal" tabindex="-1">
+
+					<!--第二步，窗口声明-->
+					<div class="modal-dialog modal-lg ">
+						<!--第三步、内容区的声明-->
+						<div class="modal-content" style="background: #F9F9F9;">
+							<div class="modal-1">
+
+								<div class="modal-2">
+
+									<div class="modal-header" style="margin:10px;margin-top: -20px;">
+										<button class="close" data-dismiss="modal" style="display: block;margin: -52px -78px 0 0;;border-radius: 60%;">
+											<span class="glyphicon glyphicon-remove-circle" style="color:white;font-size: 30px;"></span>
+										</button>
+										<div class="row">
+											<div class="col-xs-12" style="height:30px;margin:10px 0px;">
+
+												<h4 style="float:left;">
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm" href="##" onclick="addvalue()"> 新增接收人</a>
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm" href="##" onclick="addvalue2()"> 
+                      				追加接收人</a>
+                  			</h4>
+
+												<div class="input-group">
+													<input type="text" class="form-control input-sm pull-right cha" placeholder="查找...">
+													<div class="input-group-btn chazhao" style="top:-1px;">
+														<a class="btn btn-sm btn-default glyphicon glyphicon-search" style="height: 30px;" href="##"></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-body thistable" style="margin:10px;">
+									
+									<div class="table-r">
+										<table class="table  table-hover  container-fluid ">
+										<thead>
+											<tr class="row">
+												<th class=" col-xs-1">
+													<span class="labels" style="display:none;"><label><input id="checkedAll" type="checkbox"><i>✓</i></label></span>
+												</th>
+												<th class=" col-xs-1">
+													<span class="labels" style="display:block;"></span>
+												</th>
+												<th class=" col-xs-2 b">部门</th>
+												<th class=" col-xs-2 b">真实姓名 </th>
+												<th class="col-xs-2 b">用户名</th>
+												<th class="col-xs-2 b">职位</th>
+												<th class=" col-xs-2">电话</th>
+											</tr>
+										</thead>
+										<tbody>
+																						<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg">
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">小明 </td>
+												<td class="col-xs-2 na">罗密欧</td>
+												<td class=" col-xs-2">超级管理员</td>
+												<td class=" col-xs-2">13272143450</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/handsome.JPG">
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">小梅 </td>
+												<td class="col-xs-2 na">朱丽叶</td>
+												<td class=" col-xs-2">CEO</td>
+												<td class=" col-xs-2">13203318185</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/eightman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">芳芳 </td>
+												<td class="col-xs-2 na">伊丽莎白</td>
+												<td class=" col-xs-2">总经理</td>
+												<td class=" col-xs-2">18683688154</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/fiveman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">李明 </td>
+												<td class="col-xs-2 na">小李父斯基</td>
+												<td class=" col-xs-2">研发部经理</td>
+												<td class=" col-xs-2">18173328888</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/fourman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">财务部</td>
+												<td class=" col-xs-2">小罗 </td>
+												<td class="col-xs-2 na">soli</td>
+												<td class=" col-xs-2">财务部经理</td>
+												<td class=" col-xs-2">18173328976</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/nineman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">市场部</td>
+												<td class=" col-xs-2">小红 </td>
+												<td class="col-xs-2 na">红之花</td>
+												<td class=" col-xs-2">市场部经理</td>
+												<td class=" col-xs-2">18868688866</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/oneman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">人事部</td>
+												<td class=" col-xs-2">小喻 </td>
+												<td class="col-xs-2 na">甄姬</td>
+												<td class=" col-xs-2">人事部经理</td>
+												<td class=" col-xs-2">13117336953</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/sevenman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">小费 </td>
+												<td class="col-xs-2 na">甄姬2</td>
+												<td class=" col-xs-2">程序员</td>
+												<td class=" col-xs-2">13117336954</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/twoman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">小花 </td>
+												<td class="col-xs-2 na">甄嬛</td>
+												<td class=" col-xs-2">初级工程师</td>
+												<td class=" col-xs-2">13034507214</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/handsome.JPG">
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">花红 </td>
+												<td class="col-xs-2 na">无双</td>
+												<td class=" col-xs-2">中级工程师</td>
+												<td class=" col-xs-2">13117336954</td>
+
+											</tr>
+											</tbody>
+										</table>
+										</div>
+
+<div class="box-footer no-padding" style="margin-top: -20px;">
+	<div style="padding: 5px;">
+		<div id="page" style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
+			<div style="width: 40%; float: left;">
+				<div class="pageInfo" style="margin-left: 5px;">
+					共<span>31</span>条 | 每页<span>10</span>条
+					| 共<span>4</span>页
+				</div>
+			</div>
+			<div style="width: 60%; float: left;">
+				<div class="pageOperation">
+				<!--判断是否是第一页  -->
+					<a class="btn btn-sm btn-default no-padding tablefirst" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-backward"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tableup" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-triangle-left"></span></a> 
+				<a disabled="disabled" class="btn btn-default no-padding" style="width: 30px; height: 20px;">
+						1
+				</a>
+				<!--判断是否是最后一页  -->
+					<a class="btn btn-sm btn-default no-padding tabledown" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-triangle-right"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tablelast" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-forward"></span></a> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+		/* 分页插件按钮的点击事件 */
+		/* url是从后台接收过来的链接，sort是记录排序规则 */
+		$('.tablefirst').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('names?page=0');
+			 }
+		});
+		$('.tableup').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('names?page=-1');
+			 }
+		});
+		$('.tabledown').on('click',function(){
+			if(false==false){
+				$('.thistable').load('names?page=1');
+			 }
+		});
+		$('.tablelast').on('click',function(){
+			if(false==false){
+				$('.thistable').load('names?page=3');
+			 }
+			
+		});
+		
+		/*类型、状态、时间的排序  */
+		$('.thistype').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('names?type=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('names?type=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisstatus').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('names?status=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('names?status=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thistime').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('names?time=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('names?time=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisvisit').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('names?visitnum=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('names?visitnum=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		/* 查找 */
+		$('.baseKetsubmit').on('click', function() {
+			var baseKey = $('.baseKey').val();
+			console.log(baseKey);
+			$('.thistable').load('names?baseKey='+baseKey+'');
+		});
+</script>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<h2 class="mi" style="display:none;"></h2>
+<script>
+$(function(){
+	
+	/* 分页插件按钮的点击事件 */
+	
+	$('.baseKetsubmit').on('click',function(){
+		var baseKey=$('.baseKey').val();
+		$('#myModal .thistable').load('names?baseKey=baseKey');
+	});
+	$(".chazhao").click(function() {
+		var $qufen=$(".mi").text();
+		var con = $(".cha").val();
+		$("#myModal .thistable").load("names",{title:con,qufen:$qufen});
+	});
+});
+function addvalue(){
+	
+	var id_array=new Array();
+	$('input[name="id"]:checked').each(function(){
+	
+		var $name=$(this).parents(".col-xs-1").siblings(".na").text();
+		console.log($name);
+		id_array.push($name);//向数组中添加元素
+		var idstr=id_array.join(';');//将数组元素连接起来以构建一个字符串
+		$("#recive_list").val(idstr);
+		$(".recive_list").val(idstr);
+		$(".recive_list").change();
+	})
+	
+	$(".fade").css("display","none");
+	
+}
+/*追加到联系人*/
+function addvalue2(){
+	
+	var id_array=new Array();
+	
+	var  idstr=null;
+
+	$('input[name="id"]:checked').each(function(){
+		var $name=$(this).parents(".col-xs-1").siblings(".na").text();
+		id_array.push($name);
+		idstr=id_array.join(';');
+	})
+	
+	var org=$("#recive_list").val();
+	$("#recive_list").val(org+';'+idstr);	
+	$(".fade").css("display","none");
+	
+}
+</script>

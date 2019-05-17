@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaFileListMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaFileList" >
+    <id column="file_id" property="fileId" jdbcType="BIGINT" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_shuffix" property="fileShuffix" jdbcType="VARCHAR" />
+    <result column="content_type" property="contentType" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="path_id" property="pathId" jdbcType="BIGINT" />
+    <result column="size" property="size" jdbcType="BIGINT" />
+    <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="file_user_id" property="fileUserId" jdbcType="BIGINT" />
+    <result column="file_istrash" property="fileIstrash" jdbcType="BIGINT" />
+    <result column="file_isshare" property="fileIsshare" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    file_id, file_name, file_path, file_shuffix, content_type, model, path_id, size, 
+    upload_time, file_user_id, file_istrash, file_isshare
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFileListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_file_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_file_list
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_file_list
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFileListExample" >
+    delete from aoa_file_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFileList" >
+    insert into aoa_file_list (file_id, file_name, file_path, 
+      file_shuffix, content_type, model, 
+      path_id, size, upload_time, 
+      file_user_id, file_istrash, file_isshare
+      )
+    values (#{fileId,jdbcType=BIGINT}, #{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{fileShuffix,jdbcType=VARCHAR}, #{contentType,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{pathId,jdbcType=BIGINT}, #{size,jdbcType=BIGINT}, #{uploadTime,jdbcType=TIMESTAMP}, 
+      #{fileUserId,jdbcType=BIGINT}, #{fileIstrash,jdbcType=BIGINT}, #{fileIsshare,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFileList" >
+    insert into aoa_file_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileShuffix != null" >
+        file_shuffix,
+      </if>
+      <if test="contentType != null" >
+        content_type,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="pathId != null" >
+        path_id,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+      <if test="fileUserId != null" >
+        file_user_id,
+      </if>
+      <if test="fileIstrash != null" >
+        file_istrash,
+      </if>
+      <if test="fileIsshare != null" >
+        file_isshare,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=BIGINT},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileShuffix != null" >
+        #{fileShuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null" >
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="pathId != null" >
+        #{pathId,jdbcType=BIGINT},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileUserId != null" >
+        #{fileUserId,jdbcType=BIGINT},
+      </if>
+      <if test="fileIstrash != null" >
+        #{fileIstrash,jdbcType=BIGINT},
+      </if>
+      <if test="fileIsshare != null" >
+        #{fileIsshare,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFileListExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_file_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_file_list
+    <set >
+      <if test="record.fileId != null" >
+        file_id = #{record.fileId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fileName != null" >
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filePath != null" >
+        file_path = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileShuffix != null" >
+        file_shuffix = #{record.fileShuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentType != null" >
+        content_type = #{record.contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null" >
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pathId != null" >
+        path_id = #{record.pathId,jdbcType=BIGINT},
+      </if>
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=BIGINT},
+      </if>
+      <if test="record.uploadTime != null" >
+        upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fileUserId != null" >
+        file_user_id = #{record.fileUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fileIstrash != null" >
+        file_istrash = #{record.fileIstrash,jdbcType=BIGINT},
+      </if>
+      <if test="record.fileIsshare != null" >
+        file_isshare = #{record.fileIsshare,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_file_list
+    set file_id = #{record.fileId,jdbcType=BIGINT},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      file_path = #{record.filePath,jdbcType=VARCHAR},
+      file_shuffix = #{record.fileShuffix,jdbcType=VARCHAR},
+      content_type = #{record.contentType,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      path_id = #{record.pathId,jdbcType=BIGINT},
+      size = #{record.size,jdbcType=BIGINT},
+      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      file_user_id = #{record.fileUserId,jdbcType=BIGINT},
+      file_istrash = #{record.fileIstrash,jdbcType=BIGINT},
+      file_isshare = #{record.fileIsshare,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFileList" >
+    update aoa_file_list
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileShuffix != null" >
+        file_shuffix = #{fileShuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null" >
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="pathId != null" >
+        path_id = #{pathId,jdbcType=BIGINT},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=BIGINT},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileUserId != null" >
+        file_user_id = #{fileUserId,jdbcType=BIGINT},
+      </if>
+      <if test="fileIstrash != null" >
+        file_istrash = #{fileIstrash,jdbcType=BIGINT},
+      </if>
+      <if test="fileIsshare != null" >
+        file_isshare = #{fileIsshare,jdbcType=BIGINT},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFileList" >
+    update aoa_file_list
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_shuffix = #{fileShuffix,jdbcType=VARCHAR},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      path_id = #{pathId,jdbcType=BIGINT},
+      size = #{size,jdbcType=BIGINT},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      file_user_id = #{fileUserId,jdbcType=BIGINT},
+      file_istrash = #{fileIstrash,jdbcType=BIGINT},
+      file_isshare = #{fileIsshare,jdbcType=BIGINT}
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </update>
+</mapper>

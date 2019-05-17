@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaFilePathMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaFilePath" >
+    <id column="path_id" property="pathId" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="path_name" property="pathName" jdbcType="VARCHAR" />
+    <result column="path_user_id" property="pathUserId" jdbcType="BIGINT" />
+    <result column="path_istrash" property="pathIstrash" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    path_id, parent_id, path_name, path_user_id, path_istrash
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFilePathExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_file_path
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_file_path
+    where path_id = #{pathId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_file_path
+    where path_id = #{pathId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFilePathExample" >
+    delete from aoa_file_path
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFilePath" >
+    insert into aoa_file_path (path_id, parent_id, path_name, 
+      path_user_id, path_istrash)
+    values (#{pathId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{pathName,jdbcType=VARCHAR}, 
+      #{pathUserId,jdbcType=BIGINT}, #{pathIstrash,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFilePath" >
+    insert into aoa_file_path
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pathId != null" >
+        path_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="pathName != null" >
+        path_name,
+      </if>
+      <if test="pathUserId != null" >
+        path_user_id,
+      </if>
+      <if test="pathIstrash != null" >
+        path_istrash,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pathId != null" >
+        #{pathId,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="pathName != null" >
+        #{pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="pathUserId != null" >
+        #{pathUserId,jdbcType=BIGINT},
+      </if>
+      <if test="pathIstrash != null" >
+        #{pathIstrash,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFilePathExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_file_path
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_file_path
+    <set >
+      <if test="record.pathId != null" >
+        path_id = #{record.pathId,jdbcType=BIGINT},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pathName != null" >
+        path_name = #{record.pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pathUserId != null" >
+        path_user_id = #{record.pathUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pathIstrash != null" >
+        path_istrash = #{record.pathIstrash,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_file_path
+    set path_id = #{record.pathId,jdbcType=BIGINT},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      path_name = #{record.pathName,jdbcType=VARCHAR},
+      path_user_id = #{record.pathUserId,jdbcType=BIGINT},
+      path_istrash = #{record.pathIstrash,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFilePath" >
+    update aoa_file_path
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="pathName != null" >
+        path_name = #{pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="pathUserId != null" >
+        path_user_id = #{pathUserId,jdbcType=BIGINT},
+      </if>
+      <if test="pathIstrash != null" >
+        path_istrash = #{pathIstrash,jdbcType=BIGINT},
+      </if>
+    </set>
+    where path_id = #{pathId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaFilePath" >
+    update aoa_file_path
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      path_name = #{pathName,jdbcType=VARCHAR},
+      path_user_id = #{pathUserId,jdbcType=BIGINT},
+      path_istrash = #{pathIstrash,jdbcType=BIGINT}
+    where path_id = #{pathId,jdbcType=BIGINT}
+  </update>
+</mapper>

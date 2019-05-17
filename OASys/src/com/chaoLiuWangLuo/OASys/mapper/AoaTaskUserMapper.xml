@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaTaskUserMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaTaskUser" >
+    <id column="pk_id" property="pkId" jdbcType="BIGINT" />
+    <!-- 多对一 -->
+    <association property="status" javaType="AoaStatusList">
+    	<id column="status_id" property="statusId"/>
+    	<result column="status_name" property="statusName"/>
+    </association>
+    
+    <association property="task" javaType="AoaTaskList">
+    	<id column="task_id" property="taskId"/>
+    	<result column="title" property="title"/>
+    	<result column="star_time" property="starTime"/>
+    	  <!-- 多对一 -->
+    	 <association property="user" javaType="AoaUser">
+	    	<id column="tuser_id" property="userId"/>
+	    	<result column="tuser_name" property="userName"/>
+	    	
+	    		 <!-- 多对一 -->
+	    	  <association property="dept" javaType="AoaDept">
+		    	<id column="dept_id" property="deptId"/>
+		    	<result column="dept_name" property="deptName"/>
+	    	  </association>
+	    </association>
+	    
+	     <association property="type" javaType="AoaTypeList">
+	    	<id column="type_id" property="typeId"/>
+	    	<result column="type_name" property="typeName"/>
+	    </association>
+    </association>
+    
+    <association property="user" javaType="AoaUser">
+    	<id column="user_id" property="userId"/>
+	    <result column="user_name" property="userName"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_id, status_id, task_id, task_recive_user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTaskUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_task_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_task_user
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_task_user
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTaskUserExample" >
+    delete from aoa_task_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTaskUser" >
+    insert into aoa_task_user (pk_id, status_id, task_id, 
+      task_recive_user_id)
+    values (#{pkId,jdbcType=BIGINT}, #{status.statusId,jdbcType=BIGINT}, #{task.taskId,jdbcType=BIGINT}, 
+      #{user.userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTaskUser" >
+    insert into aoa_task_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="taskReciveUserId != null" >
+        task_recive_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="taskReciveUserId != null" >
+        #{taskReciveUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTaskUserExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_task_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_task_user
+    <set >
+      <if test="record.pkId != null" >
+        pk_id = #{record.pkId,jdbcType=BIGINT},
+      </if>
+      <if test="record.statusId != null" >
+        status_id = #{record.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskReciveUserId != null" >
+        task_recive_user_id = #{record.taskReciveUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_task_user
+    set pk_id = #{record.pkId,jdbcType=BIGINT},
+      status_id = #{record.statusId,jdbcType=BIGINT},
+      task_id = #{record.taskId,jdbcType=BIGINT},
+      task_recive_user_id = #{record.taskReciveUserId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTaskUser" >
+    update aoa_task_user
+    <set >
+      <if test="status!=null and status.statusId != null" >
+        status_id = #{status.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="task!=null and task.taskId != null" >
+        task_id = #{task.taskId,jdbcType=BIGINT},
+      </if>
+      <if test="user != null and user.userId!=null" >
+        task_recive_user_id = #{user.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaTaskUser" >
+    update aoa_task_user
+    set status_id = #{statusId,jdbcType=BIGINT},
+      task_id = #{taskId,jdbcType=BIGINT},
+      task_recive_user_id = #{taskReciveUserId,jdbcType=BIGINT}
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 根据id查询 -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="queryVo">
+    SELECT tu.pk_id,s.status_id,s.status_name,u.user_id,u.user_name,task.task_id,task.title,task.star_time,type.type_id,type.type_name,tuser.user_id as tuser_id,tuser.user_name as tuser_name,dept.dept_id,dept.dept_name from aoa_task_user tu LEFT JOIN aoa_status_list s on tu.status_id=s.status_id LEFT JOIN aoa_user u on tu.task_recive_user_id=u.user_id LEFT JOIN aoa_task_list task on tu.task_id=task.task_id LEFT JOIN aoa_type_list type on task.type_id=type.type_id LEFT JOIN aoa_user tuser on task.task_push_user_id=tuser.user_id LEFT JOIN aoa_dept dept on tuser.dept_id=dept.dept_id
+  	<where>
+ 		u.user_id=#{id1} and task.task_id=#{id2}
+ 	</where>
+  </select>
+  
+   <!-- 查询总条数 -->
+  <select id="taskUserFindCount" parameterType="queryVo" resultType="java.lang.Integer">
+  	 	SELECT  count(*) from aoa_task_user tu LEFT JOIN aoa_status_list s on tu.status_id=s.status_id LEFT JOIN aoa_user u on tu.task_recive_user_id=u.user_id LEFT JOIN aoa_task_list task on tu.task_id=task.task_id LEFT JOIN aoa_type_list type on task.type_id=type.type_id LEFT JOIN aoa_user tuser on task.task_push_user_id=tuser.user_id LEFT JOIN aoa_dept dept on tuser.dept_id=dept.dept_id
+  		<where>
+  	     	u.user_id=#{id1}
+  	     </where>
+  </select>
+  
+  <!-- 分页查询 -->
+  <select id="taskUserQueryPage"  parameterType="queryVo" resultMap="BaseResultMap">
+  	     SELECT tu.pk_id,s.status_id,s.status_name,u.user_id,u.user_name,task.task_id,task.title,task.star_time,type.type_id,type.type_name,tuser.user_id as tuser_id,tuser.user_name as tuser_name,dept.dept_id,dept.dept_name from aoa_task_user tu LEFT JOIN aoa_status_list s on tu.status_id=s.status_id LEFT JOIN aoa_user u on tu.task_recive_user_id=u.user_id LEFT JOIN aoa_task_list task on tu.task_id=task.task_id LEFT JOIN aoa_type_list type on task.type_id=type.type_id LEFT JOIN aoa_user tuser on task.task_push_user_id=tuser.user_id LEFT JOIN aoa_dept dept on tuser.dept_id=dept.dept_id
+  	     <where>
+  	     	u.user_id=#{id1}
+  	     </where>
+  	     limit #{startRow},#{size}
+  </select>
+  
+  
+</mapper>

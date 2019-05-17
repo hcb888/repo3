@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaNoteListMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaNoteList" >
+    <id column="note_id" property="noteId" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status_id" property="statusId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="catalog_id" property="catalogId" jdbcType="BIGINT" />
+    <result column="attach_id" property="attachId" jdbcType="BIGINT" />
+    <result column="is_collected" property="isCollected" jdbcType="BIGINT" />
+    <result column="createman_id" property="createmanId" jdbcType="BIGINT" />
+    <result column="receiver" property="receiver" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    note_id, content, create_time, status_id, title, type_id, catalog_id, attach_id, 
+    is_collected, createman_id, receiver
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoteListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_note_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_note_list
+    where note_id = #{noteId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_note_list
+    where note_id = #{noteId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoteListExample" >
+    delete from aoa_note_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoteList" >
+    insert into aoa_note_list (note_id, content, create_time, 
+      status_id, title, type_id, 
+      catalog_id, attach_id, is_collected, 
+      createman_id, receiver)
+    values (#{noteId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{statusId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{typeId,jdbcType=BIGINT}, 
+      #{catalogId,jdbcType=BIGINT}, #{attachId,jdbcType=BIGINT}, #{isCollected,jdbcType=BIGINT}, 
+      #{createmanId,jdbcType=BIGINT}, #{receiver,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoteList" >
+    insert into aoa_note_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noteId != null" >
+        note_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="catalogId != null" >
+        catalog_id,
+      </if>
+      <if test="attachId != null" >
+        attach_id,
+      </if>
+      <if test="isCollected != null" >
+        is_collected,
+      </if>
+      <if test="createmanId != null" >
+        createman_id,
+      </if>
+      <if test="receiver != null" >
+        receiver,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noteId != null" >
+        #{noteId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="catalogId != null" >
+        #{catalogId,jdbcType=BIGINT},
+      </if>
+      <if test="attachId != null" >
+        #{attachId,jdbcType=BIGINT},
+      </if>
+      <if test="isCollected != null" >
+        #{isCollected,jdbcType=BIGINT},
+      </if>
+      <if test="createmanId != null" >
+        #{createmanId,jdbcType=BIGINT},
+      </if>
+      <if test="receiver != null" >
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoteListExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_note_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_note_list
+    <set >
+      <if test="record.noteId != null" >
+        note_id = #{record.noteId,jdbcType=BIGINT},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.statusId != null" >
+        status_id = #{record.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.catalogId != null" >
+        catalog_id = #{record.catalogId,jdbcType=BIGINT},
+      </if>
+      <if test="record.attachId != null" >
+        attach_id = #{record.attachId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isCollected != null" >
+        is_collected = #{record.isCollected,jdbcType=BIGINT},
+      </if>
+      <if test="record.createmanId != null" >
+        createman_id = #{record.createmanId,jdbcType=BIGINT},
+      </if>
+      <if test="record.receiver != null" >
+        receiver = #{record.receiver,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_note_list
+    set note_id = #{record.noteId,jdbcType=BIGINT},
+      content = #{record.content,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      status_id = #{record.statusId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      catalog_id = #{record.catalogId,jdbcType=BIGINT},
+      attach_id = #{record.attachId,jdbcType=BIGINT},
+      is_collected = #{record.isCollected,jdbcType=BIGINT},
+      createman_id = #{record.createmanId,jdbcType=BIGINT},
+      receiver = #{record.receiver,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoteList" >
+    update aoa_note_list
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null" >
+        status_id = #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="catalogId != null" >
+        catalog_id = #{catalogId,jdbcType=BIGINT},
+      </if>
+      <if test="attachId != null" >
+        attach_id = #{attachId,jdbcType=BIGINT},
+      </if>
+      <if test="isCollected != null" >
+        is_collected = #{isCollected,jdbcType=BIGINT},
+      </if>
+      <if test="createmanId != null" >
+        createman_id = #{createmanId,jdbcType=BIGINT},
+      </if>
+      <if test="receiver != null" >
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where note_id = #{noteId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoteList" >
+    update aoa_note_list
+    set content = #{content,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status_id = #{statusId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      catalog_id = #{catalogId,jdbcType=BIGINT},
+      attach_id = #{attachId,jdbcType=BIGINT},
+      is_collected = #{isCollected,jdbcType=BIGINT},
+      createman_id = #{createmanId,jdbcType=BIGINT},
+      receiver = #{receiver,jdbcType=VARCHAR}
+    where note_id = #{noteId,jdbcType=BIGINT}
+  </update>
+</mapper>

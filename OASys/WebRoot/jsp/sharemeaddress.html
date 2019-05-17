@@ -1,0 +1,198 @@
+<link rel="stylesheet" type="text/css" href="css/sharemess.css">
+<div class="box-header">
+	<h3 class="box-title">共享与我</h3>
+	<a class="btn btn-sm btn-default thisrefresh" href="javascript:void(0);" title="刷新" style="padding: 5px;margin-top: -8px;">
+		<span class="glyphicon glyphicon-refresh"></span>
+	</a>
+	<div class="box-tools">
+		<div class="input-group" style="width: 150px;">
+			<input type="text" class="form-control input-sm searchbaseKey" placeholder="查找..." value="">
+			<div class="input-group-btn">
+				<a class="btn btn-sm btn-default searchbaseKeySumbit"> 
+					<span class="glyphicon glyphicon-search"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="thissharemess" style="margin-bottom:20px;">
+	<div class="sharemess">
+		<p>2019-1-20 3:18:09</p>
+		<div class="sharecontent">
+			<div>
+				<div class="sharecontent-left">
+					<div class="share-top">
+						<a href="javascript:void(0);" class="usershow" title="" thisdept="总经办" thisrole="超级管理员" thistel="13272143450" thisemail="1057@qq.com" data-original-title="罗密欧"> <img src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg" class="img-circle">
+							<span> 罗密欧</span></a>共享了以下联系人给你:
+					</div>
+					<div class="share-bottom">
+						<a href="javascript:void(0);" class="othershow" title="" thistel="13511112222" thissex="男" thisemail="13511112222@qq.com" thiscompany="长沙中电" style="margin-left: 100px;" data-original-title="李四"> <img src="/image/timg.jpg" class="img-circle"> 李四
+						</a>,13511112222
+					</div>
+				</div>
+				<div class="share-right">
+					<div class="share-choose">
+						<div class="pull-right">
+							<span> 选择分类： </span> 
+								<select name="" class="form-control thishandleselect">
+							<option value="">外部通讯录</option>
+								<option value="大学">大学</option>
+								<option value="重要客户">重要客户</option>
+							</select>
+						</div>
+					</div>
+					<div class="share-button">
+							<button class="btn btn-primary nothandle" duid="63">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="sharemess">
+		<p>2017-10-14 21:46:48</p>
+		<div class="sharecontent">
+			<div>
+				<div class="sharecontent-left">
+					<div class="share-top">
+						<a href="javascript:void(0);" class="usershow" title="" thisdept="总经办" thisrole="超级管理员" thistel="13272143450" thisemail="1057@qq.com" data-original-title="罗密欧"> <img src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg" class="img-circle">
+							<span> 罗密欧</span></a>共享了以下联系人给你:
+					</div>
+					<div class="share-bottom">
+						<a href="javascript:void(0);" class="othershow" title="" thistel="18877665544" thissex="男" thisemail="123@qq.com" thiscompany="xi小小公司" style="margin-left: 100px;" data-original-title="小李"> <img src="/image/timg.jpg" class="img-circle"> 小李
+						</a>,18877665544
+					</div>
+				</div>
+				<div class="share-right">
+					<div class="share-choose">
+						<div class="pull-right">
+							<span> 选择分类： </span> 
+								<select name="" class="form-control" disabled="">
+									<option value="重要客户">重要客户</option>
+							<option value="">外部通讯录</option>
+								<option value="大学">大学</option>
+								<option value="重要客户">重要客户</option>
+							</select>
+						</div>
+					</div>
+					<div class="share-button">
+							<button class="btn btn-primary" style="background: #ccc;border:none;" disabled="">已处理</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="box-footer no-padding" style="margin-top: -20px;">
+	<div style="padding: 5px;">
+		<div id="page" style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
+			<div style="width: 40%; float: left;">
+				<div class="pageInfo" style="margin-left: 5px;">
+					共<span>2</span>条 | 每页<span>5</span>条
+					| 共<span>1</span>页
+				</div>
+			</div>
+			<div style="width: 60%; float: left;">
+				<div class="pageOperation">
+				<!--判断是否是第一页  -->
+					<a class="btn btn-sm btn-default no-padding tablefirst" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-backward"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tableup" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-triangle-left"></span></a> 
+				<a disabled="disabled" class="btn btn-default no-padding" style="width: 30px; height: 20px;">
+						1
+				</a>
+				<!--判断是否是最后一页  -->
+					<a class="btn btn-sm btn-default no-padding tabledown" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-triangle-right"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tablelast" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-forward"></span></a> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+		/* 分页插件按钮的点击事件 */
+		/* url是从后台接收过来的链接，sort是记录排序规则 */
+		$('.tablefirst').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('sharemess?page=0');
+			 }
+		});
+		$('.tableup').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('sharemess?page=-1');
+			 }
+		});
+		$('.tabledown').on('click',function(){
+			if(true==false){
+				$('.thistable').load('sharemess?page=1');
+			 }
+		});
+		$('.tablelast').on('click',function(){
+			if(true==false){
+				$('.thistable').load('sharemess?page=0');
+			 }
+			
+		});
+		
+		/*类型、状态、时间的排序  */
+		$('.thistype').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('sharemess?type=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('sharemess?type=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisstatus').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('sharemess?status=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('sharemess?status=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thistime').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('sharemess?time=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('sharemess?time=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisvisit').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('sharemess?visitnum=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('sharemess?visitnum=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		/* 查找 */
+		$('.baseKetsubmit').on('click', function() {
+			var baseKey = $('.baseKey').val();
+			console.log(baseKey);
+			$('.thistable').load('sharemess?baseKey='+baseKey+'');
+		});
+</script><script>
+/* 未处理的共享联系人的controller */
+$('.nothandle').on('click',function(){
+	console.log($('.nothandle').length);
+	var catalog=$(this).parents('.share-right').find('.thishandleselect').val();
+	var duid=$(this).attr('duid');
+	console.log("catalog:"+catalog);
+	console.log("duid:"+duid);
+	$('.thistable').load('sharemess',{catalog:catalog,duid:duid},function(){
+		modalShow(1);	
+	});
+	var count=parseInt($('.showcount').text())-1;
+		console.log(count);
+	if($('.nothandle').length>1){
+		var count=parseInt($('.showcount').text())-1;
+		$('.showcount').text(count);
+	}else{
+		$('.showcount').text("");
+	}
+	
+})
+/* 模糊查询 */
+$('.searchbaseKeySumbit').on('click', function() {
+	var baseKey = $('.searchbaseKey').val();
+	console.log(baseKey);
+	$('.thistable').load('sharemess?baseKey='+baseKey+'');
+});
+</script>
+<script type="text/javascript" src="js/usershow.js"></script>

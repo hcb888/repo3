@@ -1,0 +1,308 @@
+<div class="yuan">
+	<div class="bgc-w box box-primary">
+		<!--盒子头-->
+		<div class="box-header">
+			<h3 class="box-title titles">垃圾箱</h3>
+			<div class="box-tools">
+				<div class="input-group" style="width: 220px; margin-top: 0px;">
+					<input type="text" class="form-control input-sm cha" placeholder="类型，主题，状态，收件人查询">
+					<div class="input-group-btn chazhao">
+						<a class="btn btn-sm btn-default"><span class="glyphicon glyphicon-search"></span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="thistable">
+	<!--盒子身体-->
+		<div class="box-body no-padding">
+			<div style="padding: 5px;">
+				<a class="btn btn-sm btn-default bac chec" href="##" title="全选/反选"><span class="glyphicon glyphicon-unchecked"></span></a>
+				<div class="btn-group">
+					<a class="btn btn-sm btn-default bac sdelete" title="删除">
+						<span class="glyphicon glyphicon-trash"></span></a>
+					<a class="btn btn-sm btn-default bac looked" title="标为已读">
+						<span class="glyphicon glyphicon-eye-open"></span></a> 
+					<a class="btn btn-sm btn-default bac star" title="星标">
+						<span class="glyphicon glyphicon-star"></span></a>
+											<a class="btn btn-sm btn-default bac reh" title="恢复删除">
+						<span class="glyphicon glyphicon-retweet"></span></a>
+				</div>
+				<a class="btn btn-sm btn-default bac" href="" title="刷新"><span class="glyphicon glyphicon-refresh"></span></a>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-hover table-striped">
+					<tbody><tr>
+						<th scope="col">选择</th>
+						<th scope="col">&nbsp;</th>
+						<th scope="col">类型</th>
+						<th scope="col">收件人</th>
+						<th scope="col">主题</th>
+						<th scope="col">时间</th>
+						<th scope="col">附件</th>
+						<th scope="col">状态</th>
+						<th scope="col">操作</th>
+					</tr>
+					<tr>
+						<td>
+						<span class="labels"><label><input name="items" type="checkbox"><i>✓</i></label></span>
+						</td>
+							<td class="em"><span class="glyphicon glyphicon-star-empty" style="width: 25px;"></span></td>
+						<td><span>邮件</span></td>
+						<td><span>罗密欧</span></td>
+						<td><span>根本</span></td>
+						<td><span>2017-9-29 19:53:52</span></td>
+						<td><span></span></td>
+						<td>
+							<div class="label label-primary">一般</div>
+						</td>
+						<td class="mailid" style="display:none;"><span>15</span></td>
+						<td><a href="##" class="label xiugai lab"><span class="glyphicon glyphicon-search"></span> 查看</a>
+						</td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+		<!--盒子尾-->
+<div class="box-footer no-padding" style="margin-top: -20px;">
+	<div style="padding: 5px;">
+		<div id="page" style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
+			<div style="width: 40%; float: left;">
+				<div class="pageInfo" style="margin-left: 5px;">
+					共<span>1</span>条 | 每页<span>10</span>条
+					| 共<span>1</span>页
+				</div>
+			</div>
+			<div style="width: 60%; float: left;">
+				<div class="pageOperation">
+				<!--判断是否是第一页  -->
+					<a class="btn btn-sm btn-default no-padding tablefirst" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-backward"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tableup" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-triangle-left"></span></a> 
+				<a disabled="disabled" class="btn btn-default no-padding" style="width: 30px; height: 20px;">
+						1
+				</a>
+				<!--判断是否是最后一页  -->
+					<a class="btn btn-sm btn-default no-padding tabledown" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-triangle-right"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tablelast" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-forward"></span></a> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+		/* 分页插件按钮的点击事件 */
+		/* url是从后台接收过来的链接，sort是记录排序规则 */
+		$('.tablefirst').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('mailtitle?page=0&title=垃圾箱');
+			 }
+		});
+		$('.tableup').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('mailtitle?page=-1&title=垃圾箱');
+			 }
+		});
+		$('.tabledown').on('click',function(){
+			if(true==false){
+				$('.thistable').load('mailtitle?page=1&title=垃圾箱');
+			 }
+		});
+		$('.tablelast').on('click',function(){
+			if(true==false){
+				$('.thistable').load('mailtitle?page=0&title=垃圾箱');
+			 }
+			
+		});
+		
+		/*类型、状态、时间的排序  */
+		$('.thistype').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('mailtitle?type=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('mailtitle?type=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisstatus').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('mailtitle?status=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('mailtitle?status=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thistime').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('mailtitle?time=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('mailtitle?time=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisvisit').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('mailtitle?visitnum=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('mailtitle?visitnum=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		/* 查找 */
+		$('.baseKetsubmit').on('click', function() {
+			var baseKey = $('.baseKey').val();
+			console.log(baseKey);
+			$('.thistable').load('mailtitle?baseKey='+baseKey+'');
+		});
+</script><script>
+	$(function(){
+
+		 $(".sdelete").click(function(){
+			 if(confirm("确定删除么？")){
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("alldelete",{ids:values,title:title}); 
+			 }
+		 });
+		 //批量查看
+		 $(".looked").click(function(){
+			
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    				 var $mail=$(this).parents("td").siblings().find(".read").text();
+	    				 if($mail!=""){
+	    					 parent.changeemail();
+	    				 }
+	    			}
+			 })
+			 if(arry.length==0||title=="发件箱"||title=="草稿箱"){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("watch",{ids:values,title:title});
+			 
+		 });
+		 //批量标星
+		 $(".star").click(function(){
+			 
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("star",{ids:values,title:title});
+			 
+		 });
+		 //查看
+		 $('.lab').on('click',function(){
+			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+			 var title=$(".titles").text();
+			 var $mail=$(this).parents("td").siblings().find(".read").text();
+			 if($mail!=""){
+				 parent.changeemail();
+			 }
+			
+				//$('.set').load('smail',{id:$mailid,title:title});
+				$('.set').load('mailsee2.html');
+				/* parent.changeemail(); */
+			});
+		 //重新编辑
+		 $('.edit').on('click',function(){
+			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+				$('.set').load('wmail',{id:$mailid});
+			});
+		 
+		 //批量恢复删除
+		 $('.reh').on('click',function(){
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0){
+				 return;
+			 }
+			 var values=arry.toString();
+				$('.thistable').load('refresh',{ids:values,title:title});
+			});
+		 
+	});
+</script>		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	 $(".chazhao").click(function(){
+		   var con=$(".cha").val();
+		   var title=$(".titles").text();
+		  
+		   $(".thistable").load("mailtitle",{val:con,title:title});
+	   });
+	/**
+    	 * checkebox的全选与反选
+    	 */
+    	
+    	$("[name=items]:checkbox").click(function(){
+    		var flag=true;
+    		
+    		$("[name=items]:checkbox").each(function(){
+    			if(!this.checked){
+    				flag=false;
+    			}
+    		});
+    		if(flag){
+    			    $(".chec span").removeClass("glyphicon-unchecked").addClass("glyphicon-stop");
+    		}else{
+    			$(".chec span").removeClass("glyphicon-stop").addClass("glyphicon-unchecked");
+    		}
+    		if ($(this).prop('checked')) {
+    			 $(this).attr("checked","checked");
+    		} else {
+    			$(this).removeAttr("checked");
+    		}
+    
+    	})
+    	
+    	$(".chec").click(function(e){
+    		e.preventDefault();
+    		var $this=$(".chec span");
+    		if($this.hasClass("glyphicon-unchecked")){
+    			 $(".chec span").removeClass("glyphicon-unchecked").addClass("glyphicon-stop");
+    		}else{
+    			$(".chec span").removeClass("glyphicon-stop").addClass("glyphicon-unchecked");
+    		}
+    		$("[name=items]:checkbox").each(function(){
+    			
+    			if($this.hasClass("glyphicon-stop")){
+    				/*$(this).prop("checked","checked");*/
+    				$(this).prop("checked",!$(this).attr("checked"));
+    			}else{
+    				$(this).removeAttr("checked");
+    			}
+    				
+    		})
+    	})
+})
+</script>

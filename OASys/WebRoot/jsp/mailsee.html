@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/common/box.css">
+<link rel="stylesheet" type="text/css" href="css/common/checkbox.css">
+<link rel="stylesheet" href="css/mail/seemail.css">
+<script type="text/javascript" src="js/common/iconfont.js"></script> 
+<link rel="stylesheet" href="css/common/iconfont.css">
+<div class="col-md-12 see">
+	<label class="font">查看</label>
+
+	<div class="page-header"></div>
+	<div class="box-body">
+		<div class="row">
+			<div class="box-body">
+				<div class=" mailbox-read-info">
+					<h3>
+						<span id="ctl00_cphMain_lblTitle">主题： jack-&gt;罗密欧(内部邮件)</span>
+					</h3>
+					<h5 class="fonts">
+						<span id="ctl00_cphMain_lblFrom" class="mailbox-read-time">发送：<i>Jack</i>
+							&nbsp;&nbsp;接收：<i>罗密欧</i></span> <span id="ctl00_cphMain_lblDate" class="mailbox-read-time pull-right">2019-1-9 11:56:49</span>
+					</h5>
+				</div>
+				<div class="mailbox-read-message">
+					<span id="ctl00_cphMain_lblDescription">邮件描述：</span> 
+					<span id="ctl00_cphMain_lblFeedback">
+						<div style="padding-left: 64px;">
+							<p>jack-&gt;罗密欧</p>
+						</div>
+					</span>
+					<span id="ctl00_cphMain_lblDescription">附件信息：</span> 
+					<span id="ctl00_cphMain_lblFeedback">
+						<div style="padding-left: 64px;">
+							<p></p>
+						</div>
+					</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="box-footer foots">
+		<a class="btn btn-default fault fa-back" href="mail.html"><span class="glyphicon glyphicon-chevron-left"></span> 返回</a>
+		<div class="pull-right foot">
+			<a class="btn btn-default fault" onclick="javascript:window.print();">
+			   <span class="glyphicon glyphicon glyphicon-print"></span> 打印</a>
+			<a class="btn btn-primary huifu"> 
+				<svg class="icon" aria-hidden="true" style="color: #fff;">
+							<use xlink:href="#icon-huifu"></use>
+				</svg> 回复
+			</a> 
+			<a class="btn btn-primary zhuanfa">
+			<span class="glyphicon glyphicon-share-alt"></span> 转发</a>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		//预览图片
+		$('.yulan').popover({
+    		html:true,
+    		placement:'auto right',
+				trigger: 'hover click',
+    		template:'<div class="popover" role="tooltip"><div class="arrow"></div>'
+    		+'<h3 class="popover-title"></h3><div><img src="show/"style="max-width: 200px;"/></div><div class="popover-content"></div></div>'
+    	})
+		//回复
+		$(".huifu").click(function(){
+			var id=54;
+			var $huifu="【回复】";
+			//$(".set").load("wmail",{id:id,huifu:$huifu});
+			$(".set").load("mailreply.html");
+		});
+		//转发
+		$(".zhuanfa").click(function(){
+			var id=54;
+			var $huifu="【转发】";
+			//$(".set").load("wmail",{id:id,huifu:$huifu});
+			$(".set").load("mailforward.html");
+		});
+	})
+
+</script>

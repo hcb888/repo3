@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaNoticeListMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaNoticeList" >
+    <id column="notice_id" property="noticeId" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="is_top" property="isTop" jdbcType="INTEGER" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="notice_time" property="noticeTime" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <!-- 多对一 -->
+    
+    <association property="user" javaType="AoaUser">
+    	<id column="user_id" property="userId"/>
+    	<result column="user_name" property="userName"/>
+    	<!-- 多对一dept -->
+    	<association property="dept" javaType="AoaDept">
+    		<id column="dept_id" property="deptId"/>
+    		<result column="dept_name" property="deptName"/>
+    	</association>
+    </association>
+    
+    <association property="status" javaType="AoaStatusList">
+    	<id column="status_id" property="statusId"/>
+    	<result column="status_name" property="statusName"/>
+    </association>
+    
+     <association property="type" javaType="AoaTypeList">
+    	<id column="type_id" property="typeId"/>
+    	<result column="type_name" property="typeName"/>
+    </association>
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    notice_id, content, is_top, modify_time, notice_time, status_id, title, type_id, 
+    url, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_notice_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_notice_list
+    where notice_id = #{noticeId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_notice_list
+    where notice_id = #{noticeId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeListExample" >
+    delete from aoa_notice_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeList" >
+    insert into aoa_notice_list (notice_id, content, is_top, 
+      modify_time, notice_time, status_id, 
+      title, type_id, url, 
+      user_id)
+    values (#{noticeId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{isTop,jdbcType=INTEGER}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{noticeTime,jdbcType=TIMESTAMP}, #{status.statusId,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{type.typeId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, 
+      #{user.userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeList" >
+    insert into aoa_notice_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        notice_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="isTop != null" >
+        is_top,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="noticeTime != null" >
+        notice_time,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        #{noticeId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeTime != null" >
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeListExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_notice_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_notice_list
+    <set >
+      <if test="record.noticeId != null" >
+        notice_id = #{record.noticeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTop != null" >
+        is_top = #{record.isTop,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noticeTime != null" >
+        notice_time = #{record.noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.statusId != null" >
+        status_id = #{record.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_notice_list
+    set notice_id = #{record.noticeId,jdbcType=BIGINT},
+      content = #{record.content,jdbcType=VARCHAR},
+      is_top = #{record.isTop,jdbcType=INTEGER},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      notice_time = #{record.noticeTime,jdbcType=TIMESTAMP},
+      status_id = #{record.statusId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      url = #{record.url,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeList" >
+    update aoa_notice_list
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isTop != null" >
+        is_top = #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeTime != null" >
+        notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status!=null and status.statusId != null" >
+        status_id = #{status.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type!=null and type.typeId != null" >
+        type_id = #{type.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="user!=null and user.userId != null" >
+        user_id = #{user.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where notice_id = #{noticeId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNoticeList" >
+    update aoa_notice_list
+    set content = #{content,jdbcType=VARCHAR},
+      is_top = #{isTop,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      status_id = #{statusId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      url = #{url,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT}
+    where notice_id = #{noticeId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 分页查询 -->
+  <select id="noticeQueryPage" resultMap="BaseResultMap" parameterType="queryVo">
+  	select n.notice_id,n.content,n.is_top,n.modify_time,n.notice_time,n.title,n.url,s.status_id,s.status_name,t.type_id,t.type_name,u.user_id,u.user_name,d.dept_id,d.dept_name from  aoa_notice_list n LEFT JOIN aoa_status_list s on  n.status_id=s.status_id LEFT JOIN  aoa_type_list t on n.type_id=t.type_id LEFT JOIN aoa_user u on n.user_id=u.user_id LEFT JOIN aoa_dept d on u.dept_id=d.dept_id
+  	 limit #{startRow},#{size}
+  </select>
+  
+  <!-- 查询数据条数 -->
+  <select id="noticeFindCount" resultType="java.lang.Integer" parameterType="queryVo">
+  	select  count(*) from  aoa_notice_list n LEFT JOIN aoa_status_list s on  n.status_id=s.status_id LEFT JOIN  aoa_type_list t on n.type_id=t.type_id LEFT JOIN aoa_user u on n.user_id=u.user_id LEFT JOIN aoa_dept d on u.dept_id=d.dept_id
+  </select>
+  
+  <!-- 根据id查询 -->
+  <select id="findById" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+  	select n.notice_id,n.content,n.is_top,n.modify_time,n.notice_time,n.title,n.url,s.status_id,s.status_name,t.type_id,t.type_name,u.user_id,u.user_name,d.dept_id,d.dept_name from  aoa_notice_list n LEFT JOIN aoa_status_list s on  n.status_id=s.status_id LEFT JOIN  aoa_type_list t on n.type_id=t.type_id LEFT JOIN aoa_user u on n.user_id=u.user_id LEFT JOIN aoa_dept d on u.dept_id=d.dept_id
+  	<where>
+  		notice_id=#{l}
+  	</where>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="delete"  parameterType="java.lang.Integer">
+  	delete from aoa_notice_list 
+  	<where>
+  		notice_id=#{l}
+  	</where>
+  </delete>
+</mapper>

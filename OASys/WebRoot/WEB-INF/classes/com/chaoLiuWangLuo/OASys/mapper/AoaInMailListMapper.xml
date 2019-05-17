@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaInMailListMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaInMailList" >
+    <id column="mail_id" property="mailId" jdbcType="BIGINT" />
+    <result column="mail_create_time" property="mailCreateTime" jdbcType="TIMESTAMP" />
+    <result column="mail_file_id" property="mailFileId" jdbcType="BIGINT" />
+    <result column="mail_title" property="mailTitle" jdbcType="VARCHAR" />
+    <result column="mail_type" property="mailType" jdbcType="BIGINT" />
+    <result column="mail_in_push_user_id" property="mailInPushUserId" jdbcType="BIGINT" />
+    <result column="in_receiver" property="inReceiver" jdbcType="VARCHAR" />
+    <result column="mail_status_id" property="mailStatusId" jdbcType="BIGINT" />
+    <result column="mail_number_id" property="mailNumberId" jdbcType="BIGINT" />
+    <result column="mail_del" property="mailDel" jdbcType="INTEGER" />
+    <result column="mail_push" property="mailPush" jdbcType="INTEGER" />
+    <result column="mail_star" property="mailStar" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.chaoLiuWangLuo.OASys.entity.AoaInMailList" extends="BaseResultMap" >
+    <result column="mail_content" property="mailContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mail_id, mail_create_time, mail_file_id, mail_title, mail_type, mail_in_push_user_id, 
+    in_receiver, mail_status_id, mail_number_id, mail_del, mail_push, mail_star
+  </sql>
+  <sql id="Blob_Column_List" >
+    mail_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aoa_in_mail_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_in_mail_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aoa_in_mail_list
+    where mail_id = #{mailId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_in_mail_list
+    where mail_id = #{mailId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailListExample" >
+    delete from aoa_in_mail_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailList" >
+    insert into aoa_in_mail_list (mail_id, mail_create_time, mail_file_id, 
+      mail_title, mail_type, mail_in_push_user_id, 
+      in_receiver, mail_status_id, mail_number_id, 
+      mail_del, mail_push, mail_star, 
+      mail_content)
+    values (#{mailId,jdbcType=BIGINT}, #{mailCreateTime,jdbcType=TIMESTAMP}, #{mailFileId,jdbcType=BIGINT}, 
+      #{mailTitle,jdbcType=VARCHAR}, #{mailType,jdbcType=BIGINT}, #{mailInPushUserId,jdbcType=BIGINT}, 
+      #{inReceiver,jdbcType=VARCHAR}, #{mailStatusId,jdbcType=BIGINT}, #{mailNumberId,jdbcType=BIGINT}, 
+      #{mailDel,jdbcType=INTEGER}, #{mailPush,jdbcType=INTEGER}, #{mailStar,jdbcType=INTEGER}, 
+      #{mailContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailList" >
+    insert into aoa_in_mail_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mailId != null" >
+        mail_id,
+      </if>
+      <if test="mailCreateTime != null" >
+        mail_create_time,
+      </if>
+      <if test="mailFileId != null" >
+        mail_file_id,
+      </if>
+      <if test="mailTitle != null" >
+        mail_title,
+      </if>
+      <if test="mailType != null" >
+        mail_type,
+      </if>
+      <if test="mailInPushUserId != null" >
+        mail_in_push_user_id,
+      </if>
+      <if test="inReceiver != null" >
+        in_receiver,
+      </if>
+      <if test="mailStatusId != null" >
+        mail_status_id,
+      </if>
+      <if test="mailNumberId != null" >
+        mail_number_id,
+      </if>
+      <if test="mailDel != null" >
+        mail_del,
+      </if>
+      <if test="mailPush != null" >
+        mail_push,
+      </if>
+      <if test="mailStar != null" >
+        mail_star,
+      </if>
+      <if test="mailContent != null" >
+        mail_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mailId != null" >
+        #{mailId,jdbcType=BIGINT},
+      </if>
+      <if test="mailCreateTime != null" >
+        #{mailCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mailFileId != null" >
+        #{mailFileId,jdbcType=BIGINT},
+      </if>
+      <if test="mailTitle != null" >
+        #{mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mailType != null" >
+        #{mailType,jdbcType=BIGINT},
+      </if>
+      <if test="mailInPushUserId != null" >
+        #{mailInPushUserId,jdbcType=BIGINT},
+      </if>
+      <if test="inReceiver != null" >
+        #{inReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="mailStatusId != null" >
+        #{mailStatusId,jdbcType=BIGINT},
+      </if>
+      <if test="mailNumberId != null" >
+        #{mailNumberId,jdbcType=BIGINT},
+      </if>
+      <if test="mailDel != null" >
+        #{mailDel,jdbcType=INTEGER},
+      </if>
+      <if test="mailPush != null" >
+        #{mailPush,jdbcType=INTEGER},
+      </if>
+      <if test="mailStar != null" >
+        #{mailStar,jdbcType=INTEGER},
+      </if>
+      <if test="mailContent != null" >
+        #{mailContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailListExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_in_mail_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_in_mail_list
+    <set >
+      <if test="record.mailId != null" >
+        mail_id = #{record.mailId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mailCreateTime != null" >
+        mail_create_time = #{record.mailCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mailFileId != null" >
+        mail_file_id = #{record.mailFileId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mailTitle != null" >
+        mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mailType != null" >
+        mail_type = #{record.mailType,jdbcType=BIGINT},
+      </if>
+      <if test="record.mailInPushUserId != null" >
+        mail_in_push_user_id = #{record.mailInPushUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.inReceiver != null" >
+        in_receiver = #{record.inReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mailStatusId != null" >
+        mail_status_id = #{record.mailStatusId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mailNumberId != null" >
+        mail_number_id = #{record.mailNumberId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mailDel != null" >
+        mail_del = #{record.mailDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailPush != null" >
+        mail_push = #{record.mailPush,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailStar != null" >
+        mail_star = #{record.mailStar,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailContent != null" >
+        mail_content = #{record.mailContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update aoa_in_mail_list
+    set mail_id = #{record.mailId,jdbcType=BIGINT},
+      mail_create_time = #{record.mailCreateTime,jdbcType=TIMESTAMP},
+      mail_file_id = #{record.mailFileId,jdbcType=BIGINT},
+      mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      mail_type = #{record.mailType,jdbcType=BIGINT},
+      mail_in_push_user_id = #{record.mailInPushUserId,jdbcType=BIGINT},
+      in_receiver = #{record.inReceiver,jdbcType=VARCHAR},
+      mail_status_id = #{record.mailStatusId,jdbcType=BIGINT},
+      mail_number_id = #{record.mailNumberId,jdbcType=BIGINT},
+      mail_del = #{record.mailDel,jdbcType=INTEGER},
+      mail_push = #{record.mailPush,jdbcType=INTEGER},
+      mail_star = #{record.mailStar,jdbcType=INTEGER},
+      mail_content = #{record.mailContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_in_mail_list
+    set mail_id = #{record.mailId,jdbcType=BIGINT},
+      mail_create_time = #{record.mailCreateTime,jdbcType=TIMESTAMP},
+      mail_file_id = #{record.mailFileId,jdbcType=BIGINT},
+      mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      mail_type = #{record.mailType,jdbcType=BIGINT},
+      mail_in_push_user_id = #{record.mailInPushUserId,jdbcType=BIGINT},
+      in_receiver = #{record.inReceiver,jdbcType=VARCHAR},
+      mail_status_id = #{record.mailStatusId,jdbcType=BIGINT},
+      mail_number_id = #{record.mailNumberId,jdbcType=BIGINT},
+      mail_del = #{record.mailDel,jdbcType=INTEGER},
+      mail_push = #{record.mailPush,jdbcType=INTEGER},
+      mail_star = #{record.mailStar,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailList" >
+    update aoa_in_mail_list
+    <set >
+      <if test="mailCreateTime != null" >
+        mail_create_time = #{mailCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mailFileId != null" >
+        mail_file_id = #{mailFileId,jdbcType=BIGINT},
+      </if>
+      <if test="mailTitle != null" >
+        mail_title = #{mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mailType != null" >
+        mail_type = #{mailType,jdbcType=BIGINT},
+      </if>
+      <if test="mailInPushUserId != null" >
+        mail_in_push_user_id = #{mailInPushUserId,jdbcType=BIGINT},
+      </if>
+      <if test="inReceiver != null" >
+        in_receiver = #{inReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="mailStatusId != null" >
+        mail_status_id = #{mailStatusId,jdbcType=BIGINT},
+      </if>
+      <if test="mailNumberId != null" >
+        mail_number_id = #{mailNumberId,jdbcType=BIGINT},
+      </if>
+      <if test="mailDel != null" >
+        mail_del = #{mailDel,jdbcType=INTEGER},
+      </if>
+      <if test="mailPush != null" >
+        mail_push = #{mailPush,jdbcType=INTEGER},
+      </if>
+      <if test="mailStar != null" >
+        mail_star = #{mailStar,jdbcType=INTEGER},
+      </if>
+      <if test="mailContent != null" >
+        mail_content = #{mailContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mail_id = #{mailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailList" >
+    update aoa_in_mail_list
+    set mail_create_time = #{mailCreateTime,jdbcType=TIMESTAMP},
+      mail_file_id = #{mailFileId,jdbcType=BIGINT},
+      mail_title = #{mailTitle,jdbcType=VARCHAR},
+      mail_type = #{mailType,jdbcType=BIGINT},
+      mail_in_push_user_id = #{mailInPushUserId,jdbcType=BIGINT},
+      in_receiver = #{inReceiver,jdbcType=VARCHAR},
+      mail_status_id = #{mailStatusId,jdbcType=BIGINT},
+      mail_number_id = #{mailNumberId,jdbcType=BIGINT},
+      mail_del = #{mailDel,jdbcType=INTEGER},
+      mail_push = #{mailPush,jdbcType=INTEGER},
+      mail_star = #{mailStar,jdbcType=INTEGER},
+      mail_content = #{mailContent,jdbcType=LONGVARCHAR}
+    where mail_id = #{mailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaInMailList" >
+    update aoa_in_mail_list
+    set mail_create_time = #{mailCreateTime,jdbcType=TIMESTAMP},
+      mail_file_id = #{mailFileId,jdbcType=BIGINT},
+      mail_title = #{mailTitle,jdbcType=VARCHAR},
+      mail_type = #{mailType,jdbcType=BIGINT},
+      mail_in_push_user_id = #{mailInPushUserId,jdbcType=BIGINT},
+      in_receiver = #{inReceiver,jdbcType=VARCHAR},
+      mail_status_id = #{mailStatusId,jdbcType=BIGINT},
+      mail_number_id = #{mailNumberId,jdbcType=BIGINT},
+      mail_del = #{mailDel,jdbcType=INTEGER},
+      mail_push = #{mailPush,jdbcType=INTEGER},
+      mail_star = #{mailStar,jdbcType=INTEGER}
+    where mail_id = #{mailId,jdbcType=BIGINT}
+  </update>
+</mapper>

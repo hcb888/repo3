@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaStatusListMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaStatusList" >
+    <id column="status_id" property="statusId" jdbcType="BIGINT" />
+    <result column="status_color" property="statusColor" jdbcType="VARCHAR" />
+    <result column="status_model" property="statusModel" jdbcType="VARCHAR" />
+    <result column="status_name" property="statusName" jdbcType="VARCHAR" />
+    <result column="sort_value" property="sortValue" jdbcType="INTEGER" />
+    <result column="sort_precent" property="sortPrecent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    status_id, status_color, status_model, status_name, sort_value, sort_precent
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStatusListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_status_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_status_list
+    where status_id = #{statusId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_status_list
+    where status_id = #{statusId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStatusListExample" >
+    delete from aoa_status_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStatusList" >
+    insert into aoa_status_list (status_id, status_color, status_model, 
+      status_name, sort_value, sort_precent
+      )
+    values (#{statusId,jdbcType=BIGINT}, #{statusColor,jdbcType=VARCHAR}, #{statusModel,jdbcType=VARCHAR}, 
+      #{statusName,jdbcType=VARCHAR}, #{sortValue,jdbcType=INTEGER}, #{sortPrecent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStatusList" >
+    insert into aoa_status_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="statusColor != null" >
+        status_color,
+      </if>
+      <if test="statusModel != null" >
+        status_model,
+      </if>
+      <if test="statusName != null" >
+        status_name,
+      </if>
+      <if test="sortValue != null" >
+        sort_value,
+      </if>
+      <if test="sortPrecent != null" >
+        sort_precent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="statusId != null" >
+        #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="statusColor != null" >
+        #{statusColor,jdbcType=VARCHAR},
+      </if>
+      <if test="statusModel != null" >
+        #{statusModel,jdbcType=VARCHAR},
+      </if>
+      <if test="statusName != null" >
+        #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortValue != null" >
+        #{sortValue,jdbcType=INTEGER},
+      </if>
+      <if test="sortPrecent != null" >
+        #{sortPrecent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStatusListExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_status_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_status_list
+    <set >
+      <if test="record.statusId != null" >
+        status_id = #{record.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="record.statusColor != null" >
+        status_color = #{record.statusColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statusModel != null" >
+        status_model = #{record.statusModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statusName != null" >
+        status_name = #{record.statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortValue != null" >
+        sort_value = #{record.sortValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortPrecent != null" >
+        sort_precent = #{record.sortPrecent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_status_list
+    set status_id = #{record.statusId,jdbcType=BIGINT},
+      status_color = #{record.statusColor,jdbcType=VARCHAR},
+      status_model = #{record.statusModel,jdbcType=VARCHAR},
+      status_name = #{record.statusName,jdbcType=VARCHAR},
+      sort_value = #{record.sortValue,jdbcType=INTEGER},
+      sort_precent = #{record.sortPrecent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStatusList" >
+    update aoa_status_list
+    <set >
+      <if test="statusColor != null" >
+        status_color = #{statusColor,jdbcType=VARCHAR},
+      </if>
+      <if test="statusModel != null" >
+        status_model = #{statusModel,jdbcType=VARCHAR},
+      </if>
+      <if test="statusName != null" >
+        status_name = #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortValue != null" >
+        sort_value = #{sortValue,jdbcType=INTEGER},
+      </if>
+      <if test="sortPrecent != null" >
+        sort_precent = #{sortPrecent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where status_id = #{statusId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaStatusList" >
+    update aoa_status_list
+    set status_color = #{statusColor,jdbcType=VARCHAR},
+      status_model = #{statusModel,jdbcType=VARCHAR},
+      status_name = #{statusName,jdbcType=VARCHAR},
+      sort_value = #{sortValue,jdbcType=INTEGER},
+      sort_precent = #{sortPrecent,jdbcType=VARCHAR}
+    where status_id = #{statusId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 查询总条数 -->
+  <select id="statusFindCount" resultType="Integer" parameterType="queryVo">
+  	  select count(*) from aoa_status_list
+  </select>
+  
+   <!-- 分页查询 -->
+  <select id="statusQueryPage" resultMap="BaseResultMap" parameterType="queryVo">
+  	  select * from aoa_status_list limit #{startRow},#{size}
+  </select>
+</mapper>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaDirectorMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaDirector" >
+    <id column="director_id" property="directorId" jdbcType="BIGINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="company_number" property="companyNumber" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="companyname" property="companyname" jdbcType="VARCHAR" />
+    
+    <association property="image"  javaType="AoaAttachmentList">
+    	<id column="attachment_id" property="attachmentId"/>
+	    <result column="attachment_path" property="attachmentPath"/>
+    </association>
+    <association property="directorUser" javaType="AoaUser">
+    	<id column="user_id" property="userId"/>
+	    <result column="user_name" property="userName"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    director_id, address, company_number, email, image_path, phone_number, pinyin, remark, 
+    sex, user_name, user_id, companyname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_director
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_director
+    where director_id = #{directorId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_director
+    where director_id = #{directorId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorExample" >
+    delete from aoa_director
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirector" >
+    insert into aoa_director (director_id, address, company_number, 
+      email, image_path, phone_number, 
+      pinyin, remark, sex, 
+      user_name, user_id, companyname
+      )
+    values (#{directorId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{companyNumber,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{image.attachmentId,jdbcType=INTEGER}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{pinyin,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{directorUser.userId,jdbcType=BIGINT}, #{companyname,jdbcType=VARCHAR}
+      )
+        <selectKey resultType="Long" keyProperty="directorId" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    	</selectKey>
+      
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirector" >
+    insert into aoa_director
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="directorId != null" >
+        director_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="companyNumber != null" >
+        company_number,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="imagePath != null" >
+        image_path,
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number,
+      </if>
+      <if test="pinyin != null" >
+        pinyin,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="companyname != null" >
+        companyname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="directorId != null" >
+        #{directorId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNumber != null" >
+        #{companyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="imagePath != null" >
+        #{imagePath,jdbcType=INTEGER},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="companyname != null" >
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirectorExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_director
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_director
+    <set >
+      <if test="record.directorId != null" >
+        director_id = #{record.directorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNumber != null" >
+        company_number = #{record.companyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imagePath != null" >
+        image_path = #{record.imagePath,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneNumber != null" >
+        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinyin != null" >
+        pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.companyname != null" >
+        companyname = #{record.companyname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_director
+    set director_id = #{record.directorId,jdbcType=BIGINT},
+      address = #{record.address,jdbcType=VARCHAR},
+      company_number = #{record.companyNumber,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      image_path = #{record.imagePath,jdbcType=INTEGER},
+      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      companyname = #{record.companyname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirector" >
+    update aoa_director
+    <set >
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNumber != null" >
+        company_number = #{companyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="imagePath != null" >
+        image_path = #{imagePath,jdbcType=INTEGER},
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="companyname != null" >
+        companyname = #{companyname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where director_id = #{directorId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDirector" >
+    update aoa_director
+    set address = #{address,jdbcType=VARCHAR},
+      company_number = #{companyNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      image_path = #{imagePath,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      companyname = #{companyname,jdbcType=VARCHAR}
+    where director_id = #{directorId,jdbcType=BIGINT}
+  </update>
+</mapper>

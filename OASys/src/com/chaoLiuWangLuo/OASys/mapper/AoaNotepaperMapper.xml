@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaNotepaperMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaNotepaper" >
+    <id column="notepaper_id" property="notepaperId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="notepaper_user_id" property="notepaperUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.chaoLiuWangLuo.OASys.entity.AoaNotepaper" extends="BaseResultMap" >
+    <result column="concent" property="concent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    notepaper_id, create_time, title, notepaper_user_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    concent
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aoa_notepaper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_notepaper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aoa_notepaper
+    where notepaper_id = #{notepaperId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_notepaper
+    where notepaper_id = #{notepaperId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaperExample" >
+    delete from aoa_notepaper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaper" >
+    insert into aoa_notepaper (notepaper_id, create_time, title, 
+      notepaper_user_id, concent)
+    values (#{notepaperId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, 
+      #{notepaperUserId,jdbcType=BIGINT}, #{concent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaper" >
+    insert into aoa_notepaper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="notepaperId != null" >
+        notepaper_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="notepaperUserId != null" >
+        notepaper_user_id,
+      </if>
+      <if test="concent != null" >
+        concent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="notepaperId != null" >
+        #{notepaperId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="notepaperUserId != null" >
+        #{notepaperUserId,jdbcType=BIGINT},
+      </if>
+      <if test="concent != null" >
+        #{concent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaperExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_notepaper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_notepaper
+    <set >
+      <if test="record.notepaperId != null" >
+        notepaper_id = #{record.notepaperId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notepaperUserId != null" >
+        notepaper_user_id = #{record.notepaperUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.concent != null" >
+        concent = #{record.concent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update aoa_notepaper
+    set notepaper_id = #{record.notepaperId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      title = #{record.title,jdbcType=VARCHAR},
+      notepaper_user_id = #{record.notepaperUserId,jdbcType=BIGINT},
+      concent = #{record.concent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_notepaper
+    set notepaper_id = #{record.notepaperId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      title = #{record.title,jdbcType=VARCHAR},
+      notepaper_user_id = #{record.notepaperUserId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaper" >
+    update aoa_notepaper
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="notepaperUserId != null" >
+        notepaper_user_id = #{notepaperUserId,jdbcType=BIGINT},
+      </if>
+      <if test="concent != null" >
+        concent = #{concent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where notepaper_id = #{notepaperId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaper" >
+    update aoa_notepaper
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      notepaper_user_id = #{notepaperUserId,jdbcType=BIGINT},
+      concent = #{concent,jdbcType=LONGVARCHAR}
+    where notepaper_id = #{notepaperId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaNotepaper" >
+    update aoa_notepaper
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      notepaper_user_id = #{notepaperUserId,jdbcType=BIGINT}
+    where notepaper_id = #{notepaperId,jdbcType=BIGINT}
+  </update>
+</mapper>

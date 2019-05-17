@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaResignMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaResign" >
+    <id column="resign_id" property="resignId" jdbcType="BIGINT" />
+    <result column="financial_advice" property="financialAdvice" jdbcType="VARCHAR" />
+    <result column="is_finish" property="isFinish" jdbcType="BIT" />
+    <result column="nofinish" property="nofinish" jdbcType="VARCHAR" />
+    <result column="personnel_advice" property="personnelAdvice" jdbcType="VARCHAR" />
+    <result column="suggest" property="suggest" jdbcType="VARCHAR" />
+    <result column="manager_advice" property="managerAdvice" jdbcType="VARCHAR" />
+    
+      <!-- 一对多 -->
+    <association property="resignHandUser" javaType="AoaUser">
+    	    <id column="ruser_id" property="userId"/>
+		    <result column="ruser_name" property="userName"/>
+    </association>
+    <association property="process" javaType="AoaProcessList">
+    	<id column="process_id" property="processId" jdbcType="BIGINT" />
+	    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+	    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+	    <result column="process_name" property="processName" jdbcType="VARCHAR" />
+	    <result column="procsee_days" property="procseeDays" jdbcType="INTEGER" />
+	    <result column="is_checked" property="isChecked" jdbcType="INTEGER" />
+	    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+	    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+	    <result column="shenuser" property="shenuser" jdbcType="VARCHAR" />
+	     <result column="process_des" property="processDes" jdbcType="VARCHAR" />
+	     
+	    <!--多对一  -->
+	    <association property="processType" javaType="AoaTypeList">
+	    	<id column="ptype_id" property="typeId"/>
+		    <result column="ptype_name" property="typeName"/>
+	    </association>
+	    
+	     <association property="proFile" javaType="AoaAttachmentList">
+	    	<id column="attachment_id" property="attachmentId"/>
+	    	<result column="attachment_path" property="attachmentPath"/>
+	    </association>
+	    
+	     <association property="processUser" javaType="AoaUser">
+	     	<id column="user_id" property="userId"/>
+		    <result column="user_name" property="userName"/>
+		    
+		     <!--多对一  -->
+		  	<association property="dept" javaType="AoaDept">
+	    		<id column="dept_id" property="deptId"/>
+	    		<result column="dept_name" property="deptName"/>
+	    	</association>
+     	</association>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    resign_id, financial_advice, is_finish, nofinish, personnel_advice, suggest, hand_user, 
+    pro_id, manager_advice
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaResignExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_resign
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_resign
+    where resign_id = #{resignId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_resign
+    where resign_id = #{resignId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaResignExample" >
+    delete from aoa_resign
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaResign" >
+    insert into aoa_resign (resign_id, financial_advice, is_finish, 
+      nofinish, personnel_advice, suggest, 
+      hand_user, pro_id, manager_advice
+      )
+    values (#{resignId,jdbcType=BIGINT}, #{financialAdvice,jdbcType=VARCHAR}, #{isFinish,jdbcType=BIT}, 
+      #{nofinish,jdbcType=VARCHAR}, #{personnelAdvice,jdbcType=VARCHAR}, #{suggest,jdbcType=VARCHAR}, 
+      #{resignHandUser.userId,jdbcType=BIGINT}, #{process.processId,jdbcType=BIGINT}, #{managerAdvice,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaResign" >
+    insert into aoa_resign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resignId != null" >
+        resign_id,
+      </if>
+      <if test="financialAdvice != null" >
+        financial_advice,
+      </if>
+      <if test="isFinish != null" >
+        is_finish,
+      </if>
+      <if test="nofinish != null" >
+        nofinish,
+      </if>
+      <if test="personnelAdvice != null" >
+        personnel_advice,
+      </if>
+      <if test="suggest != null" >
+        suggest,
+      </if>
+      <if test="handUser != null" >
+        hand_user,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="managerAdvice != null" >
+        manager_advice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resignId != null" >
+        #{resignId,jdbcType=BIGINT},
+      </if>
+      <if test="financialAdvice != null" >
+        #{financialAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null" >
+        #{isFinish,jdbcType=BIT},
+      </if>
+      <if test="nofinish != null" >
+        #{nofinish,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelAdvice != null" >
+        #{personnelAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="suggest != null" >
+        #{suggest,jdbcType=VARCHAR},
+      </if>
+      <if test="handUser != null" >
+        #{handUser,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="managerAdvice != null" >
+        #{managerAdvice,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaResignExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_resign
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_resign
+    <set >
+      <if test="record.resignId != null" >
+        resign_id = #{record.resignId,jdbcType=BIGINT},
+      </if>
+      <if test="record.financialAdvice != null" >
+        financial_advice = #{record.financialAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFinish != null" >
+        is_finish = #{record.isFinish,jdbcType=BIT},
+      </if>
+      <if test="record.nofinish != null" >
+        nofinish = #{record.nofinish,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personnelAdvice != null" >
+        personnel_advice = #{record.personnelAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suggest != null" >
+        suggest = #{record.suggest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.handUser != null" >
+        hand_user = #{record.handUser,jdbcType=BIGINT},
+      </if>
+      <if test="record.proId != null" >
+        pro_id = #{record.proId,jdbcType=BIGINT},
+      </if>
+      <if test="record.managerAdvice != null" >
+        manager_advice = #{record.managerAdvice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_resign
+    set resign_id = #{record.resignId,jdbcType=BIGINT},
+      financial_advice = #{record.financialAdvice,jdbcType=VARCHAR},
+      is_finish = #{record.isFinish,jdbcType=BIT},
+      nofinish = #{record.nofinish,jdbcType=VARCHAR},
+      personnel_advice = #{record.personnelAdvice,jdbcType=VARCHAR},
+      suggest = #{record.suggest,jdbcType=VARCHAR},
+      hand_user = #{record.handUser,jdbcType=BIGINT},
+      pro_id = #{record.proId,jdbcType=BIGINT},
+      manager_advice = #{record.managerAdvice,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaResign" >
+    update aoa_resign
+    <set >
+      <if test="financialAdvice != null" >
+        financial_advice = #{financialAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null" >
+        is_finish = #{isFinish,jdbcType=BIT},
+      </if>
+      <if test="nofinish != null" >
+        nofinish = #{nofinish,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelAdvice != null" >
+        personnel_advice = #{personnelAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="suggest != null" >
+        suggest = #{suggest,jdbcType=VARCHAR},
+      </if>
+      <if test="handUser != null" >
+        hand_user = #{handUser,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="managerAdvice != null" >
+        manager_advice = #{managerAdvice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where resign_id = #{resignId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaResign" >
+    update aoa_resign
+    set financial_advice = #{financialAdvice,jdbcType=VARCHAR},
+      is_finish = #{isFinish,jdbcType=BIT},
+      nofinish = #{nofinish,jdbcType=VARCHAR},
+      personnel_advice = #{personnelAdvice,jdbcType=VARCHAR},
+      suggest = #{suggest,jdbcType=VARCHAR},
+      hand_user = #{handUser,jdbcType=BIGINT},
+      pro_id = #{proId,jdbcType=BIGINT},
+      manager_advice = #{managerAdvice,jdbcType=VARCHAR}
+    where resign_id = #{resignId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="Long">
+  SELECT r.resign_id,r.financial_advice,r.is_finish,r.nofinish,r.personnel_advice,r.suggest,r.manager_advice,p.process_id,p.apply_time,p.deeply_id,p.end_time,p.process_des,p.process_name,p.procsee_days,p.is_checked,p.start_time,p.type_name,p.pro_file_id,p.shenuser,t.type_id as ptype_id,t.type_name as ptype_name,u.user_id,u.user_name,ud.dept_id,ud.dept_name,a.attachment_id,a.attachment_path,rh.user_id as ruser_id, rh.user_name  as ruser_name from aoa_resign r LEFT JOIN aoa_user rh on rh.user_id=r.hand_user LEFT JOIN aoa_process_list p on r.pro_id=p.process_id LEFT JOIN aoa_type_list t on p.deeply_id=t.type_id  LEFT JOIN aoa_user u on u.user_id=p.process_user_id LEFT JOIN  aoa_dept ud on ud.dept_id=u.dept_id LEFT JOIN aoa_attachment_list a on a.attachment_id=p.pro_file_id
+ <where>
+		 r.pro_id=#{l}
+	</where>
+  </select>
+</mapper>

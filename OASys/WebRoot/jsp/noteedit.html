@@ -1,0 +1,690 @@
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/common/box.css">
+<link rel="stylesheet" type="text/css" href="css/common/checkbox.css">
+
+<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css">
+<link rel="stylesheet" href="css/tc.css">
+<link rel="stylesheet" type="text/css" href="css/common/tanchuang.css">
+<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="js/note/noteedit.js"></script>
+<title></title>
+<style>
+.panel-heading {
+	background-color: #eee;
+}
+
+.outside {
+	border: 0px solid red;
+	margin-top: 20px;
+}
+
+.container {
+	border-radius: 5px;
+	border: 0px solid black;
+	border-top: 3px solid #3c8dbc;
+	/*margin-left: 0px;*/
+	background-color: #FFFFFF;
+	padding-top: 12px;
+}
+
+.label-back {
+	background-color: #6C7B8B;;
+	color: white;
+}
+
+.label-back:hover {
+	color: white !important;
+}
+
+.label {
+	display: inline;
+	padding: 5px 12px 5px 12px;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+}
+
+.la {
+	margin-top: 4px;
+	font-size: 16px;
+}
+
+.page-header {
+	margin: 0px;
+}
+
+.reciver {
+	position: relative;
+	top: -27px;
+	float: right;
+	right: 4px;
+	cursor: pointer;
+}
+
+form {
+	margin: 0;
+}
+
+textarea {
+	display: block;
+	font-size: 16px;
+}
+
+#ss .ke-container {
+	border-radius: 5px;
+	width: 770px;
+}
+
+.form-group .btn {
+	background-color: #eee;
+	width: 100px;
+	height: 34px;
+}
+
+#MoreDiv {
+	display: none;
+	top: 5px;
+}
+
+#ctl00_cphMain_fuAttachment {
+	opacity: 0;
+	position: relative;
+	top: -22px;
+}
+
+.left1, .right1 {
+	display: inline-block;
+}
+
+.right1 .btn-default, .left1 .btn-default {
+	background-color: #eee;
+}
+
+.bottom1 {
+	margin-bottom: 20px;
+}
+
+.reciver a {
+	text-decoration: none;
+}
+</style>
+
+
+
+
+
+	<div>
+		<div class="container box">
+			<div class="box-header">
+				<a class="label label-back " onclick="notejump('notelist.html','-2')">
+					<span class="glyphicon glyphicon-chevron-left"></span>返回
+				</a>
+			</div>
+			
+			<div class="alert alert-danger alert-dismissable" role="alert" style="display: none;">
+							错误信息:<button class="close" type="button">×</button>
+							<span class="error-mess"></span>
+				</div>
+				
+			<div class="page-header">
+			</div>
+			
+			<form action="notesave" method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<select name="catalogname" id="ctl00_cphMain_ddlFile" class="form-control select2">
+					<option id="catalog">
+					✟根目录
+					</option>
+					<option id="catalog">
+					✟springmvc
+					</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select name="type" id="ctl00_cphMain_ddlType" class="form-control select2">
+						<option selected="">我的笔记</option>
+						<option>公司笔记</option>
+						<option>共享笔记</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+			   
+			   <div id="MoreDiv">
+					<input name="receiver" type="text" data-title="用户" id="recive_list" class="form-control" readonly="readonly" placeholder="分享给：" value="">
+					<div class="reciver">
+						<a data-toggle="modal" data-target="#myModal" data-backdrop="static"> <span class="label label-success glyphicon glyphicon-share-alt">分享</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<select name="status" id="ctl00_cphMain_ddlImportance" class="form-control select2">
+						<option>一般</option>
+						<option selected="">重要</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<input name="title" type="text" id="ctl00_cphMain_txtSubject" class="form-control" placeholder="标题：" value="mysql存储过程">
+					<!-- <div class="warn alert alert-danger alert-dismissable" role="alert" style="margin-top:10px;  line-height:10px;  height:10px; color:red;display:none;border:1px solid red;">*这是必填项不能为空</div> -->
+			</div>
+			
+			<div class="form-group">	
+			<textarea name="content" class="form-control" data-title="笔记内容" style="width:100%;height:300px;visibility:hidden;font-size: 20px;">			&lt;p&gt;
+	mysql中存储过程语法:
+&lt;/p&gt;
+&lt;p&gt;
+	xxxxxxxxxxxxx
+&lt;/p&gt;
+			</textarea>
+			</div>
+
+			<div class="form-group">
+				<div class="btn btn-default ">
+					<span class="glyphicon glyphicon-paperclip">增加附件</span> <input type="file" name="file" id="ctl00_cphMain_fuAttachment">
+				</div>
+				<p class="help-block">5MB以内</p></div>
+             
+            <input type="hidden" name="id" value="211">
+
+			<div class="pull-right right1 bottom1">
+				<button id="ctl00_cphMain_lnbSend" class="btn btn-primary" onclick="{return check();}">保存</button> 
+				<a onclick="notejump('notewrite','-2')" id="ctl00_cphMain_lnbcancel" class="btn btn-default">取消</a>
+			</div>
+</form>
+
+
+	
+	
+	
+	
+	
+	</div>
+	</div>
+	
+<style type="text/css">
+#thismodal .modal-dialog {
+	width: 500px;
+	top:20%;
+}
+
+#thismodal .modal-body .icon {
+	height: 80px;
+	width: 80px;
+	margin: 20px auto;
+	border-radius: 50%;
+	color: #aad6aa;
+	border: 3px solid #d9ead9;
+	text-align: center;
+	font-size: 44px;
+}
+
+#thismodal .modal-body .icon .glyphicon {
+	font-size: 46px;
+	top: 14px;
+}
+
+#thismodal .modal-p {
+	margin: 20px auto;
+}
+
+#thismodal .modal-body .modal-p h2 {
+	text-align: center;
+}
+
+#thismodal .modal-body .modal-p p {
+	text-align: center;
+	color: #666;
+	font-size: 16px;
+	padding-top: 8px;
+	font-weight: 300;
+}
+
+#thismodal .modal-p .btn {
+	margin-left: 40%;
+	width: 100px;
+	height: 40px;
+}
+
+#thismodal .modal-error .icon {
+	color: #f27474;
+	border: 3px solid #f27474;
+}
+</style>
+
+<div class="modal fade in" id="thismodal" data-backdrop="static">
+	<div class="modal-dialog" style="top: 391px;">
+		<div class="modal-content">
+			<div class="modal-body modal-success" style="display: none;">
+				<div class="icon">
+					<span class="glyphicon glyphicon-ok"></span>
+				</div>
+				<div class="modal-p">
+					<h2>操作成功</h2>
+					<!--<p style="">已回复</p>-->
+					<div class="modal-p">
+						<button type="button" class="btn btn-primary successToUrl" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body modal-error" style="display: none;">
+				<div class="icon">
+					<span class="glyphicon glyphicon-remove"></span>
+				</div>
+				<div class="modal-p">
+					<h2 style="text-align: center;">错误信息</h2>
+					<p class="modal-error-mess">此处将显示弹出框的错误提示信息</p>
+					<div class="modal-p">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+<script type="text/javascript" src="js/modalTip.js"></script>
+
+
+<!-- 这里是执行返回失败的参数，并显示详细的信息； -->
+	
+	<script type="text/javascript">
+	//防止ajax和文本框发生冲突的js
+	      	var event = document.createEvent('HTMLEvents');   
+			event.initEvent("load", true, true);     
+			window.dispatchEvent(event);    
+			
+			
+			$('.successToUrl').on('click',function(){
+				window.location.href='/noteview';
+			});
+			
+			function check(){
+				console.log("开始进入了");
+				var text=$('.ke-edit-iframe').contents().find('body').text();
+				//提示框可能在提交之前是block状态，所以在这之前要设置成none
+				$('.alert-danger').css('display', 'none');
+					// 如果在这些input框中，判断是否能够为空
+					if ($('#ctl00_cphMain_txtSubject').val() == "") {
+						var errorMess = "[标题输入框信息不能为空]";
+						// 对齐设置错误信息提醒；红色边框
+						$(this).parent().addClass("has-error has-feedback");
+						$('.alert-danger').css('display', 'block');
+						// 提示框的错误信息显示
+						$('.error-mess').text(errorMess);
+						// 模态框的错误信息显示
+						$('.modal-error-mess').text(errorMess);
+						return false;
+					} 
+					if(text.length<10){
+						// 获取到input框的兄弟的文本信息，并对应提醒；
+						var brother = $(this).attr("data-title");
+						var errorMess = "[笔记内容输入框信息不能少于10个字]";
+						// 对齐设置错误信息提醒；红色边框
+						$(this).parent().addClass("has-error has-feedback");
+						$('.alert-danger').css('display', 'block');
+						// 提示框的错误信息显示
+						$('.error-mess').text(errorMess);
+						// 模态框的错误信息显示
+						$('.modal-error-mess').text(errorMess);
+						return false;
+					}
+					else{
+						return true;
+					}
+					}
+			
+	</script>
+
+
+<style>
+ .table-r{
+ overflow: scroll;
+ height:245px;
+ }
+</style>
+<!-- 接收人弹窗-->
+				<div class="modal fade " id="myModal" tabindex="-1">
+
+					<!--第二步，窗口声明-->
+					<div class="modal-dialog modal-lg ">
+						<!--第三步、内容区的声明-->
+						<div class="modal-content" style="background: #F9F9F9;">
+							<div class="modal-1">
+
+								<div class="modal-2">
+
+									<div class="modal-header" style="margin:10px;margin-top: -20px;">
+										<button class="close" data-dismiss="modal" style="display: block;margin: -52px -78px 0 0;;border-radius: 60%;">
+											<span class="glyphicon glyphicon-remove-circle" style="color:white;font-size: 30px;"></span>
+										</button>
+										<div class="row">
+											<div class="col-xs-12" style="height:30px;margin:10px 0px;">
+
+												<h4 style="float:left;">
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm" href="##" onclick="addvalue()"> 新增接收人</a>
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm" href="##" onclick="addvalue2()"> 
+                      				追加接收人</a>
+                  			</h4>
+
+												<div class="input-group">
+													<input type="text" class="form-control input-sm pull-right cha" placeholder="查找...">
+													<div class="input-group-btn chazhao" style="top:-1px;">
+														<a class="btn btn-sm btn-default glyphicon glyphicon-search" style="height: 30px;" href="##"></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-body thistableson" style="margin:10px;">
+									
+									<div class="table-r ">
+										<table class="table  table-hover  container-fluid ">
+										<thead>
+											<tr class="row">
+												<th class=" col-xs-1">
+													<span class="labels" style="display:none;"><label><input id="checkedAll" type="checkbox"><i>✓</i></label></span>
+												</th>
+												<th class=" col-xs-1">
+													<span class="labels" style="display:block;"></span>
+												</th>
+												<th class=" col-xs-2 b">部门</th>
+												<th class=" col-xs-2 b">真实姓名 </th>
+												<th class="col-xs-2 b">用户名</th>
+												<th class="col-xs-2 b">职位</th>
+												<th class=" col-xs-2">电话</th>
+											</tr>
+										</thead>
+										<tbody>
+																						<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg">
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">小明 </td>
+												<td class="col-xs-2 na">罗密欧</td>
+												<td class=" col-xs-2">超级管理员</td>
+												<td class=" col-xs-2">13272143450</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/handsome.JPG">
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">小梅 </td>
+												<td class="col-xs-2 na">朱丽叶</td>
+												<td class=" col-xs-2">CEO</td>
+												<td class=" col-xs-2">13203318185</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/eightman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">芳芳 </td>
+												<td class="col-xs-2 na">伊丽莎白</td>
+												<td class=" col-xs-2">总经理</td>
+												<td class=" col-xs-2">18683688154</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/fiveman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">李明 </td>
+												<td class="col-xs-2 na">小李父斯基</td>
+												<td class=" col-xs-2">研发部经理</td>
+												<td class=" col-xs-2">18173328888</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/fourman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">财务部</td>
+												<td class=" col-xs-2">小罗 </td>
+												<td class="col-xs-2 na">soli</td>
+												<td class=" col-xs-2">财务部经理</td>
+												<td class=" col-xs-2">18173328976</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/nineman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">市场部</td>
+												<td class=" col-xs-2">小红 </td>
+												<td class="col-xs-2 na">红之花</td>
+												<td class=" col-xs-2">市场部经理</td>
+												<td class=" col-xs-2">18868688866</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/oneman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">人事部</td>
+												<td class=" col-xs-2">小喻 </td>
+												<td class="col-xs-2 na">甄姬</td>
+												<td class=" col-xs-2">人事部经理</td>
+												<td class=" col-xs-2">13117336953</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/sevenman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">小费 </td>
+												<td class="col-xs-2 na">甄姬2</td>
+												<td class=" col-xs-2">程序员</td>
+												<td class=" col-xs-2">13117336954</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/twoman.jpeg">
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">小花 </td>
+												<td class="col-xs-2 na">甄嬛</td>
+												<td class=" col-xs-2">初级工程师</td>
+												<td class=" col-xs-2">13034507214</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;" class="profile-user-img img-responsive img-circle" src="/image/handsome.JPG">
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">花红 </td>
+												<td class="col-xs-2 na">无双</td>
+												<td class=" col-xs-2">中级工程师</td>
+												<td class=" col-xs-2">13117336954</td>
+
+											</tr>
+											</tbody>
+										</table>
+										</div>
+
+<div class="box-footer no-padding" style="margin-top: -20px;">
+	<div style="padding: 5px;">
+		<div id="page" style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
+			<div style="width: 40%; float: left;">
+				<div class="pageInfo" style="margin-left: 5px;">
+					共<span>31</span>条 | 每页<span>10</span>条
+					| 共<span>4</span>页
+				</div>
+			</div>
+			<div style="width: 60%; float: left;">
+				<div class="pageOperation">
+				<!--判断是否是第一页  -->
+					<a class="btn btn-sm btn-default no-padding tablefirst1" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-backward"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tableup1" disabled="disabled" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-triangle-left"></span></a> 
+				<a disabled="disabled" class="btn btn-default no-padding" style="width: 30px; height: 20px;">
+						1
+				</a>
+				<!--判断是否是最后一页  -->
+					<a class="btn btn-sm btn-default no-padding tabledown1" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-triangle-right"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tablelast1" style="width: 30px; height: 20px;"> <span class="glyphicon glyphicon-forward"></span></a> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+		/* 分页插件按钮的点击事件 */
+		/* url是从后台接收过来的链接，sort是记录排序规则 */
+		$('.tablefirst1').on('click',function(){
+			 if(true==false){
+				 $('.thistableson').load('namereceive?page=0');
+			 }
+		});
+		$('.tableup1').on('click',function(){
+			 if(true==false){
+				 $('.thistableson').load('namereceive?page=-1');
+			 }
+		});
+		$('.tabledown1').on('click',function(){
+			if(false==false){
+				$('.thistableson').load('namereceive?page=1');
+			 }
+		});
+		$('.tablelast1').on('click',function(){
+			if(false==false){
+				$('.thistableson').load('namereceive?page=3');
+			 }
+			
+		});
+		
+		/* 查找 */
+		$('.baseKetsubmit').on('click', function() {
+			var baseKey = $('.baseKey').val();
+			console.log(baseKey);
+			$('.thistableson').load('namereceive?baseKey='+baseKey+'');
+		});
+</script>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<h2 class="mi" style="display:none;"></h2>
+<script>
+$(function(){
+	
+	/* 分页插件按钮的点击事件 */
+	
+	$('.baseKetsubmit').on('click',function(){
+		var baseKey=$('.baseKey').val();
+		$('#myModal .thistableson').load('names?baseKey=baseKey');
+	});
+	$(".chazhao").click(function() {
+		var $qufen=$(".mi").text();
+		var con = $(".cha").val();
+		$("#myModal .thistableson").load("names",{title:con,qufen:$qufen});
+	});
+});
+function addvalue(){
+	
+	var id_array=new Array();
+	$('input[name="id"]:checked').each(function(){
+	
+		var $name=$(this).parents(".col-xs-1").siblings(".na").text();
+		console.log($name);
+		id_array.push($name);//向数组中添加元素
+		var idstr=id_array.join(';');//将数组元素连接起来以构建一个字符串
+		$("#recive_list").val(idstr);
+		$(".recive_list").val(idstr);
+		$(".recive_list").change();
+	})
+	
+	$(".fade").css("display","none");
+	
+}
+/*追加到联系人*/
+function addvalue2(){
+	
+	var id_array=new Array();
+	
+	var  idstr=null;
+
+	$('input[name="id"]:checked').each(function(){
+		var $name=$(this).parents(".col-xs-1").siblings(".na").text();
+		id_array.push($name);
+		idstr=id_array.join(';');
+	})
+	
+	var org=$("#recive_list").val();
+	$("#recive_list").val(org+';'+idstr);	
+	$(".fade").css("display","none");
+	
+}
+</script>

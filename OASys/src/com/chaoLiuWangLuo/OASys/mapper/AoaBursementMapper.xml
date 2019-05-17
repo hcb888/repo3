@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaBursementMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaBursement" >
+    <id column="bursement_id" property="bursementId" jdbcType="BIGINT" />
+    <result column="all_money" property="allMoney" jdbcType="DOUBLE" />
+    <result column="allinvoices" property="allinvoices" jdbcType="VARCHAR" />
+    <result column="burse_time" property="burseTime" jdbcType="TIMESTAMP" />
+    <result column="financial_advice" property="financialAdvice" jdbcType="VARCHAR" />
+    <result column="manager_advice" property="managerAdvice" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    
+     
+     <!-- 多对一 -->
+     <association property="bursementType" javaType="AoaTypeList">
+     	<id column="btype_id" property="typeId"/>
+	    <result column="btype_name" property="typeName"/>
+     </association>
+     
+      <association property="operationUser" javaType="AoaUser">
+     	<id column="user_id" property="userId"/>
+	    <result column="user_name" property="userName"/>
+	    
+	     <!--多对一  -->
+	  	<association property="dept" javaType="AoaDept">
+    		<id column="dept_id" property="deptId"/>
+    		<result column="dept_name" property="deptName"/>
+    	</association>
+     </association>
+     
+     <association property="process" javaType="AoaProcessList">
+     	<id column="process_id" property="processId" jdbcType="BIGINT" />
+	    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+	    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+	    <result column="process_name" property="processName" jdbcType="VARCHAR" />
+	    <result column="procsee_days" property="procseeDays" jdbcType="INTEGER" />
+	    <result column="is_checked" property="isChecked" jdbcType="INTEGER" />
+	    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+	    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+	    <result column="process_user_id" property="processUserId" jdbcType="BIGINT" />
+	    <result column="shenuser" property="shenuser" jdbcType="VARCHAR" />
+	    
+	    <!--多对一  -->
+	    <association property="processType" javaType="AoaTypeList">
+	    	<id column="type_id" property="typeId"/>
+		    <result column="type_name" property="typeName"/>
+	    </association>
+	    
+	     <association property="proFile" javaType="AoaAttachmentList">
+	    	<id column="attachment_id" property="attachmentId"/>
+	    	<result column="attachment_path" property="attachmentPath"/>
+	    </association>
+     </association>
+     
+      <association property="bursementUser" javaType="AoaUser">
+     	<id column="buuser_id" property="userId"/>
+	    <result column="buuser_name" property="userName"/>
+     </association>
+     
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bursement_id, all_money, allinvoices, burse_time, financial_advice, manager_advice, 
+    name, type_id, operation_name, pro_id, user_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaBursementExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_bursement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_bursement
+    where bursement_id = #{bursementId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_bursement
+    where bursement_id = #{bursementId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaBursementExample" >
+    delete from aoa_bursement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaBursement" >
+    insert into aoa_bursement (bursement_id, all_money, allinvoices, 
+      burse_time, financial_advice, manager_advice, 
+      name, type_id, operationUser, 
+      pro_id, user_ids)
+    values (#{bursementId,jdbcType=BIGINT}, #{allMoney,jdbcType=DOUBLE}, #{allinvoices,jdbcType=VARCHAR}, 
+      #{burseTime,jdbcType=TIMESTAMP}, #{financialAdvice,jdbcType=VARCHAR}, #{managerAdvice,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{bursementType.typeId,jdbcType=BIGINT}, #{operationUser.userId,jdbcType=BIGINT}, 
+      #{process.processId,jdbcType=BIGINT}, #{bursementUser.userId,jdbcType=BIGINT})
+      <selectKey resultType="Long" keyProperty="bursementId" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    	</selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaBursement" >
+    insert into aoa_bursement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bursementId != null" >
+        bursement_id,
+      </if>
+      <if test="allMoney != null" >
+        all_money,
+      </if>
+      <if test="allinvoices != null" >
+        allinvoices,
+      </if>
+      <if test="burseTime != null" >
+        burse_time,
+      </if>
+      <if test="financialAdvice != null" >
+        financial_advice,
+      </if>
+      <if test="managerAdvice != null" >
+        manager_advice,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="operationName != null" >
+        operation_name,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bursementId != null" >
+        #{bursementId,jdbcType=BIGINT},
+      </if>
+      <if test="allMoney != null" >
+        #{allMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="allinvoices != null" >
+        #{allinvoices,jdbcType=VARCHAR},
+      </if>
+      <if test="burseTime != null" >
+        #{burseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="financialAdvice != null" >
+        #{financialAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="managerAdvice != null" >
+        #{managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="operationName != null" >
+        #{operationName,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaBursementExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_bursement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_bursement
+    <set >
+      <if test="record.bursementId != null" >
+        bursement_id = #{record.bursementId,jdbcType=BIGINT},
+      </if>
+      <if test="record.allMoney != null" >
+        all_money = #{record.allMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.allinvoices != null" >
+        allinvoices = #{record.allinvoices,jdbcType=VARCHAR},
+      </if>
+      <if test="record.burseTime != null" >
+        burse_time = #{record.burseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.financialAdvice != null" >
+        financial_advice = #{record.financialAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerAdvice != null" >
+        manager_advice = #{record.managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.operationName != null" >
+        operation_name = #{record.operationName,jdbcType=BIGINT},
+      </if>
+      <if test="record.proId != null" >
+        pro_id = #{record.proId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_bursement
+    set bursement_id = #{record.bursementId,jdbcType=BIGINT},
+      all_money = #{record.allMoney,jdbcType=DOUBLE},
+      allinvoices = #{record.allinvoices,jdbcType=VARCHAR},
+      burse_time = #{record.burseTime,jdbcType=TIMESTAMP},
+      financial_advice = #{record.financialAdvice,jdbcType=VARCHAR},
+      manager_advice = #{record.managerAdvice,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      operation_name = #{record.operationName,jdbcType=BIGINT},
+      pro_id = #{record.proId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaBursement" >
+    update aoa_bursement
+    <set >
+      <if test="allMoney != null" >
+        all_money = #{allMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="allinvoices != null" >
+        allinvoices = #{allinvoices,jdbcType=VARCHAR},
+      </if>
+      <if test="burseTime != null" >
+        burse_time = #{burseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="financialAdvice != null" >
+        financial_advice = #{financialAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="managerAdvice != null" >
+        manager_advice = #{managerAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="operationName != null" >
+        operation_name = #{operationName,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=BIGINT},
+      </if>
+    </set>
+    where bursement_id = #{bursementId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaBursement" >
+    update aoa_bursement
+    set all_money = #{allMoney,jdbcType=DOUBLE},
+      allinvoices = #{allinvoices,jdbcType=VARCHAR},
+      burse_time = #{burseTime,jdbcType=TIMESTAMP},
+      financial_advice = #{financialAdvice,jdbcType=VARCHAR},
+      manager_advice = #{managerAdvice,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      operation_name = #{operationName,jdbcType=BIGINT},
+      pro_id = #{proId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=BIGINT}
+    where bursement_id = #{bursementId,jdbcType=BIGINT}
+  </update>
+  
+  <!--根据id查询  -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="Long">
+  	SELECT b.bursement_id,b.all_money,b.allinvoices,b.burse_time,b.financial_advice,b.manager_advice,b.name,p.process_id,p.apply_time,p.deeply_id,p.end_time,p.process_des,p.process_name,p.procsee_days,p.is_checked,p.start_time,p.type_name,p.pro_file_id,p.shenuser,u.user_id,u.user_name,ud.dept_id,ud.dept_name,t.type_id,t.type_name,bt.type_id as btype_id,bt.type_name as btype_name,bu.user_id as buuser_id ,bu.user_name as buuser_name,a.attachment_id,a.attachment_path from aoa_bursement b LEFT JOIN aoa_process_list p on b.pro_id=p.process_id   LEFT JOIN aoa_user u on u.user_id=b.operationUser LEFT JOIN  aoa_dept ud on ud.dept_id=u.dept_id LEFT JOIN aoa_type_list t on t.type_id=p.deeply_id  LEFT JOIN aoa_type_list bt on b.type_id=bt.type_id LEFT JOIN aoa_user bu on bu.user_id=b.user_ids  LEFT JOIN aoa_attachment_list a on p.pro_file_id=a.attachment_id
+ 	<where>
+  		p.process_id=#{l}
+  	</where>
+  </select>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaMailReciverMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaMailReciver" >
+    <id column="pk_id" property="pkId" jdbcType="BIGINT" />
+    <result column="is_read" property="isRead" jdbcType="INTEGER" />
+    <result column="mail_id" property="mailId" jdbcType="BIGINT" />
+    <result column="mail_reciver_id" property="mailReciverId" jdbcType="BIGINT" />
+    <result column="is_star" property="isStar" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_id, is_read, mail_id, mail_reciver_id, is_star, is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaMailReciverExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_mail_reciver
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_mail_reciver
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_mail_reciver
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaMailReciverExample" >
+    delete from aoa_mail_reciver
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaMailReciver" >
+    insert into aoa_mail_reciver (pk_id, is_read, mail_id, 
+      mail_reciver_id, is_star, is_del
+      )
+    values (#{pkId,jdbcType=BIGINT}, #{isRead,jdbcType=INTEGER}, #{mailId,jdbcType=BIGINT}, 
+      #{mailReciverId,jdbcType=BIGINT}, #{isStar,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaMailReciver" >
+    insert into aoa_mail_reciver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="mailId != null" >
+        mail_id,
+      </if>
+      <if test="mailReciverId != null" >
+        mail_reciver_id,
+      </if>
+      <if test="isStar != null" >
+        is_star,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="mailId != null" >
+        #{mailId,jdbcType=BIGINT},
+      </if>
+      <if test="mailReciverId != null" >
+        #{mailReciverId,jdbcType=BIGINT},
+      </if>
+      <if test="isStar != null" >
+        #{isStar,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaMailReciverExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_mail_reciver
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_mail_reciver
+    <set >
+      <if test="record.pkId != null" >
+        pk_id = #{record.pkId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isRead != null" >
+        is_read = #{record.isRead,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailId != null" >
+        mail_id = #{record.mailId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mailReciverId != null" >
+        mail_reciver_id = #{record.mailReciverId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isStar != null" >
+        is_star = #{record.isStar,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_mail_reciver
+    set pk_id = #{record.pkId,jdbcType=BIGINT},
+      is_read = #{record.isRead,jdbcType=INTEGER},
+      mail_id = #{record.mailId,jdbcType=BIGINT},
+      mail_reciver_id = #{record.mailReciverId,jdbcType=BIGINT},
+      is_star = #{record.isStar,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaMailReciver" >
+    update aoa_mail_reciver
+    <set >
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="mailId != null" >
+        mail_id = #{mailId,jdbcType=BIGINT},
+      </if>
+      <if test="mailReciverId != null" >
+        mail_reciver_id = #{mailReciverId,jdbcType=BIGINT},
+      </if>
+      <if test="isStar != null" >
+        is_star = #{isStar,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaMailReciver" >
+    update aoa_mail_reciver
+    set is_read = #{isRead,jdbcType=INTEGER},
+      mail_id = #{mailId,jdbcType=BIGINT},
+      mail_reciver_id = #{mailReciverId,jdbcType=BIGINT},
+      is_star = #{isStar,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+</mapper>

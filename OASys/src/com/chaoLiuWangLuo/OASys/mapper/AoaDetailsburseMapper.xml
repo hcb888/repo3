@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaDetailsburseMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaDetailsburse" >
+    <id column="detailsburse_id" property="detailsburseId" jdbcType="BIGINT" />
+    <result column="descript" property="descript" jdbcType="VARCHAR" />
+    <result column="detailmoney" property="detailmoney" jdbcType="DOUBLE" />
+    <result column="invoices" property="invoices" jdbcType="INTEGER" />
+    <result column="produce_time" property="produceTime" jdbcType="TIMESTAMP" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+ 
+ 
+   <!-- 多对一 -->
+   <association property="bursment" javaType="AoaBursement">
+   		<id column="detailsburse_id" property="bursementId"/>
+   </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    detailsburse_id, descript, detailmoney, invoices, produce_time, subject, bursment_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDetailsburseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_detailsburse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_detailsburse
+    where detailsburse_id = #{detailsburseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_detailsburse
+    where detailsburse_id = #{detailsburseId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDetailsburseExample" >
+    delete from aoa_detailsburse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDetailsburse" >
+    insert into aoa_detailsburse (detailsburse_id, descript, detailmoney, 
+      invoices, produce_time, subject, 
+      bursment_id)
+    values (#{detailsburseId,jdbcType=BIGINT}, #{descript,jdbcType=VARCHAR}, #{detailmoney,jdbcType=DOUBLE}, 
+      #{invoices,jdbcType=INTEGER}, #{produceTime,jdbcType=TIMESTAMP}, #{subject,jdbcType=VARCHAR}, 
+      #{bursment.bursementId,jdbcType=BIGINT})
+      <selectKey resultType="Long" keyProperty="detailsburseId" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    	</selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDetailsburse" >
+    insert into aoa_detailsburse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailsburseId != null" >
+        detailsburse_id,
+      </if>
+      <if test="descript != null" >
+        descript,
+      </if>
+      <if test="detailmoney != null" >
+        detailmoney,
+      </if>
+      <if test="invoices != null" >
+        invoices,
+      </if>
+      <if test="produceTime != null" >
+        produce_time,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="bursmentId != null" >
+        bursment_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailsburseId != null" >
+        #{detailsburseId,jdbcType=BIGINT},
+      </if>
+      <if test="descript != null" >
+        #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="detailmoney != null" >
+        #{detailmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="invoices != null" >
+        #{invoices,jdbcType=INTEGER},
+      </if>
+      <if test="produceTime != null" >
+        #{produceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="bursmentId != null" >
+        #{bursmentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDetailsburseExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_detailsburse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_detailsburse
+    <set >
+      <if test="record.detailsburseId != null" >
+        detailsburse_id = #{record.detailsburseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.descript != null" >
+        descript = #{record.descript,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailmoney != null" >
+        detailmoney = #{record.detailmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.invoices != null" >
+        invoices = #{record.invoices,jdbcType=INTEGER},
+      </if>
+      <if test="record.produceTime != null" >
+        produce_time = #{record.produceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.subject != null" >
+        subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bursmentId != null" >
+        bursment_id = #{record.bursmentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_detailsburse
+    set detailsburse_id = #{record.detailsburseId,jdbcType=BIGINT},
+      descript = #{record.descript,jdbcType=VARCHAR},
+      detailmoney = #{record.detailmoney,jdbcType=DOUBLE},
+      invoices = #{record.invoices,jdbcType=INTEGER},
+      produce_time = #{record.produceTime,jdbcType=TIMESTAMP},
+      subject = #{record.subject,jdbcType=VARCHAR},
+      bursment_id = #{record.bursmentId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDetailsburse" >
+    update aoa_detailsburse
+    <set >
+      <if test="descript != null" >
+        descript = #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="detailmoney != null" >
+        detailmoney = #{detailmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="invoices != null" >
+        invoices = #{invoices,jdbcType=INTEGER},
+      </if>
+      <if test="produceTime != null" >
+        produce_time = #{produceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="bursmentId != null" >
+        bursment_id = #{bursmentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where detailsburse_id = #{detailsburseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDetailsburse" >
+    update aoa_detailsburse
+    set descript = #{descript,jdbcType=VARCHAR},
+      detailmoney = #{detailmoney,jdbcType=DOUBLE},
+      invoices = #{invoices,jdbcType=INTEGER},
+      produce_time = #{produceTime,jdbcType=TIMESTAMP},
+      subject = #{subject,jdbcType=VARCHAR},
+      bursment_id = #{bursmentId,jdbcType=BIGINT}
+    where detailsburse_id = #{detailsburseId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="findList" parameterType="Long" resultMap="BaseResultMap">
+  	select d.detailsburse_id,d.descript,d.detailmoney,d.invoices,d.produce_time,d.subject,b.bursement_id from aoa_detailsburse d LEFT JOIN aoa_bursement b on d.bursment_id=b.bursement_id
+  	<where>
+  		 d.bursment_id=#{l}
+  	</where>
+  </select>
+</mapper>

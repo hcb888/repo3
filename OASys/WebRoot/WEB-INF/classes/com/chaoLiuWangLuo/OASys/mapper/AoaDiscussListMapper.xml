@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaDiscussListMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaDiscussList" >
+    <id column="discuss_id" property="discussId" jdbcType="BIGINT" />
+    <result column="attachment_id" property="attachmentId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status_id" property="statusId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="visit_num" property="visitNum" jdbcType="INTEGER" />
+    <result column="discuss_user_id" property="discussUserId" jdbcType="BIGINT" />
+    <result column="vote_id" property="voteId" jdbcType="BIGINT" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.chaoLiuWangLuo.OASys.entity.AoaDiscussList" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    discuss_id, attachment_id, create_time, status_id, title, type_id, visit_num, discuss_user_id, 
+    vote_id, modify_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aoa_discuss_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_discuss_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aoa_discuss_list
+    where discuss_id = #{discussId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_discuss_list
+    where discuss_id = #{discussId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussListExample" >
+    delete from aoa_discuss_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussList" >
+    insert into aoa_discuss_list (discuss_id, attachment_id, create_time, 
+      status_id, title, type_id, 
+      visit_num, discuss_user_id, vote_id, 
+      modify_time, content)
+    values (#{discussId,jdbcType=BIGINT}, #{attachmentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{statusId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{typeId,jdbcType=BIGINT}, 
+      #{visitNum,jdbcType=INTEGER}, #{discussUserId,jdbcType=BIGINT}, #{voteId,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussList" >
+    insert into aoa_discuss_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="discussId != null" >
+        discuss_id,
+      </if>
+      <if test="attachmentId != null" >
+        attachment_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="visitNum != null" >
+        visit_num,
+      </if>
+      <if test="discussUserId != null" >
+        discuss_user_id,
+      </if>
+      <if test="voteId != null" >
+        vote_id,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="discussId != null" >
+        #{discussId,jdbcType=BIGINT},
+      </if>
+      <if test="attachmentId != null" >
+        #{attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="visitNum != null" >
+        #{visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="discussUserId != null" >
+        #{discussUserId,jdbcType=BIGINT},
+      </if>
+      <if test="voteId != null" >
+        #{voteId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussListExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_discuss_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_discuss_list
+    <set >
+      <if test="record.discussId != null" >
+        discuss_id = #{record.discussId,jdbcType=BIGINT},
+      </if>
+      <if test="record.attachmentId != null" >
+        attachment_id = #{record.attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.statusId != null" >
+        status_id = #{record.statusId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.visitNum != null" >
+        visit_num = #{record.visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.discussUserId != null" >
+        discuss_user_id = #{record.discussUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.voteId != null" >
+        vote_id = #{record.voteId,jdbcType=BIGINT},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update aoa_discuss_list
+    set discuss_id = #{record.discussId,jdbcType=BIGINT},
+      attachment_id = #{record.attachmentId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      status_id = #{record.statusId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      visit_num = #{record.visitNum,jdbcType=INTEGER},
+      discuss_user_id = #{record.discussUserId,jdbcType=BIGINT},
+      vote_id = #{record.voteId,jdbcType=BIGINT},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_discuss_list
+    set discuss_id = #{record.discussId,jdbcType=BIGINT},
+      attachment_id = #{record.attachmentId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      status_id = #{record.statusId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      visit_num = #{record.visitNum,jdbcType=INTEGER},
+      discuss_user_id = #{record.discussUserId,jdbcType=BIGINT},
+      vote_id = #{record.voteId,jdbcType=BIGINT},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussList" >
+    update aoa_discuss_list
+    <set >
+      <if test="attachmentId != null" >
+        attachment_id = #{attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null" >
+        status_id = #{statusId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="visitNum != null" >
+        visit_num = #{visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="discussUserId != null" >
+        discuss_user_id = #{discussUserId,jdbcType=BIGINT},
+      </if>
+      <if test="voteId != null" >
+        vote_id = #{voteId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where discuss_id = #{discussId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussList" >
+    update aoa_discuss_list
+    set attachment_id = #{attachmentId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status_id = #{statusId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      visit_num = #{visitNum,jdbcType=INTEGER},
+      discuss_user_id = #{discussUserId,jdbcType=BIGINT},
+      vote_id = #{voteId,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where discuss_id = #{discussId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaDiscussList" >
+    update aoa_discuss_list
+    set attachment_id = #{attachmentId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status_id = #{statusId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      visit_num = #{visitNum,jdbcType=INTEGER},
+      discuss_user_id = #{discussUserId,jdbcType=BIGINT},
+      vote_id = #{voteId,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where discuss_id = #{discussId,jdbcType=BIGINT}
+  </update>
+</mapper>

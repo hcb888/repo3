@@ -1,0 +1,589 @@
+
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/common/box.css" />
+<link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
+<link rel="stylesheet" href="css/common/tanchuang.css" />
+<style>
+a {
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+
+
+.text {
+	min-height: 114px;
+}
+.reciver{
+	position: relative;
+    top: -23px;
+    float: right;
+    right: 4px;
+    cursor: pointer;
+}
+.text{
+	height:114px;
+}
+.page{
+	margin-bottom: 25px;
+    margin-top: 15px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.shuxian{
+	height: 30px;
+    border-left: 1px solid #eee;
+    margin-left: 35px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+.shen{
+	min-height:50px;
+	border:0px solid red;
+	margin-left: 13px;
+    margin-right: 17px;
+    position: relative;
+}
+.content{
+	display: inline-block;
+    background-color: #eee;
+    width: 95%;
+    min-height: 80px;
+    border-radius: 5px;
+    margin-left: 54px;
+}
+.pa{
+	padding-left: 13px;
+    
+}
+</style>
+
+
+<div class="row" style="padding-top: 10px;">
+	<div class="col-md-2">
+		<h1 style="font-size: 24px; margin: 0;" class="">出差申请</h1>
+	</div>
+	<div class="col-md-10 text-right">
+		<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a> > <a
+			disabled="disabled">出差申请</a>
+	</div>
+</div>
+<div class="row" style="padding-top: 15px;">
+	<div class="col-md-12">
+		
+		<div class="bgc-w box">
+			
+			<div class="box-header">
+				<h3 class="box-title">
+					<a href="javascript:history.back();" class="label label-default"
+						style="padding: 5px;">
+						 <i class="glyphicon glyphicon-chevron-left"></i> <span>返回</span>
+					</a>
+				</h3>
+			</div>
+		<form action="susave">
+		
+			<div class="box-body">
+					<div>
+						<i class="glyphicon glyphicon-record" style="color:#9E9E9E;padding-left: 13px;"></i> 结束审核
+					</div>
+					<div class="shuxian"></div>
+				
+				<div class="shen">
+					<p>研发部经理：小李父斯基<span class="pull-right">2019-1-16 10:20:57</span></p>
+					<div >
+					<div style="display:inline-block;position:absolute;">
+						<img style="width: 50px;height: 50px;border-radius: 72px; position: relative;bottom:0px;right:0px;"
+							src="/image/fiveman.jpeg" />
+					</div>
+					<div class="content">
+						<p class="pa" style="padding-top: 9px;">审核状态:<i class="label label-success">已批准</i></p>
+						<p class="pa" >审核意见：同意</p>
+					</div>
+					</div>
+				</div>
+				<div class="shuxian"></div>
+				
+				<div class="shen">
+					<p>人事部经理：甄姬<span class="pull-right">2019-1-16 10:53:25</span></p>
+					<div >
+					<div style="display:inline-block;position:absolute;">
+						<img style="width: 50px;height: 50px;border-radius: 72px; position: relative;bottom:0px;right:0px;"
+							src="/image/oneman.jpeg" />
+					</div>
+					<div class="content">
+						<p class="pa" style="padding-top: 9px;">审核状态:<i class="label label-success">已批准</i></p>
+						<p class="pa" >审核意见：同意</p>
+					</div>
+					</div>
+				</div>
+				<div class="shuxian"></div>
+				<div class="shen">
+					<p>申请人：Jack<span class="pull-right">2019-1-5 22:52:46</span></p>
+					<div >
+					<div style="display:inline-block;position:absolute;">
+						<img style="width: 50px;height: 50px;border-radius: 72px; position: relative;bottom:0px;right:0px;"
+							src="/image//13d40692-c304-4493-a59b-d95b55680364.jpg" />
+					</div>
+					<div class="content">
+					<p class="pa" style="padding-top: 9px;">开始时间：2019-1-5 22:51:24</p>
+					<p class="pa" >结束时间：2019-1-7 8:00:00</p>
+					<p class="pa" >申请理由：到岳阳出差</p>
+					</div>
+					</div>
+				</div>
+				<div class="shuxian"></div>
+				<div>
+					<i class="glyphicon glyphicon-record" style="color:#9E9E9E;padding-left: 13px;"></i> 开始申请
+				</div>
+				<div class="page-header page"></div>
+				<div class="col-md-6 form-group" style="z-index: 1;">
+					<label class="control-label">审核状态</label>
+						 <select class="form-control" name="statusId" class="sele">
+							<option value="25">已批准</option>
+							<option value="26">未通过</option>
+						</select>
+				</div>
+				<div class="col-md-6 form-group" style="position: relative;">
+					<label class="control-label" data-toggle="modal" data-target="#myModal">下一步审核人</label>
+						<input name="username" type="text" id="recive_list"
+							   class="form-control " readonly="readonly" style="background-color:#fff;"/>
+							<div class="reciver">
+								<span class="label label-success glyphicon glyphicon-plus"
+									data-toggle="modal" data-target="#myModal">通讯录</span>
+							</div>
+				</div>
+				 <div class="col-md-6 form-group" style="float: none;">
+					<label class="control-label">审核理由</label>
+					<textarea class="form-control text" name="advice"></textarea>
+				</div> 
+				
+			</div>
+			<div class="box-footer" style="padding-left: 26px;">
+			<input type="text" style="display:none;" value="出差申请" name="type"/>
+			<input type="text" style="display:none;" name="proId" value="32"/>
+				<input class="btn btn-default" id="cancel" type="submit" value="取消"
+					onclick="window.history.back();" />
+			</div>
+			</form>
+			
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		$(".text").click(function(){
+			var se=$("select").find("option:selected").text();
+			if(se=="未通过" && (4!=5 || 4!=7)){
+				$(".liu").css("display","none");
+				$(".jie").css("display","inline-block");
+			}
+		});
+		
+		$("select").each(function(){
+			console.log("ss");
+			var se=$("select").find("option:selected").text();
+			console.log(se);
+		});
+		
+	})
+</script>
+
+<style>
+ .table-r{
+ overflow: scroll;
+ height:245px;
+ }
+</style>
+<!-- 接收人弹窗-->
+				<div class="modal fade " id="myModal" tabindex="-1">
+
+					<!--第二步，窗口声明-->
+					<div class="modal-dialog modal-lg ">
+						<!--第三步、内容区的声明-->
+						<div class="modal-content" style="background: #F9F9F9;">
+							<div class="modal-1">
+
+								<div class="modal-2">
+
+									<div class="modal-header" style="margin:10px;margin-top: -20px;">
+										<button class="close" data-dismiss="modal" style="display: block;margin: -52px -78px 0 0;;border-radius: 60%;">
+											<span class="glyphicon glyphicon-remove-circle"style="color:white;font-size: 30px;" ></span>
+										</button>
+										<div class="row">
+											<div class="col-xs-12" style="height:30px;margin:10px 0px;">
+
+												<h4 style="float:left;">
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"  href="##" onclick="addvalue()"> 新增接收人</a>
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"  href="##" onclick="addvalue2()"> 
+                      				追加接收人</a>
+                  			</h4>
+
+												<div class="input-group">
+													<input type="text" class="form-control input-sm pull-right cha" placeholder="查找..." />
+													<div class="input-group-btn chazhao" style="top:-1px;">
+														<a class="btn btn-sm btn-default glyphicon glyphicon-search" style="height: 30px;" href="##"></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-body thistable" style="margin:10px;">
+									
+									<div class="table-r">
+										<table class="table  table-hover  container-fluid ">
+										<thead>
+											<tr class="row">
+												<th class=" col-xs-1">
+													<span class="labels"  style="display:none;"><label><input id="checkedAll" type="checkbox"><i>✓</i></label></span>
+												</th>
+												<th class=" col-xs-1">
+													<span class="labels"  style="display:block;"></span>
+												</th>
+												<th class=" col-xs-2 b">部门</th>
+												<th class=" col-xs-2 b">真实姓名 </th>
+												<th class="col-xs-2 b">用户名</th>
+												<th class="col-xs-2 b">职位</th>
+												<th class=" col-xs-2">电话</th>
+											</tr>
+										</thead>
+										<tbody>
+																						<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image//647cbde6-3fba-4d8c-a50f-1a07f9bee417.jpg" />
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">小明 </td>
+												<td class="col-xs-2 na">罗密欧</td>
+												<td class=" col-xs-2">超级管理员</td>
+												<td class=" col-xs-2">13272143450</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/handsome.JPG" />
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">小梅 </td>
+												<td class="col-xs-2 na">朱丽叶</td>
+												<td class=" col-xs-2">CEO</td>
+												<td class=" col-xs-2">13203318185</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/eightman.jpeg" />
+															</span>
+												</td>
+												<td class="col-xs-2">总经办</td>
+												<td class=" col-xs-2">芳芳 </td>
+												<td class="col-xs-2 na">伊丽莎白</td>
+												<td class=" col-xs-2">总经理</td>
+												<td class=" col-xs-2">18683688154</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/fiveman.jpeg" />
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">李明 </td>
+												<td class="col-xs-2 na">小李父斯基</td>
+												<td class=" col-xs-2">研发部经理</td>
+												<td class=" col-xs-2">18173328888</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/fourman.jpeg" />
+															</span>
+												</td>
+												<td class="col-xs-2">财务部</td>
+												<td class=" col-xs-2">小罗 </td>
+												<td class="col-xs-2 na">soli</td>
+												<td class=" col-xs-2">财务部经理</td>
+												<td class=" col-xs-2">18173328976</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/nineman.jpeg" />
+															</span>
+												</td>
+												<td class="col-xs-2">市场部</td>
+												<td class=" col-xs-2">小红 </td>
+												<td class="col-xs-2 na">红之花</td>
+												<td class=" col-xs-2">市场部经理</td>
+												<td class=" col-xs-2">18868688866</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/oneman.jpeg" />
+															</span>
+												</td>
+												<td class="col-xs-2">人事部</td>
+												<td class=" col-xs-2">小喻 </td>
+												<td class="col-xs-2 na">甄姬</td>
+												<td class=" col-xs-2">人事部经理</td>
+												<td class=" col-xs-2">13117336953</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/sevenman.jpeg" />
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">小费 </td>
+												<td class="col-xs-2 na">甄姬2</td>
+												<td class=" col-xs-2">程序员</td>
+												<td class=" col-xs-2">13117336954</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/twoman.jpeg" />
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">小花 </td>
+												<td class="col-xs-2 na">甄嬛</td>
+												<td class=" col-xs-2">初级工程师</td>
+												<td class=" col-xs-2">13034507214</td>
+
+											</tr>
+											<tr class="row">
+												<td class=" col-xs-1">
+													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
+												</td>
+												<td class=" col-xs-1">
+													<span class="imgs center-block">
+														<img style="width: 30px;height: 30px;"
+															class="profile-user-img img-responsive img-circle"
+															src="/image/handsome.JPG" />
+															</span>
+												</td>
+												<td class="col-xs-2">研发部</td>
+												<td class=" col-xs-2">花红 </td>
+												<td class="col-xs-2 na">无双</td>
+												<td class=" col-xs-2">中级工程师</td>
+												<td class=" col-xs-2">13117336954</td>
+
+											</tr>
+											</tbody>
+										</table>
+										</div>
+
+<div class="box-footer no-padding" style="margin-top: -20px;">
+	<div style="padding: 5px;">
+		<div id="page"
+			style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
+			<div style="width: 40%; float: left;">
+				<div class="pageInfo" style="margin-left: 5px;">
+					共<span>31</span>条 | 每页<span>10</span>条
+					| 共<span>4</span>页
+				</div>
+			</div>
+			<div style="width: 60%; float: left;">
+				<div class="pageOperation">
+				<!--判断是否是第一页  -->
+					<a class="btn btn-sm btn-default no-padding tablefirst" disabled="disabled"	style="width: 30px; height: 20px;"> <span
+						class="glyphicon glyphicon-backward"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tableup"  disabled="disabled" 	style="width: 30px; height: 20px;"> <span
+						class="glyphicon glyphicon-triangle-left"></span></a> 
+				<a disabled="disabled" class="btn btn-default no-padding" style="width: 30px; height: 20px;">
+						1
+				</a>
+				<!--判断是否是最后一页  -->
+					<a class="btn btn-sm btn-default no-padding tabledown" style="width: 30px; height: 20px;"> <span
+						class="glyphicon glyphicon-triangle-right"></span></a> 
+					<a class="btn btn-sm btn-default no-padding tablelast" style="width: 30px; height: 20px;"> <span
+						class="glyphicon glyphicon-forward"></span></a> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+		/* 分页插件按钮的点击事件 */
+		/* url是从后台接收过来的链接，sort是记录排序规则 */
+		$('.tablefirst').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('names?page=0');
+			 }
+		});
+		$('.tableup').on('click',function(){
+			 if(true==false){
+				 $('.thistable').load('names?page=-1');
+			 }
+		});
+		$('.tabledown').on('click',function(){
+			if(false==false){
+				$('.thistable').load('names?page=1');
+			 }
+		});
+		$('.tablelast').on('click',function(){
+			if(false==false){
+				$('.thistable').load('names?page=3');
+			 }
+			
+		});
+		
+		/*类型、状态、时间的排序  */
+		$('.thistype').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('names?type=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('names?type=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisstatus').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('names?status=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('names?status=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thistime').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('names?time=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('names?time=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisvisit').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('names?visitnum=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('names?visitnum=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		/* 查找 */
+		$('.baseKetsubmit').on('click', function() {
+			var baseKey = $('.baseKey').val();
+			console.log(baseKey);
+			$('.thistable').load('names?baseKey='+baseKey+'');
+		});
+</script>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<h2 class="mi" style="display:none;"></h2>
+<script>
+$(function(){
+	
+	/* 分页插件按钮的点击事件 */
+	
+	$('.baseKetsubmit').on('click',function(){
+		var baseKey=$('.baseKey').val();
+		$('#myModal .thistable').load('names?baseKey=baseKey');
+	});
+	$(".chazhao").click(function() {
+		var $qufen=$(".mi").text();
+		var con = $(".cha").val();
+		$("#myModal .thistable").load("names",{title:con,qufen:$qufen});
+	});
+});
+function addvalue(){
+	
+	var id_array=new Array();
+	$('input[name="id"]:checked').each(function(){
+	
+		var $name=$(this).parents(".col-xs-1").siblings(".na").text();
+		console.log($name);
+		id_array.push($name);//向数组中添加元素
+		var idstr=id_array.join(';');//将数组元素连接起来以构建一个字符串
+		$("#recive_list").val(idstr);
+		$(".recive_list").val(idstr);
+		$(".recive_list").change();
+	})
+	
+	$(".fade").css("display","none");
+	
+}
+/*追加到联系人*/
+function addvalue2(){
+	
+	var id_array=new Array();
+	
+	var  idstr=null;
+
+	$('input[name="id"]:checked').each(function(){
+		var $name=$(this).parents(".col-xs-1").siblings(".na").text();
+		id_array.push($name);
+		idstr=id_array.join(';');
+	})
+	
+	var org=$("#recive_list").val();
+	$("#recive_list").val(org+';'+idstr);	
+	$(".fade").css("display","none");
+	
+}
+</script>

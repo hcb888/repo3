@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chaoLiuWangLuo.OASys.mapper.AoaVoteTitleUserMapper" >
+  <resultMap id="BaseResultMap" type="com.chaoLiuWangLuo.OASys.entity.AoaVoteTitleUser" >
+    <id column="vote_title_user_id" property="voteTitleUserId" jdbcType="BIGINT" />
+    <result column="vote_id" property="voteId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="title_id" property="titleId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    vote_title_user_id, vote_id, user_id, title_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaVoteTitleUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aoa_vote_title_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aoa_vote_title_user
+    where vote_title_user_id = #{voteTitleUserId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aoa_vote_title_user
+    where vote_title_user_id = #{voteTitleUserId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaVoteTitleUserExample" >
+    delete from aoa_vote_title_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaVoteTitleUser" >
+    insert into aoa_vote_title_user (vote_title_user_id, vote_id, user_id, 
+      title_id)
+    values (#{voteTitleUserId,jdbcType=BIGINT}, #{voteId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{titleId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaVoteTitleUser" >
+    insert into aoa_vote_title_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="voteTitleUserId != null" >
+        vote_title_user_id,
+      </if>
+      <if test="voteId != null" >
+        vote_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="voteTitleUserId != null" >
+        #{voteTitleUserId,jdbcType=BIGINT},
+      </if>
+      <if test="voteId != null" >
+        #{voteId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaVoteTitleUserExample" resultType="java.lang.Integer" >
+    select count(*) from aoa_vote_title_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aoa_vote_title_user
+    <set >
+      <if test="record.voteTitleUserId != null" >
+        vote_title_user_id = #{record.voteTitleUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.voteId != null" >
+        vote_id = #{record.voteId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aoa_vote_title_user
+    set vote_title_user_id = #{record.voteTitleUserId,jdbcType=BIGINT},
+      vote_id = #{record.voteId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      title_id = #{record.titleId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaVoteTitleUser" >
+    update aoa_vote_title_user
+    <set >
+      <if test="voteId != null" >
+        vote_id = #{voteId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where vote_title_user_id = #{voteTitleUserId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaoLiuWangLuo.OASys.entity.AoaVoteTitleUser" >
+    update aoa_vote_title_user
+    set vote_id = #{voteId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      title_id = #{titleId,jdbcType=BIGINT}
+    where vote_title_user_id = #{voteTitleUserId,jdbcType=BIGINT}
+  </update>
+</mapper>
